@@ -1,4 +1,4 @@
-# 배운 개념
+# Reference
 
 ### 1. Object / Class
 
