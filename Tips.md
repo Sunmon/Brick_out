@@ -1,6 +1,6 @@
 # 배운 개념
 
-### Object / Class
+### 1. Object / Class
 
 Block 객체를 생성하여 이용.
 
