@@ -13,8 +13,8 @@ Block 객체를 생성하여 이용.
 http://steadypost.net/post/lecture/id/13/
 
 http://insanehong.kr/post/javascript-object/
-
   
+<br/>
   
   
 ES6부터는 자바스크립트에서도 Class를 지원한다. 따라서 Class를 이용하여 block 객체들을 생성한다.
