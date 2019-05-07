@@ -22,6 +22,7 @@
 
 ---
 
+
 ## 배운 개념
 
 1. Object / Class
@@ -38,6 +39,8 @@ http://insanehong.kr/post/javascript-object/
 
 
 ES6부터는 자바스크립트에서도 Class를 지원한다. 따라서 Class를 이용하여 block 객체들을 생성한다.
+
+https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes
 
 https://infoscis.github.io/2018/02/13/ecmascript-6-introducing-javascript-classes/
 
