@@ -40,6 +40,8 @@ https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes#Class_%EC
 
 [화살표 함수](https://smilerici.tistory.com/56?category=714049)
 
+[initialize array](https://stackoverflow.com/questions/4852017/how-to-initialize-an-arrays-length-in-javascript)
+
 <br/>
 <br/>
 
