@@ -36,14 +36,16 @@ https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes#Class_%EC
 
 ## 2. 2차원 배열
 
-https://smilerici.tistory.com/71
+[다차원 배열 만들기](https://smilerici.tistory.com/71)
+[화살표 함수](https://smilerici.tistory.com/56?category=714049)
 
 <br/>
 <br/>
 
 ## 3. forEach 문
 
-https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+[자바스크립트 배열 메소드 foreach / map](https://medium.com/@hongkevin/js-1-%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EB%B0%B0%EC%97%B4-%EB%A9%94%EC%84%9C%EB%93%9C-1-foreach-map-b1cb1c2237d1)
+[foreach Reference](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
 
 
 <br/>
