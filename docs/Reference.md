@@ -10,6 +10,7 @@ C++의 include / java의 import처럼 js에도 module이라는 개념이 있다.
 
 [자바스크립트 모듈 사용하기](https://jeong-pro.tistory.com/122)
 
+[#자바스크립트에서의 import](https://asfirstalways.tistory.com/236)
 
 ### 1. Object / Class
 
