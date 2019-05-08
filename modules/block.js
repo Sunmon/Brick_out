@@ -1,6 +1,4 @@
-// 전역 변수
-var canvas = document.getElementById("frame");
-var context = canvas.getContext("2d");
+// block.js : 블럭 관련한 함수 모아둔 .js 파일
 
 class Block
 {
@@ -48,5 +46,10 @@ class Block
         this.height = height;
     }
 }
+
+
+
+// class 내보내기
+export default Block;
 
 
