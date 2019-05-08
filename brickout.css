@@ -1,0 +1,12 @@
+/* 기본 프레임. */
+#frame{
+    border: 5px dotted lightblue;
+    background-color: rgb(236, 250, 253);
+    width : 80%;
+    overflow: hidden;
+}
+
+
+div{
+    background-color: green;
+}
