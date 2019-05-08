@@ -12,6 +12,10 @@ C++의 include / java의 import처럼 js에도 module이라는 개념이 있다.
 
 [#자바스크립트에서의 import](https://asfirstalways.tistory.com/236)
 
+[Class vs Module](https://medium.com/@darrion/javascript-es6-classes-modules-c5169555317d)
+
+
+
 ### 1. Object / Class
 
 Block 객체를 생성하여 이용.
