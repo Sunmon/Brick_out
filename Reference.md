@@ -1,5 +1,16 @@
 # Reference
 
+### 0. Module
+
+C++의 include / java의 import처럼 js에도 module이라는 개념이 있다.
+
+일단 해 보고, 안 되면 하나로 합치지 뭐
+
+[자바스크립트 ES6 모듈 내보내기/ 불러오기](http://www.daleseo.com/js-module-import/)
+
+[자바스크립트 모듈 사용하기](https://jeong-pro.tistory.com/122)
+
+
 ### 1. Object / Class
 
 Block 객체를 생성하여 이용.
