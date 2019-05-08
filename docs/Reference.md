@@ -21,7 +21,12 @@ C++의 include / java의 import처럼 js에도 module이라는 개념이 있다.
 
 module썼더니 import시 `Unexpected Idenfier`에러가 남 ⇒  `<script type = "module" src = "./brickout.js"></script>`로 붙여줘서 해결
 
-그랬더니 이젠 CORS 문제가 남..
+그랬더니 이젠 CORS 문제가 남.. ⇒
+
+Chrome에서 import를 실행할 시, `file://프로토콜`은 오류가 난다고 한다. [해결하려면 웹서버를 써야 한다는데..](https://stackoverflow.com/questions/52343339/javascript-import-module-to-index-html-not-running-due-to-errors) 그냥 module을 포기하기로 했다.
+
+<br>
+<br>
 
 ### 1. Object / Class
 
