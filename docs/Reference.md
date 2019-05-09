@@ -26,6 +26,9 @@ module썼더니 import시 `Unexpected Idenfier`에러가 남 ⇒  `<script type 
 
 Chrome에서 import를 실행할 시, `file://프로토콜`은 오류가 난다고 한다. [해결하려면 웹서버를 써야 한다는데..](https://stackoverflow.com/questions/52343339/javascript-import-module-to-index-html-not-running-due-to-errors) 그냥 module을 포기하기로 했다.
 
+Web security를 꺼서 해결했다!!
+https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome
+
 <br>
 <br>
 
