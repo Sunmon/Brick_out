@@ -14,6 +14,7 @@ C++의 include / java의 import처럼 js에도 module이라는 개념이 있다.
 
 [Class vs Module](https://medium.com/@darrion/javascript-es6-classes-modules-c5169555317d)
 
+[Module](https://poiemaweb.com/es6-module) //여기 설명 잘 되어있다!
 
 <br/>
 
