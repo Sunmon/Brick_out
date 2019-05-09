@@ -79,6 +79,15 @@ https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes#Class_%EC
 
 [foreach Reference](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
 
+<br/>
+<br/>
+
+## 4. 상속
+
+OOP답게 상속이 있다. Stage를 Stage1, Stage2, Stage3... 상속해주자.
+
+[상속과 프로토타입](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain)
+
 
 <br/>
 <br/>
