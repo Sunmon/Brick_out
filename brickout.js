@@ -1,6 +1,7 @@
 // 전역 변수
 var canvas;
 var context;
+var stage;
 
 window.onload = function()
 {
@@ -60,7 +61,7 @@ class Stage
         // this.placeBlocks();
     }
 
-    // blockArr 배열 생성
+    // blockArr 초기 배열 생성
     initBlockArr(block_width, block_height, block_in_row, block_in_col)
     {
         this.block_width = block_width;                      
@@ -79,9 +80,11 @@ class Stage
 
     }
 
+    // 새 블럭 한 줄 맨 위에 삽입
     insertLine(blockArr, block_in_row)
     {
         this.downBlock(blockArr);
+        // TODO: 지금은 색깔 랜덤.
         var color = this.colors[Math.floor(Math.random()*5)];
         blockArr.push(this.createNewLine(block_in_row, color));
     }
@@ -89,7 +92,6 @@ class Stage
     // block 한 줄씩 아래로 당기기
     downBlock(blockArr)
     {
-        // 한줄씩 아래로 당기기
         blockArr.forEach(line=>
         {
         line.forEach(block=>
@@ -100,6 +102,7 @@ class Stage
     }
 
 
+    //새 블록 한 줄을 리턴
     createNewLine(block_in_row, color)
     {
         var x = 0;
@@ -133,9 +136,7 @@ class Stage_One extends Stage
         for(var i = 0; i<this.block_in_col; i++)
         {
             for(var j = 0; j<this.block_in_row; j++)
-            {
-                if((2*i + 7*j) % 3) this.blockArr[i][j].state = false;
-            }
+                if((2*i + 7*j) % 6) this.blockArr[i][j].state = false;  //블럭 배치 모양 만들기
         } 
     }
 
@@ -145,6 +146,8 @@ class Stage_One extends Stage
 
 function draw()
 {
+    // drawBall();
+    drawStage();
 }
 
 
@@ -157,6 +160,8 @@ function init()
 }
 
 
+
+// 맞는 레벨 stage 리턴. Factory pattern
 function gameStart(level)
 {
     switch(level)
@@ -171,7 +176,7 @@ function gameStart(level)
 function test()
 {
     // var stage = new Stage_One();
-    var stage = gameStart(1);
+    stage = gameStart(1);
     // stage 그리기
     stage.blockArr.forEach(blockRow=>
         {
