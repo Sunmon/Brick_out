@@ -157,10 +157,21 @@ function init()
 }
 
 
+function gameStart(level)
+{
+    switch(level)
+    {
+        case 1: return new Stage_One();
+        default: return new Stage();
+    }
+}
+
+
 // 임시 테스트 함수
 function test()
 {
-    var stage = new Stage_One();
+    // var stage = new Stage_One();
+    var stage = gameStart(1);
     // stage 그리기
     stage.blockArr.forEach(blockRow=>
         {
