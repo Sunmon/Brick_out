@@ -17,6 +17,7 @@ class Block
         this.width = width;
         this.height = height;
         this.status = true;
+        this.point = 0;
     }
 
     // 블럭 위치 설정
@@ -38,7 +39,13 @@ class Block
         this.width = width;
         this.height = height;
     }
-} 
+
+    // 블럭 점수 설정
+    setPoint(point)
+    {
+        this.point = point;
+    }
+}
 
 
 // 게임 스테이지 설정
@@ -114,6 +121,7 @@ class Stage_One extends Stage
 
 
 
+
 function draw()
 {
 }
@@ -133,6 +141,7 @@ function test()
 {
     var stage = new Stage_One();
 
+    
     // stage 그리기
     stage.blockArr.forEach(blockRow=>
         {
