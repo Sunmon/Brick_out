@@ -38,7 +38,7 @@ class Block
         this.width = width;
         this.height = height;
     }
-}
+} 
 
 
 // 게임 스테이지 설정
