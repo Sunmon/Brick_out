@@ -78,7 +78,6 @@ https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes#Class_%EC
 [자바스크립트 배열 메소드 foreach / map](https://medium.com/@hongkevin/js-1-%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EB%B0%B0%EC%97%B4-%EB%A9%94%EC%84%9C%EB%93%9C-1-foreach-map-b1cb1c2237d1)
 
 [foreach Reference](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
-
 <br/>
 <br/>
 
@@ -92,6 +91,15 @@ OOP답게 상속이 있다. Stage를 Stage1, Stage2, Stage3... 상속해주자.
 <br/>
 <br/>
 <br/>
+
+## 5. map(),  some()문
+
+[Array 객체에서 놓치지 말아야 할 것](https://programmingsummaries.tistory.com/357)
+
+충돌 검사 / 게임 오버 검사시 some문 쓰면 좋을 것 같다.
+
+<br>
+<br>
 
 ### 볼 필요 없다.
 
