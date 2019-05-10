@@ -2,6 +2,8 @@
 
 ### 0. Module
 
+**MOUDLE 오류나서 버렸다. js 파일 하나로 합침**
+
 C++의 include / java의 import처럼 js에도 module이라는 개념이 있다.
 
 일단 해 보고, 안 되면 하나로 합치지 뭐
@@ -26,8 +28,9 @@ module썼더니 import시 `Unexpected Idenfier`에러가 남 ⇒  `<script type 
 
 Chrome에서 import를 실행할 시, `file://프로토콜`은 오류가 난다고 한다. [해결하려면 웹서버를 써야 한다는데..](https://stackoverflow.com/questions/52343339/javascript-import-module-to-index-html-not-running-due-to-errors) 그냥 module을 포기하기로 했다.
 
-Web security를 꺼서 해결했다!!
+Web security를 꺼서 해결하려고 해도... file:// non-javascript type "" 문제가 난다.
 https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome
+
 
 <br>
 <br>
@@ -102,6 +105,28 @@ OOP답게 상속이 있다. Stage를 Stage1, Stage2, Stage3... 상속해주자.
 
 충돌 검사 / 게임 오버 검사시 some문 쓰면 좋을 것 같다.
 
+<br>
+<br>
+
+## 6. typescript
+
+자바스크립트에는 타입이 없다. 그래서 오류가 나는데 안 잡아준다.
+
+parameter 개수 달라서 함수 실행이 제대로 안 되는데 왜 안 잡아줘? 왜 디버그 안 해줘?
+
+화난다
+
+그래서 알게 된 게 typescript. 기존 다른 언어들처럼 형을 지정해준다
+
+[typescript](https://poiemaweb.com/typescript-introduction)
+
+
+<br>
+<br>
+
+## 좋은 사이트
+
+웹 프로그래밍 잘 알려주는 사이트 (강추): https://poiemaweb.com/
 <br>
 <br>
 
