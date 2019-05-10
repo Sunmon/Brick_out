@@ -1,13 +1,29 @@
+
 // 전역 변수
 var canvas;
 var context;
 var stage;
+
+function init()
+{
+
+    canvas = document.getElementById("frame");
+    context  = canvas.getContext("2d");
+    test();
+
+
+}
 
 window.onload = function()
 {
     init();
 }
 
+
+/**
+ * 블럭 한 개에 대한 속성을 정의한다.
+ * Stage를 만들 때, 이 클래스의 배열을 이용한다.
+ */
 class Block
 {
     // 블럭 생성자
@@ -17,7 +33,7 @@ class Block
         this.color = color;
         this.width = width;
         this.height = height;
-        this.state = true;
+        this.state = true;                  //true 블럭 멀쩡함 , false: 깨짐
     }
 
     // 블럭 위치 설정
@@ -42,9 +58,20 @@ class Block
 } 
 
 
-// 게임 스테이지 설정
+
+/**
+ * 스테이지 부모 클래스
+ * 새 스테이지로 넘어갈 때마다 다형성을 이용하여 자식 스테이지 객체 생성하여 초기화.
+ * 클래스 생성시 자동으로 initStage()실행 => 스테이지 자동 생성 완료.
+ * 
+ * initStage(): 스테이지 기본 정보 초기화..  색, 타이머, 블록 배치 등등
+ * initBlock(): 2차원 블럭 배열 생성
+ * placeBlock(): 블럭 배치 설정. 스테이지마다 오바리이딩 필요.
+ * insertLine(); 스테이지 맨 위에 블럭 한 줄 새로 삽입
+ */
 class Stage
 {
+    // score: 모든 스테이지에서 합산 되어야 하므로 static
     static score = 0;
 
     constructor()
@@ -54,19 +81,25 @@ class Stage
 
     initStage()
     {
-        this.lineTimer = -1;                                            // 블럭 내려오는 속도
         this.colors = ["red", "orange", "blue", "green", "purple"];     // 블럭 색깔. 
-        this.blockArr = new Array();
+        this.initLineTimer(0);
         // this.initBlockArr(10,10,10,10);
         // this.placeBlocks();
     }
 
+    // 블럭 내려오는 시간 간격 정함
+    initLineTimer(timer)
+    {
+        this.lineTimer = timer;
+    }
+
+
     // blockArr 초기 배열 생성
     initBlockArr(block_width, block_height, block_in_row, block_in_col)
     {
+        this.blockArr = new Array();
         this.block_width = block_width;                      
         this.block_height = block_height;                    
-
         this.block_in_row = block_in_row;                               //한 줄에 있는 블럭 개수
         this.block_in_col = block_in_col;                               //블럭 줄 수 
 
@@ -80,29 +113,29 @@ class Stage
 
     }
 
-    // 새 블럭 한 줄 맨 위에 삽입
+    // 새로 블럭 한 줄을 맨 위에 삽입
     insertLine(blockArr, block_in_row)
     {
+        // 기존 블럭 아래로 한 줄씩 당김
         this.downBlock(blockArr);
-        // TODO: 지금은 색깔 랜덤.
+
+        // 새 블럭 한 줄 맨 위에 삽입
         var color = this.colors[Math.floor(Math.random()*5)];
         blockArr.push(this.createNewLine(block_in_row, color));
     }
 
-    // block 한 줄씩 아래로 당기기
+    // 블럭 전체 한 칸씩 아래로 당기기
     downBlock(blockArr)
     {
-        blockArr.forEach(line=>
-        {
-        line.forEach(block=>
-            {
+        blockArr.forEach(line=>{
+        line.forEach(block=>{
                 block.y += block.height;
             });
         });
     }
 
 
-    //새 블록 한 줄을 리턴
+    //새 블록 한 줄을 생성하여 리턴
     createNewLine(block_in_row, color)
     {
         var x = 0;
@@ -119,18 +152,21 @@ class Stage
     placeBlocks(){};
 }
 
-// 첫번째 스테이지
+
+/**
+ * 첫 번째 스테이지.
+ */
 class Stage_One extends Stage
 {
     initStage()
     {
         super.initStage();
+        super.initLineTimer(5000);
         super.initBlockArr(10,5,30,8);
         this.placeBlocks();
-        this.lineTimer = 5000;
     }
 
-    // 블록 배치. Stage따라 다르다.
+    // 블록 배치 정하기
     placeBlocks()
     {
         for(var i = 0; i<this.block_in_col; i++)
@@ -143,6 +179,33 @@ class Stage_One extends Stage
 }
 
 
+/**
+ * 두 번째 스테이지.
+ */
+class Stage_Two extends Stage
+{
+    initStage()
+    {
+        super.initStage();
+        super.initLineTimer(4000);
+        super.initBlockArr(15,5,20,10);
+        this.placeBlocks();
+    }
+
+    // 블록 배치. Stage따라 다르다.
+    placeBlocks()
+    {
+        for(var i = 0; i<this.block_in_col; i++)
+        {
+            for(var j = 0; j<this.block_in_row; j++)
+                if((3*i + 7*j) % 6) this.blockArr[i][j].state = false;  //블럭 배치 모양 만들기
+        } 
+    }
+
+
+}
+
+
 
 function draw()
 {
@@ -151,13 +214,7 @@ function draw()
 }
 
 
-function init()
-{
-    canvas = document.getElementById("frame");
-    context  = canvas.getContext("2d");
-    test();
 
-}
 
 
 
@@ -167,6 +224,7 @@ function gameStart(level)
     switch(level)
     {
         case 1: return new Stage_One();
+        case 2: return new Stage_Two();
         default: return new Stage();
     }
 }
@@ -176,7 +234,7 @@ function gameStart(level)
 function test()
 {
     // var stage = new Stage_One();
-    stage = gameStart(1);
+    stage = gameStart(2);
     // stage 그리기
     stage.blockArr.forEach(blockRow=>
         {
