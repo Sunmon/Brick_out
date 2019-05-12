@@ -3,6 +3,8 @@
 var canvas;
 var context;
 var stage;
+var bar;
+var ball;
 var width; //canvas의 폭과 높이 
 var height;
 function init()
@@ -211,19 +213,12 @@ class Stage_Two extends Stage
 
 
 
-function draw()
-{
-    // drawBall();
-    drawStage();
-}
-
-
 
 
 
 
 // 레벨에 맞는 stage 객체를 생성하여 리턴. Factory pattern
-function gameStart(level)
+function setLevel(level)
 {
     switch(level)
     {
@@ -264,11 +259,21 @@ class Ball
         this.dy=dy;
     }
 
+    // 공의 색깔 설정
+    setBallColor(color)
+    {
+        this.ballColor = color;
+    }
+
+    // FIXME: 혹시 moveBall()로 메소드 이름 변경 가능한가요? draw는 그릴 때 쓰게요
     //공을 화면에 그린다
     drawball(){
         this.ballx+=this.dx;
         this.bally+=this.dy;
         
+
+
+        // FIXME: 왜 ballx  = -ballx, bally = -bally인지 이해가 안 됩니다. 공이 화면의 반대쪽으로 넘어가나요?
         //공이 canvas벽의 양끝에 닿았을 때 방향변화
         if((ballx>=width-this.radius)||(ballx<=this.radius))
             {ballx=-ballx;}
@@ -281,7 +286,7 @@ class Ball
             /*
 
             *Barx,Barwidth는 다른 클래스인데 이걸 어떻게 가지고 와야 하는지 모르겠어요.
-            
+            // FIXME: 이 부분은 제가 다른 함수에서 처리할게요. 충돌 관련 함수에서. 
             //공이 bar에 닿았을 떄
             if ((Ballx>Barx)&&(Ballx<Barx+Barwidth)) 
                 {Bally=-Bally;}
@@ -332,9 +337,26 @@ class Bar{
 function test()
 {
     // 레벨 맞는 스테이지 생성
-    stage = gameStart(2);
+    stage = setLevel(2);
 
-    // stage 그리기
+    // Bar 그리기
+    bar = new Bar(30,height-40,"black", 100, 5);
+
+    // ball 그리기
+    ball = new Ball(bar.barx + (bar.barwidth / 2), bar.bary-3, 3, 10,10);
+    ball.setBallColor("green");
+    
+    // var drawing = setInterval(draw,500);
+    draw();
+
+
+
+
+}
+
+// stage 그리기
+function drawStage()
+{
     stage.blockArr.forEach(blockRow=>
         {
             blockRow.forEach(block=>
@@ -346,10 +368,33 @@ function test()
                     context.strokeRect(block.x, block.y, block.width, block.height);
                 });
         });
-
-        // Bar 그리기
-        bar = new Bar(30,HEIGHT-40,"black", 100, 10);
-        context.strokeStyle = bar.Barcolor;
-        context.strokeRect(bar.Barx, bar.Bary, bar.Barwidth, bar.Barheight);
-
 }
+
+
+//FIXME: 임시로 만든 함수. 이벤트 리스너 동작하는 것 보고 수정할 것.
+function drawBar()
+{
+    context.strokeStyle = bar.barcolor;
+    context.strokeRect(bar.barx, bar.bary, bar.barwidth, bar.barheight);
+}
+
+// FIXME:  임시로 만든 함수. 나주에 공이 여러개가 된다면 수정 필요.
+// 공을 화면에 그린다
+function drawBall()
+{
+    context.beginPath();
+    context.arc(ball.ballx, ball.bally, ball.radius, 0, 2.0 * Math.PI, true);
+    context.fillStyle = ball.ballColor;
+    context.fill();
+}
+
+// 화면에 그리는 함수.
+function draw()
+{
+    // context.clearRect(0,0,width, height);
+    drawBall();
+    drawStage();
+    drawBar();
+}
+
+
