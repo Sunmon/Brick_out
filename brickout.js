@@ -218,7 +218,7 @@ function draw()
 
 
 
-// 맞는 레벨 stage 리턴. Factory pattern
+// 레벨에 맞는 stage 객체를 생성하여 리턴. Factory pattern
 function gameStart(level)
 {
     switch(level)
@@ -233,8 +233,9 @@ function gameStart(level)
 // 임시 테스트 함수
 function test()
 {
-    // var stage = new Stage_One();
+    // 레벨 맞는 스테이지 생성
     stage = gameStart(2);
+
     // stage 그리기
     stage.blockArr.forEach(blockRow=>
         {
