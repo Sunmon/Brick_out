@@ -143,10 +143,15 @@ Current change: 내가 짠 거
 
 Incomming: pull해서 불러 온 것
 
-Both : 안해봐서 모름
+Both : 둘 다 냅두기
 
 Compare: 비교하는거
 
+
+한 줄씩 적용하는 기능이 있던 것 같은데, sublime text에도 있는지 모르겠다.
+
+<br>
+<br>
 
 ### 볼 필요 없다.
 
