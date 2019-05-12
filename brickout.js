@@ -5,12 +5,14 @@ var context;
 var stage;
 var WIDTH; //canvas의 폭과 높이 
 var HEIGHT;
+
 function init()
 {
 
     canvas = document.getElementById("frame");
     context  = canvas.getContext("2d");
-    test();
+    WIDTH = canvas.width;
+    HEIGHT = canvas.height;
 
 
 }
@@ -18,6 +20,8 @@ function init()
 window.onload = function()
 {
     init();
+    test();
+
 }
 
 
@@ -231,28 +235,6 @@ function gameStart(level)
 }
 
 
-// 임시 테스트 함수
-function test()
-{
-    // 레벨 맞는 스테이지 생성
-    stage = gameStart(2);
-
-    // stage 그리기
-    stage.blockArr.forEach(blockRow=>
-        {
-            blockRow.forEach(block=>
-                {
-                    if(!block.state) return;
-                    /* context.fillStyle = block.color;
-                    context.fillRect(block.x, block.y, block.width, block.height); */
-                    context.strokeStyle = block.color;
-                    context.strokeRect(block.x, block.y, block.width, block.height);
-                });
-        });
- 
-
-}
-
 class Ball
 {
 
@@ -299,12 +281,10 @@ class Ball
                 {Bally=-Bally;}
         }//else{공이 사라진다.}
         */
-    }
+        }
+    }// 공 class
+}
 
-
-
-
-}// 공 class
 
 class Bar{
 
@@ -315,6 +295,9 @@ class Bar{
         this.Barcolor=color;
         this.Barwidth=width;
         this.Barheight=height;
+        
+        // 이벤트 리스너 추가
+        document.addEventListener("mousemove", this.moveBar, false);
     }
     
     //bar의 크기 설정
@@ -325,6 +308,7 @@ class Bar{
 
     //mouse에 따라 움직이는 bar
     moveBar(e){
+        // FIXME: canvasleft 제대로 정의 안 됨. document.write(canvasleft)해보면 알 수 있음.
         canvasleft=document.getElementById("canvas").offset().left;
         canvasright=canvasleft+WIDTH;//여기서 WIDTH는 전역변수에 선언
         if (e.pageX>=canvasleft&&e.pageX<=canvasright){
@@ -334,3 +318,32 @@ class Bar{
     } //$(document).mousemove(onMouseMove);
 
  }// 바 class
+
+
+
+ 
+// 임시 테스트 함수
+function test()
+{
+    // 레벨 맞는 스테이지 생성
+    stage = gameStart(2);
+
+    // stage 그리기
+    stage.blockArr.forEach(blockRow=>
+        {
+            blockRow.forEach(block=>
+                {
+                    if(!block.state) return;
+                    /* context.fillStyle = block.color;
+                    context.fillRect(block.x, block.y, block.width, block.height); */
+                    context.strokeStyle = block.color;
+                    context.strokeRect(block.x, block.y, block.width, block.height);
+                });
+        });
+
+        // Bar 그리기
+        bar = new Bar(30,HEIGHT-40,"black", 100, 10);
+        context.strokeStyle = bar.Barcolor;
+        context.strokeRect(bar.Barx, bar.Bary, bar.Barwidth, bar.Barheight);
+
+}
