@@ -134,7 +134,8 @@ parameter 개수 달라서 함수 실행이 제대로 안 되는데 왜 안 잡�
 
 conflict 난 사진
 
-[conflict 사진]()
+
+![conflict 사진](docs/conflict.JPG)
 
 이럴 때 잘 보고 원하는 코드로 Accept하면 된다.
 
