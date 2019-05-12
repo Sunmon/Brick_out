@@ -239,11 +239,11 @@ class Ball
 
     //공의 생성자
     constructor(x,y,radius,dx,dy){ 
-        this.ballx=x;
-        this.bally=y;
+        this.ballX=x;
+        this.ballY=y;
         this.radius=radius;
-        this.balldy=dy;
-        this.balldx=dx;
+        this.ballDY=dy;
+        this.ballDX=dx;
     }
 
     //공의 크기 설정
@@ -254,30 +254,30 @@ class Ball
 
     //공의 위치 설정
     setballposition(x,y){
-        this.ballx=x;
-        this.bally=y;
+        this.ballX=x;
+        this.ballY=y;
     }
 
     //공의 방향 설정
     setballdirection(dx,dy){
-        this.dx=dx;
-        this.dy=dy;
+        this.ballDX=dx;
+        this.ballDY=dy;
     }
 
     //공을 화면에 그린다
     drawball(){
-        this.ballx+=this.dx;
-        this.bally+=this.dy;
+        this.ballX+=this.dx;
+        this.ballY+=this.dy;
         
         //공이 canvas벽의 양끝에 닿았을 때 방향변화
-        if((ballx>=width-this.radius)||(ballx<=this.radius))
-            {ballx=-ballx;}
+        if((ballX>=width-this.radius)||(ballX<=this.radius))
+            {ballX=-ballX;}
         //공이 천장에 닿았을 때 방향 변화
-        if (bally<=this.radius) {
-            bally=-bally;
+        if (ballY<=this.radius) {
+            ballY=-ballY;
         }
         //공이 바닥에 닿지 않았을 떄
-        else if(bally>=height-this.radius){
+        else if(ballY>=height-this.radius){
             /*
 
             *Barx,Barwidth는 다른 클래스인데 이걸 어떻게 가지고 와야 하는지 모르겠어요.
@@ -296,11 +296,11 @@ class Bar{
 
     //bar의 생성자
     constructor(x,y,color,width,height){ 
-        this.barx=x;
-        this.bary=y;
-        this.barcolor=color;
-        this.barwidth=width;
-        this.barheight=height;
+        this.barX=x;
+        this.barY=y;
+        this.barColor=color;
+        this.barWidth=width;
+        this.barHeight=height;
         // 이벤트 리스너 추가
         document.addEventListener("mousemove", this.moveBar, false);
 
@@ -308,17 +308,17 @@ class Bar{
     
     //bar의 크기 설정
     setbarsize(width,height){ 
-        this.barwidth=width;
-        this.barheight=height;
+        this.barWidth=width;
+        this.barHeight=height;
     }
 
     //mouse에 따라 움직이는 bar
     moveBar(e){
         // FIXME: canvasleft 제대로 정의 안 됨. document.write(canvasleft)해보면 알 수 있음.
-        canvasleft=document.getElementById("canvas").offset().left;
-        canvasright=canvasleft+width;
-        if (e.pageX>=canvasleft&&e.pageX<=canvasright){
-            this.x=e.pageX=canvasleft-(this.width/2);//변수 x,width사용가능?
+        canvasLeft=document.getElementById("canvas").offsetLeft;
+        canvasRight=canvasLeft+width;
+        if (e.pageX>=canvasLeft&&e.pageX<=canvasRight){
+            this.x=e.pageX=canvasLeft-(this.width/2);
         }
 
     } //$(document).mousemove(onMouseMove);
