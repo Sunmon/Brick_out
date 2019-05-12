@@ -130,6 +130,29 @@ parameter 개수 달라서 함수 실행이 제대로 안 되는데 왜 안 잡�
 <br>
 <br>
 
+## conflict
+
+conflict 난 사진
+
+
+![conflict 사진](./conflict.JPG)
+
+이럴 때 잘 보고 원하는 코드로 Accept하면 된다.
+
+Current change: 내가 짠 거
+
+Incomming: pull해서 불러 온 것
+
+Both : 둘 다 냅두기
+
+Compare: 비교하는거
+
+
+한 줄씩 적용하는 기능이 있던 것 같은데, sublime text에도 있는지 모르겠다.
+
+<br>
+<br>
+
 ### 볼 필요 없다.
 
 https://developer.mozilla.org/ko/docs/Games/Tutorials/%EC%88%9C%EC%88%98%ED%95%9C_%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%A5%BC_%EC%9D%B4%EC%9A%A9%ED%95%9C_2D_%EB%B2%BD%EB%8F%8C%EA%B9%A8%EA%B8%B0_%EA%B2%8C%EC%9E%84
