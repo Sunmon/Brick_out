@@ -10,6 +10,8 @@ function init()
 
     canvas = document.getElementById("frame");
     context  = canvas.getContext("2d");
+    WIDTH = document.getElementById("frame").width();
+    HEIGHT = document.getElementById("frame").height();
     test();
 
 
@@ -265,35 +267,42 @@ class Ball
     }
 
     //공의 크기 설정
-    setBallSize(radius) //공의 크기설정
+    setballsize(radius) //공의 크기설정
     {
         this.radius=radius;
     }
 
     //공의 위치 설정
-    setBallPosition(x,y){
+    setballposition(x,y){
         this.Ballx=x;
         this.Bally=y;
     }
 
     //공의 방향 설정
-    setBallDirection(dx,dy){
+    setballdirection(dx,dy){
         this.dx=dx;
         this.dy=dy;
     }
 
     //공을 화면에 그린다
-    DrawBall(){
+    drawball(){
         this.Ballx+=this.dx;
         this.Bally+=this.dy;
+        
+        //공이 canvas벽의 양끝에 닿았을 때 방향변화
         if((Ballx>=WIDTH-this.radius)||(Ballx<=this.radius))
             {Ballx=-Ballx;}
+        //공이 천장에 닿았을 때 방향 변화
         if (Bally<=this.radius) {
             Bally=-Bally;
         }
+        //공이 바닥에 닿지 않았을 떄
         else if(Bally>=HEIGHT-this.radius){
             /*
+
             *Barx,Barwidth는 다른 클래스인데 이걸 어떻게 가지고 와야 하는지 모르겠어요.
+            
+            //공이 bar에 닿았을 떄
             if ((Ballx>Barx)&&(Ballx<Barx+Barwidth)) 
                 {Bally=-Bally;}
         }//else{공이 사라진다.}
@@ -317,13 +326,13 @@ class Bar{
     }
     
     //bar의 크기 설정
-    setBarSize(width,height){ 
+    setbarsize(width,height){ 
         this.Barwidth=width;
         this.Barheight=height;
     }
 
     //mouse에 따라 움직이는 bar
-    moveBar(e){
+    movebar(e){
         canvasleft=document.getElementById("canvas").offset().left;
         canvasright=canvasleft+WIDTH;//여기서 WIDTH는 전역변수에 선언
         if (e.pageX>=canvasleft&&e.pageX<=canvasright){
