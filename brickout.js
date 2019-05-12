@@ -317,7 +317,7 @@ class Bar{
         this.barHeight=height;
     }
 
-    //mouse에 따라 움직이는 bar
+    //event:mouse에 따라 움직이는 bar
     moveBar(e){
         // FIXME: canvasleft 제대로 정의 안 됨. document.write(canvasleft)해보면 알 수 있음.
         canvasLeft=document.getElementById("canvas").offsetLeft;
