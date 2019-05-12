@@ -3,15 +3,15 @@
 var canvas;
 var context;
 var stage;
-var WIDTH; //canvas의 폭과 높이 
-var HEIGHT;
+var width; //canvas의 폭과 높이 
+var height;
 function init()
 {
 
     canvas = document.getElementById("frame");
     context  = canvas.getContext("2d");
-    WIDTH = document.getElementById("frame").width();
-    HEIGHT = document.getElementById("frame").height();
+    width = document.getElementById("frame").width();
+    height = document.getElementById("frame").height();
     test();
 
 
@@ -259,11 +259,11 @@ class Ball
 
     //공의 생성자
     constructor(x,y,radius,dx,dy){ 
-        this.Ballx=x;
-        this.Bally=y;
+        this.ballx=x;
+        this.bally=y;
         this.radius=radius;
-        this.Balldy=dy;
-        this.Balldx=dx;
+        this.balldy=dy;
+        this.balldx=dx;
     }
 
     //공의 크기 설정
@@ -274,8 +274,8 @@ class Ball
 
     //공의 위치 설정
     setballposition(x,y){
-        this.Ballx=x;
-        this.Bally=y;
+        this.ballx=x;
+        this.bally=y;
     }
 
     //공의 방향 설정
@@ -286,18 +286,18 @@ class Ball
 
     //공을 화면에 그린다
     drawball(){
-        this.Ballx+=this.dx;
-        this.Bally+=this.dy;
+        this.ballx+=this.dx;
+        this.bally+=this.dy;
         
         //공이 canvas벽의 양끝에 닿았을 때 방향변화
-        if((Ballx>=WIDTH-this.radius)||(Ballx<=this.radius))
-            {Ballx=-Ballx;}
+        if((ballx>=width-this.radius)||(ballx<=this.radius))
+            {ballx=-ballx;}
         //공이 천장에 닿았을 때 방향 변화
-        if (Bally<=this.radius) {
-            Bally=-Bally;
+        if (bally<=this.radius) {
+            bally=-bally;
         }
         //공이 바닥에 닿지 않았을 떄
-        else if(Bally>=HEIGHT-this.radius){
+        else if(bally>=height-this.radius){
             /*
 
             *Barx,Barwidth는 다른 클래스인데 이걸 어떻게 가지고 와야 하는지 모르겠어요.
@@ -318,23 +318,23 @@ class Bar{
 
     //bar의 생성자
     constructor(x,y,color,width,height){ 
-        this.Barx=x;
-        this.Bary=y;
-        this.Barcolor=color;
-        this.Barwidth=width;
-        this.Barheight=height;
+        this.barx=x;
+        this.bary=y;
+        this.barcolor=color;
+        this.barwidth=width;
+        this.barheight=height;
     }
     
     //bar의 크기 설정
     setbarsize(width,height){ 
-        this.Barwidth=width;
-        this.Barheight=height;
+        this.barwidth=width;
+        this.barheight=height;
     }
 
     //mouse에 따라 움직이는 bar
     movebar(e){
         canvasleft=document.getElementById("canvas").offset().left;
-        canvasright=canvasleft+WIDTH;//여기서 WIDTH는 전역변수에 선언
+        canvasright=canvasleft+width;
         if (e.pageX>=canvasleft&&e.pageX<=canvasright){
             this.x=e.pageX=canvasleft-(this.width/2);//변수 x,width사용가능?
         }
