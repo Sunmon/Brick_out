@@ -242,7 +242,7 @@ class Ball
     }
 
     //공의 크기 설정
-    setballsize(radius) //공의 크기설정
+    setballsize(radius) 
     {
         this.radius=radius;
     }
@@ -265,13 +265,13 @@ class Ball
         this.ballColor = color;
     }
 
-    // FIXME: 혹시 moveBall()로 메소드 이름 변경 가능한가요? draw는 그릴 때 쓰게요
+    // FIXME: 혹시 moveBall()로 메소드 이름 변경 가능한가요? draw는 그릴 때 쓰게요-->수정했습니다!
     //공을 화면에 그린다
-    drawball(){
+   moveBall(){
 
         // FIXME:변수 dx없음.
-        this.ballX+=this.dx;
-        this.ballY+=this.dy;
+        this.ballX+=this.ballDX;
+        this.ballY+=this.ballDY;
         
 
 
@@ -331,17 +331,17 @@ class Bar{
     }
 
     //event:mouse에 따라 움직이는 bar
+    
     moveBar(e){
-        // FIXME: canvasleft 제대로 정의 안 됨. document.write(canvasleft)해보면 알 수 있음.
-        canvasLeft=document.getElementById("canvas").offsetLeft;
-        canvasRight=canvasLeft+width;
-        if (e.pageX>=canvasLeft&&e.pageX<=canvasRight){
-            this.x=e.pageX=canvasLeft-(this.width/2);
+       // FIXME: canvasleft 제대로 정의 안 됨. document.write(canvasleft)해보면 알 수 있음.
+       this.relativeX = e.clientX-canvas.offsetLeft;
+       if (this.relativeX>0 && this.relativeX<width) 
+         {this.barX=this.relativeX-this.barWidth/2;}
+        
         }
 
-    } //$(document).mousemove(onMouseMove);
-
- }// 바 class
+     
+      }// 바 class
 
 
 
