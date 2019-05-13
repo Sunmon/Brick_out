@@ -348,10 +348,6 @@ function test()
     
     // var drawing = setInterval(draw,500);
     draw();
-
-
-
-
 }
 
 // stage 그리기
@@ -370,7 +366,6 @@ function drawStage()
         });
 }
 
-
 //FIXME: 임시로 만든 함수. 이벤트 리스너 동작하는 것 보고 수정할 것.
 function drawBar()
 {
@@ -386,6 +381,7 @@ function drawBall()
     context.arc(ball.ballx, ball.bally, ball.radius, 0, 2.0 * Math.PI, true);
     context.fillStyle = ball.ballColor;
     context.fill();
+    
 }
 
 // 화면에 그리는 함수.
