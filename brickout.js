@@ -297,6 +297,9 @@ class Ball
         }
     }
 
+
+
+
     // 충돌 처리 위해 임시적으로 만든 함수. 추후 삭제할 예정.
     tempMove()
     {
@@ -342,6 +345,8 @@ class Bar{
 
 
 
+
+
  
 // 임시 테스트 함수
 function test()
@@ -380,6 +385,30 @@ function drawStage()
         });
 }
 
+//FIXME: 충돌 감지. 나중에 공 여러개면 ball을 array로 쓰든가 해서 수정해야 함.
+function detectCollision()
+{
+    stage.blockArr.forEach(blockRow=>
+        {
+            blockRow.forEach(block=>
+                {
+                    // 충돌 검사
+                    var blockLeft = block.x;
+                    var blockRight = block.x + block.width;
+                    var blockUP = block.y;
+                    var blockDown = block.y + block.height;
+
+                    
+                    // TODO: 블럭과 충돌 검사
+                    // 충돌했을 경우 공의 방향 바꿈
+                    if(blockRight >= ball.ballX + ball.ballDX - ball.radius || blockLeft <= ball.ballX + ball.radius + ball.ballDX) ball.ballDX = -ball.ballDX;
+                    if(blockUP >= ball.ballY + ball.ballDY - ball.radius || blockDown > ball.ballY + ball.ballDY + ball.radius) ball.ballDY= -ball.ballDY;
+
+                });
+        });
+}
+
+
 //FIXME: 임시로 만든 함수. 이벤트 리스너 동작하는 것 보고 수정할 것.
 function drawBar()
 {
@@ -408,6 +437,7 @@ function draw()
 
 
     drawBall();
+    detectCollision();
     drawStage();
     drawBar();
 
