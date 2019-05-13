@@ -293,8 +293,16 @@ class Ball
         }//else{공이 사라진다.}
         */
         }
-    }// 공 class
-}
+    }
+
+    // 충돌 처리 위해 임시적으로 만든 함수. 추후 삭제할 예정.
+    tempMove()
+    {
+        this.ballX += this.dx;
+        this.ballY += this.dy;
+    }
+
+}// 공 class
 
 
 class Bar{
@@ -346,8 +354,8 @@ function test()
     ball = new Ball(bar.barx + (bar.barwidth / 2), bar.bary-3, 3, 10,10);
     ball.setBallColor("green");
     
-    // var drawing = setInterval(draw,500);
-    draw();
+    var drawing = setInterval(draw,500);
+    // draw();
 }
 
 // stage 그리기
@@ -377,6 +385,10 @@ function drawBar()
 // 공을 화면에 그린다
 function drawBall()
 {
+    // 공 좌표 이동
+    ball.tempMove();
+
+    // 공 그리기
     context.beginPath();
     context.arc(ball.ballx, ball.bally, ball.radius, 0, 2.0 * Math.PI, true);
     context.fillStyle = ball.ballColor;
@@ -387,7 +399,7 @@ function drawBall()
 // 화면에 그리는 함수.
 function draw()
 {
-    // context.clearRect(0,0,width, height);
+    context.clearRect(0,0,width, height);
     drawBall();
     drawStage();
     drawBar();
