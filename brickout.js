@@ -298,8 +298,8 @@ class Ball
     // 충돌 처리 위해 임시적으로 만든 함수. 추후 삭제할 예정.
     tempMove()
     {
-        this.ballX += this.dx;
-        this.ballY += this.dy;
+        this.ballX += this.ballDX;
+        this.ballY += this.ballDY;
     }
 
 }// 공 class
@@ -350,11 +350,12 @@ function test()
     // Bar 그리기
     bar = new Bar(30,height-40,"black", 100, 5);
 
+    // FIXME: ball.ballX가 없어
     // ball 그리기
-    ball = new Ball(bar.barx + (bar.barwidth / 2), bar.bary-3, 3, 10,10);
+    ball = new Ball(bar.barX + (bar.barWidth / 2), bar.barY-3, 3, 5,-5);
     ball.setBallColor("green");
-    
-    var drawing = setInterval(draw,500);
+
+    var drawing = setInterval(draw,50);
     // draw();
 }
 
@@ -377,8 +378,8 @@ function drawStage()
 //FIXME: 임시로 만든 함수. 이벤트 리스너 동작하는 것 보고 수정할 것.
 function drawBar()
 {
-    context.strokeStyle = bar.barcolor;
-    context.strokeRect(bar.barx, bar.bary, bar.barwidth, bar.barheight);
+    context.strokeStyle = bar.barColor;
+    context.strokeRect(bar.barX, bar.barY, bar.barWidth, bar.barHeight);
 }
 
 // FIXME:  임시로 만든 함수. 나주에 공이 여러개가 된다면 수정 필요.
@@ -387,19 +388,20 @@ function drawBall()
 {
     // 공 좌표 이동
     ball.tempMove();
-
-    // 공 그리기
+    // document.write(ball.ballX + " " + ball.ballY + " ");
+     // 공 그리기
     context.beginPath();
-    context.arc(ball.ballx, ball.bally, ball.radius, 0, 2.0 * Math.PI, true);
+    context.arc(ball.ballX, ball.ballY, ball.radius, 0, 2.0 * Math.PI, true);
     context.fillStyle = ball.ballColor;
     context.fill();
-    
 }
 
 // 화면에 그리는 함수.
 function draw()
 {
     context.clearRect(0,0,width, height);
+
+
     drawBall();
     drawStage();
     drawBar();
