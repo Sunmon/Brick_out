@@ -268,6 +268,8 @@ class Ball
     // FIXME: 혹시 moveBall()로 메소드 이름 변경 가능한가요? draw는 그릴 때 쓰게요
     //공을 화면에 그린다
     drawball(){
+
+        // FIXME:변수 dx없음.
         this.ballX+=this.dx;
         this.ballY+=this.dy;
         
@@ -352,11 +354,14 @@ function test()
 
     // FIXME: ball.ballX가 없어
     // ball 그리기
-    ball = new Ball(bar.barX + (bar.barWidth / 2), bar.barY-3, 3, 5,-5);
+    ball = new Ball(bar.barX + (bar.barWidth / 2), bar.barY-3, 3, 1.5,-1.5);
     ball.setBallColor("green");
 
-    var drawing = setInterval(draw,50);
-    // draw();
+
+    // var drawing = setInterval(draw,10);
+    // requestAnimationFrame(draw);
+    
+    draw();
 }
 
 // stage 그리기
@@ -405,6 +410,9 @@ function draw()
     drawBall();
     drawStage();
     drawBar();
+
+    // interval 대신. 애니메이션을 부드럽게.
+    requestAnimationFrame(draw);
 }
 
 
