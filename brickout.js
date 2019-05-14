@@ -7,6 +7,7 @@ var bar;
 var ball;
 var width; //canvas의 폭과 높이 
 var height;
+
 function init()
 {
 
@@ -321,11 +322,11 @@ class Bar{
         this.barColor=color;
         this.barWidth=width;
         this.barHeight=height;
-        this.barEvent = canvas.width-this.barWidth;
-        
-        // this.addBarListner();
-        //this.barXa = (width-w)/2;
-        
+        //this.barEvent = width-this.barWidth;
+        // 이벤트 리스너 추가
+
+
+        document.addEventListener("mousemove", this.moveBar, true);
 
     }
     
@@ -333,25 +334,25 @@ class Bar{
     setbarsize(width,height){ 
         this.barWidth=width;
         this.barHeight=height;
-        this.barEvent = width-this.barWidth/2;
-    }
+        //this.barevent = width-this.barWidth/2;
+    } 
 
     //event:mouse에 따라 움직이는 bar    
     moveBar(e){
+
        // FIXME: canvasleft 제대로 정의 안 됨. document.write(canvasleft)해보면 알 수 있음.
-       document.write(this.barWidth);
-        //  this.barEvent = width-this.barWidth/2;
-        //  this.relativeX = e.clientX - canvas.offsetLeft;
-        //  if (relativeX>0 && relativeX<width) {
-        //  this.barEvent = relativeX - this.barWidth/2;
-        // }
-//  document.write(barevent);
-        } //$(document).mousemove(moveBar);  moveBar
+       document.write("barwidth::"+ this.barWidth);
+
+         this.barEvent = width-this.barWidth/2;
+         this.relativeX = e.clientX - canvas.offsetLeft;
+         if (this.relativeX>0 && this.relativeX<width) {
+         this.barEvent = this.relativeX - this.barWidth/2;
+        }
+         //document.write("barEvent"+ (+this.barEvent) + this.barWidth);
+        } //moveBar
             
          
-
-  
-      }// 바 class
+    }// 바 class
 
 
 
@@ -366,6 +367,9 @@ function test()
 
     // Bar 그리기
     bar = new Bar(30,height-40,"black", 100, 5);
+    // document.write(bar.barWidth);
+  
+
 
     // FIXME: ball.ballX가 없어
     // ball 그리기
