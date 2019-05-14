@@ -15,6 +15,8 @@ function init()
     width = canvas.width;
     height = canvas.height;
 
+    document.addEventListener("mousemove", bar.moveBar, false);
+
 
 }
 
@@ -242,7 +244,7 @@ class Ball
     }
 
     //공의 크기 설정
-    setballsize(radius) //공의 크기설정
+    setballsize(radius) 
     {
         this.radius=radius;
     }
@@ -265,13 +267,13 @@ class Ball
         this.ballColor = color;
     }
 
-    // FIXME: 혹시 moveBall()로 메소드 이름 변경 가능한가요? draw는 그릴 때 쓰게요
+    // FIXME: 혹시 moveBall()로 메소드 이름 변경 가능한가요? draw는 그릴 때 쓰게요-->수정했습니다!
     //공을 화면에 그린다
-    drawball(){
+   moveBall(){
 
         // FIXME:변수 dx없음.
-        this.ballX+=this.dx;
-        this.ballY+=this.dy;
+        this.ballX+=this.ballDX;
+        this.ballY+=this.ballDY;
         
 
 
@@ -319,8 +321,11 @@ class Bar{
         this.barColor=color;
         this.barWidth=width;
         this.barHeight=height;
-        // 이벤트 리스너 추가
-        document.addEventListener("mousemove", this.moveBar, false);
+        this.barEvent = canvas.width-this.barWidth;
+        
+        // this.addBarListner();
+        //this.barXa = (width-w)/2;
+        
 
     }
     
@@ -328,22 +333,25 @@ class Bar{
     setbarsize(width,height){ 
         this.barWidth=width;
         this.barHeight=height;
+        this.barEvent = width-this.barWidth/2;
     }
 
-    //event:mouse에 따라 움직이는 bar
+    //event:mouse에 따라 움직이는 bar    
     moveBar(e){
-        // FIXME: canvasleft 제대로 정의 안 됨. document.write(canvasleft)해보면 알 수 있음.
-        canvasLeft=document.getElementById("canvas").offsetLeft;
+       // FIXME: canvasleft 제대로 정의 안 됨. document.write(canvasleft)해보면 알 수 있음.
+       document.write(this.barWidth);
+        //  this.barEvent = width-this.barWidth/2;
+        //  this.relativeX = e.clientX - canvas.offsetLeft;
+        //  if (relativeX>0 && relativeX<width) {
+        //  this.barEvent = relativeX - this.barWidth/2;
+        // }
+//  document.write(barevent);
+        } //$(document).mousemove(moveBar);  moveBar
+            
+         
 
-
-        canvasRight=canvasLeft+width;
-        if (e.pageX>=canvasLeft&&e.pageX<=canvasRight){
-            this.x=e.pageX=canvasLeft-(this.width/2);
-        }
-
-    } //$(document).mousemove(onMouseMove);
-
- }// 바 class
+  
+      }// 바 class
 
 
 
