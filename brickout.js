@@ -322,7 +322,6 @@ class Bar{
         this.barColor=color;
         this.barWidth=width;
         this.barHeight=height;
-        //this.barEvent = width-this.barWidth;
 
         // 마우스 이동 event listner 추가
         document.addEventListener("mousemove", this.moveBar.bind(this), false);
@@ -339,13 +338,17 @@ class Bar{
     moveBar(e){
 
        // FIXME: canvasleft 제대로 정의 안 됨. document.write(canvasleft)해보면 알 수 있음.
-       document.write("barwidth::"+ this.barWidth);
+       //document.write("barwidth::"+ this.barWidth);
 
-         this.barEvent = WIDTH-this.barWidth/2;
+         //barEvent: 화면 상의 x 좌표
+         this.barEvent = (WIDTH-this.barWidth)/2; 
          this.relativeX = e.clientX - canvas.offsetLeft;
          if (this.relativeX>0 && this.relativeX<WIDTH) {
+            //barEvent: 이벤트 발생한 바의 위치=마우스의 위치
          this.barEvent = this.relativeX - this.barWidth/2;
-        }
+        } document.write("barEvent: "+this.barEvent);
+        
+        //document.write("barwidth::"+ this.barWidth);
          //document.write("barEvent"+ (+this.barEvent) + this.barWidth);
         } //moveBar
             
