@@ -5,18 +5,17 @@ var context;
 var stage;
 var bar;
 var ball;
-var width; //canvas의 폭과 높이 
-var height;
+var WIDTH; //canvas의 폭과 높이 
+var HEIGHT;
 
 function init()
 {
 
     canvas = document.getElementById("frame");
     context  = canvas.getContext("2d");
-    width = canvas.width;
-    height = canvas.height;
+    WIDTH = canvas.width;
+    HEIGHT = canvas.height;
 
-    document.addEventListener("mousemove", bar.moveBar, false);
 
 
 }
@@ -43,6 +42,7 @@ class Block
         this.width = width;
         this.height = height;
         this.state = true;                  //true 블럭 멀쩡함 , false: 깨짐
+
     }
 
     // 블럭 위치 설정
@@ -280,14 +280,14 @@ class Ball
 
         // FIXME: 왜 ballx  = -ballx, bally = -bally인지 이해가 안 됩니다. 공이 화면의 반대쪽으로 넘어가나요?
         //공이 canvas벽의 양끝에 닿았을 때 방향변화
-        if((ballX>=width-this.radius)||(ballX<=this.radius))
+        if((ballX>=WIDTH-this.radius)||(ballX<=this.radius))
             {ballX=-ballX;}
         //공이 천장에 닿았을 때 방향 변화
         if (ballY<=this.radius) {
             ballY=-ballY;
         }
         //공이 바닥에 닿지 않았을 떄
-        else if(ballY>=height-this.radius){
+        else if(ballY>=HEIGHT-this.radius){
             /*
 
             *Barx,Barwidth는 다른 클래스인데 이걸 어떻게 가지고 와야 하는지 모르겠어요.
@@ -323,11 +323,9 @@ class Bar{
         this.barWidth=width;
         this.barHeight=height;
         //this.barEvent = width-this.barWidth;
-        // 이벤트 리스너 추가
 
-
-        document.addEventListener("mousemove", this.moveBar, true);
-
+        // 마우스 이동 event listner 추가
+        document.addEventListener("mousemove", this.moveBar.bind(this), false);
     }
     
     //bar의 크기 설정
@@ -343,9 +341,9 @@ class Bar{
        // FIXME: canvasleft 제대로 정의 안 됨. document.write(canvasleft)해보면 알 수 있음.
        document.write("barwidth::"+ this.barWidth);
 
-         this.barEvent = width-this.barWidth/2;
+         this.barEvent = WIDTH-this.barWidth/2;
          this.relativeX = e.clientX - canvas.offsetLeft;
-         if (this.relativeX>0 && this.relativeX<width) {
+         if (this.relativeX>0 && this.relativeX<WIDTH) {
          this.barEvent = this.relativeX - this.barWidth/2;
         }
          //document.write("barEvent"+ (+this.barEvent) + this.barWidth);
@@ -366,10 +364,7 @@ function test()
     stage = setLevel(2);
 
     // Bar 그리기
-    bar = new Bar(30,height-40,"black", 100, 5);
-    // document.write(bar.barWidth);
-  
-
+    bar = new Bar(30,HEIGHT-40,"black", 100, 5);
 
     // FIXME: ball.ballX가 없어
     // ball 그리기
@@ -404,7 +399,7 @@ function detectCollision()
 {
 
     
-                    // FIXME: 허공에 부딛힌다.
+    // FIXME: 허공에 부딛힌다.
 
     stage.blockArr.forEach(blockRow=>
         {
@@ -458,7 +453,7 @@ function drawBall()
 // 화면에 그리는 함수.
 function draw()
 {
-    context.clearRect(0,0,width, height);
+    context.clearRect(0,0,WIDTH, HEIGHT);
 
     drawBall();
     detectCollision();
