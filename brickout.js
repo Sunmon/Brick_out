@@ -334,6 +334,8 @@ class Bar{
     moveBar(e){
         // FIXME: canvasleft 제대로 정의 안 됨. document.write(canvasleft)해보면 알 수 있음.
         canvasLeft=document.getElementById("canvas").offsetLeft;
+
+
         canvasRight=canvasLeft+width;
         if (e.pageX>=canvasLeft&&e.pageX<=canvasRight){
             this.x=e.pageX=canvasLeft-(this.width/2);
@@ -359,7 +361,7 @@ function test()
 
     // FIXME: ball.ballX가 없어
     // ball 그리기
-    ball = new Ball(bar.barX + (bar.barWidth / 2), bar.barY-3, 3, 1.5,-1.5);
+    ball = new Ball(bar.barX + (bar.barWidth / 2) + 10, bar.barY-3, 3, 1.7,-1.3);
     ball.setBallColor("green");
 
 
@@ -388,6 +390,10 @@ function drawStage()
 //FIXME: 충돌 감지. 나중에 공 여러개면 ball을 array로 쓰든가 해서 수정해야 함.
 function detectCollision()
 {
+
+    
+                    // FIXME: 허공에 부딛힌다.
+
     stage.blockArr.forEach(blockRow=>
         {
             blockRow.forEach(block=>
@@ -397,13 +403,20 @@ function detectCollision()
                     var blockRight = block.x + block.width;
                     var blockUP = block.y;
                     var blockDown = block.y + block.height;
-
                     
-                    // TODO: 블럭과 충돌 검사
                     // 충돌했을 경우 공의 방향 바꿈
-                    if(blockRight >= ball.ballX + ball.ballDX - ball.radius || blockLeft <= ball.ballX + ball.radius + ball.ballDX) ball.ballDX = -ball.ballDX;
-                    if(blockUP >= ball.ballY + ball.ballDY - ball.radius || blockDown > ball.ballY + ball.ballDY + ball.radius) ball.ballDY= -ball.ballDY;
+                    var x = ball.ballX + ball.ballDX;
+                    var y = ball.ballY + ball.ballDY;
+                    
+                    var collision_x = (blockRight >= x - ball.radius) && (blockLeft <= x + ball.ballDX);
+                    var collision_y = (blockUP <= y + ball.radius) && (blockDown >= y - ball.radius);
 
+                    if(collision_x && collision_y)
+                    {
+                        block.state = false;
+                        if(collision_x) ball.ballDX = -ball.ballDX;
+                        if(collision_y) ball.ballDY = -ball.ballDY;
+                    }
                 });
         });
 }
@@ -434,7 +447,6 @@ function drawBall()
 function draw()
 {
     context.clearRect(0,0,width, height);
-
 
     drawBall();
     detectCollision();
