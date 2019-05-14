@@ -127,8 +127,13 @@ parameter 개수 달라서 함수 실행이 제대로 안 되는데 왜 안 잡�
 ## 좋은 사이트
 
 웹 프로그래밍 잘 알려주는 사이트 (강추): https://poiemaweb.com/
+
+[자바스크립트 흔한 오류 TOP 10](https://blog.meeta.io/10)
+
+
 <br>
 <br>
+
 
 ## conflict
 
