@@ -15,8 +15,7 @@ function init()
     context  = canvas.getContext("2d");
     WIDTH = canvas.width;
     HEIGHT = canvas.height;
-
-
+    
 
 }
 
@@ -215,6 +214,62 @@ class Stage_Two extends Stage
 }
 
 
+/**
+ * 세 번째 스테이지.
+ */
+class Stage_Three extends Stage
+{
+    initStage()
+    {
+        super.initStage();
+        super.initLineTimer(3500);
+        super.initBlockArr(20,5,17,11);
+        this.placeBlocks();
+    }
+
+    // 블록 배치. 3탄에서는 랜덤으로 배치해봤습니다 난잡해 보이신다면 바꾸겠습니다!
+    placeBlocks()
+    {
+        for(var i = 0; i<this.block_in_col; i++)
+        {
+            for(var j = 0; j<this.block_in_row; j++)
+                if((Math.floor(Math.random()*3)*i + Math.floor(Math.random()*3)*j) % 6) this.blockArr[i][j].state = false;  //블럭 배치 모양 만들기
+        } 
+    }
+
+
+}
+
+
+
+/**
+ * 네 번째 스테이지.
+ */
+ class Stage_Four extends Stage
+{
+    initStage()
+    {
+        super.initStage();
+        super.initLineTimer(4000);
+        super.initBlockArr(20,5,15,14);
+        this.placeBlocks();
+    }
+
+    // 블록 배치. 대각선으로 배치해보았습니다.
+    placeBlocks()
+    {
+        for(var i = 0; i<this.block_in_col; i++)
+        {
+            for(var j = 0; j<this.block_in_row; j++)
+                if((5*i + 7*j) % 6) this.blockArr[i][j].state = false;  //블럭 배치 모양 만들기
+        } 
+    }
+
+
+}
+
+
+
 
 
 
@@ -227,6 +282,8 @@ function setLevel(level)
     {
         case 1: return new Stage_One();
         case 2: return new Stage_Two();
+        case 3: return new Stage_Three();
+        case 4: return new Stage_Four();
         default: return new Stage();
     }
 }
@@ -322,6 +379,7 @@ class Bar{
         this.barColor=color;
         this.barWidth=width;
         this.barHeight=height;
+      
 
         // 마우스 이동 event listner 추가
         document.addEventListener("mousemove", this.moveBar.bind(this), false);
@@ -331,27 +389,32 @@ class Bar{
     setbarsize(width,height){ 
         this.barWidth=width;
         this.barHeight=height;
-        //this.barevent = width-this.barWidth/2;
     } 
 
     //event:mouse에 따라 움직이는 bar    
-    moveBar(e){
+  
+
+    moveBar(e){  
 
        // FIXME: canvasleft 제대로 정의 안 됨. document.write(canvasleft)해보면 알 수 있음.
        //document.write("barwidth::"+ this.barWidth);
-
-         //barEvent: 화면 상의 x 좌표
+        
+         //barEvent: 화면 상의 바의x 좌표
          this.barEvent = (WIDTH-this.barWidth)/2; 
          this.relativeX = e.clientX - canvas.offsetLeft;
          if (this.relativeX>0 && this.relativeX<WIDTH) {
-            //barEvent: 이벤트 발생한 바의 위치=마우스의 위치
+            //barEvent: 이벤트 발생한 바의 중간 위치
          this.barEvent = this.relativeX - this.barWidth/2;
-        } document.write("barEvent: "+this.barEvent);
+        } //document.write("barEvent: "+this.barEvent);
         
         //document.write("barwidth::"+ this.barWidth);
          //document.write("barEvent"+ (+this.barEvent) + this.barWidth);
-        } //moveBar
-            
+
+        } //moveBar 
+
+
+
+
          
     }// 바 class
 
@@ -465,6 +528,9 @@ function draw()
 
     // interval 대신. 애니메이션을 부드럽게.
     requestAnimationFrame(draw);
+
+     
+    
 }
 
 
