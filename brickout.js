@@ -494,13 +494,8 @@ function detectCollision_block()
                     }
                 });
         });
-<<<<<<< HEAD
+
     collision_bar();
-=======
-
->>>>>>> 3267197d682e8ead24ac8a81f289e0a0a292b425
-}
-
 
 //FIXME: 임시로 만든 함수. 이벤트 리스너 동작하는 것 보고 수정할 것.
 function drawBar()
