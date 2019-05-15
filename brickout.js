@@ -15,7 +15,6 @@ function init()
     context  = canvas.getContext("2d");
     WIDTH = canvas.width;
     HEIGHT = canvas.height;
-    
 
 }
 
@@ -392,25 +391,27 @@ class Bar{
     } 
 
     //event:mouse에 따라 움직이는 bar    
-  
-
+    // FIXME: 움직이는 정도 조절필요
     moveBar(e){  
+   
+        // relativeX: 캔버스 내 마우스의 X 좌표
+        var relativeX = e.clientX - canvas.offsetLeft;
 
-       // FIXME: canvasleft 제대로 정의 안 됨. document.write(canvasleft)해보면 알 수 있음.
-       //document.write("barwidth::"+ this.barWidth);
-        
-         //barEvent: 화면 상의 바의x 좌표
-         this.barEvent = (WIDTH-this.barWidth)/2; 
-         this.relativeX = e.clientX - canvas.offsetLeft;
-         if (this.relativeX>0 && this.relativeX<WIDTH) {
-            //barEvent: 이벤트 발생한 바의 중간 위치
-         this.barEvent = this.relativeX - this.barWidth/2;
-        } //document.write("barEvent: "+this.barEvent);
-        
-        //document.write("barwidth::"+ this.barWidth);
-         //document.write("barEvent"+ (+this.barEvent) + this.barWidth);
+        // 마우스에 따른 bar 위치 조정
+        if(relativeX > 0 && relativeX < canvas.width) this.barX = relativeX - this.barWidth/2;
+        else this.barX = relativeX;
+  }
 
-        } //moveBar 
+
+
+        //  //barEvent: 화면 상의 바의x 좌표
+        //  this.barEvent = (WIDTH-this.barWidth)/2; 
+        //  this.relativeX = e.clientX - canvas.offsetLeft;
+        //  if (this.relativeX>0 && this.relativeX<WIDTH) {
+        //     //barEvent: 이벤트 발생한 바의 중간 위치
+        //  this.barEvent = this.relativeX - this.barWidth/2;
+        // } 
+        
 
 
 
