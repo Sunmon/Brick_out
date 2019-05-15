@@ -22,7 +22,6 @@ window.onload = function()
 {
     init();
     test();
-
 }
 
 
@@ -382,6 +381,7 @@ class Bar{
 
         // 마우스 이동 event listner 추가
         document.addEventListener("mousemove", this.moveBar.bind(this), false);
+
     }
     
     //bar의 크기 설정
@@ -391,35 +391,19 @@ class Bar{
     } 
 
     //event:mouse에 따라 움직이는 bar    
-    // FIXME: 움직이는 정도 조절필요
     moveBar(e){  
    
         // relativeX: 캔버스 내 마우스의 X 좌표
-        var relativeX = e.clientX - canvas.offsetLeft;
+        var relativeX = (e.clientX - canvas.offsetLeft) / WIDTH * 100;
 
         // 마우스에 따른 bar 위치 조정
-        if(relativeX > 0 && relativeX < canvas.width) this.barX = relativeX - this.barWidth/2;
-        else this.barX = relativeX;
+        if(relativeX > 0 && relativeX < canvas.width) this.barX = (relativeX - (this.barWidth/2)/WIDTH * 100);
+
   }
+}// 바 class
 
 
-
-        //  //barEvent: 화면 상의 바의x 좌표
-        //  this.barEvent = (WIDTH-this.barWidth)/2; 
-        //  this.relativeX = e.clientX - canvas.offsetLeft;
-        //  if (this.relativeX>0 && this.relativeX<WIDTH) {
-        //     //barEvent: 이벤트 발생한 바의 중간 위치
-        //  this.barEvent = this.relativeX - this.barWidth/2;
-        // } 
-        
-
-
-
-
-         
-    }// 바 class
-
-
+    
 
 
 
