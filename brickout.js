@@ -492,6 +492,7 @@ function detectCollision()
                     }
                 });
         });
+    collision_bar();
 }
 
 
@@ -533,4 +534,21 @@ function draw()
     
 }
 
+function collision_bar(){
+    //공이 좌우 벽면에 닿았을 떄
+    if (ball.ballX+ball.ballDX>WIDTH-ball.radius||ball.ballX+ball.ballDX<ball.radius) {
+        ball.ballDX=-ball.ballDX;
+    }
+     //공이 천장 벽면에 닿았을 때
+    if (ball.ballY+ball.ballDY<ball.radius) 
+        {ball.ballDY=-ball.ballDY;}
+    //공이 아래 바닥쪽에 갈때
+    else if (ball.ballY+ball.ballDY>HEIGHT-ball.radius-40) 
+   {
+        //공의 x좌표가 바의 x좌표와 동실선에 있을 떄
+        if (ball.ballX>bar.barX&&ball.ballX<bar.barX+bar.barWidth) 
+            {ball.ballDY=-ball.ballDY;}
+       
+    }
+}
 
