@@ -15,7 +15,6 @@ function init()
     context  = canvas.getContext("2d");
     WIDTH = canvas.width;
     HEIGHT = canvas.height;
-    
 
 }
 
@@ -23,7 +22,6 @@ window.onload = function()
 {
     init();
     test();
-
 }
 
 
@@ -196,7 +194,7 @@ class Stage_Two extends Stage
     {
         super.initStage();
         super.initLineTimer(4000);
-        super.initBlockArr(15,5,20,10);
+        super.initBlockArr(15,10,20,10);
         this.placeBlocks();
     }
 
@@ -383,6 +381,7 @@ class Bar{
 
         // 마우스 이동 event listner 추가
         document.addEventListener("mousemove", this.moveBar.bind(this), false);
+
     }
     
     //bar의 크기 설정
@@ -392,33 +391,19 @@ class Bar{
     } 
 
     //event:mouse에 따라 움직이는 bar    
-  
-
     moveBar(e){  
+   
+        // relativeX: 캔버스 내 마우스의 X 좌표
+        var relativeX = (e.clientX - canvas.offsetLeft) / WIDTH * 100;
 
-       // FIXME: canvasleft 제대로 정의 안 됨. document.write(canvasleft)해보면 알 수 있음.
-       //document.write("barwidth::"+ this.barWidth);
-        
-         //barEvent: 화면 상의 바의x 좌표
-         this.barEvent = (WIDTH-this.barWidth)/2; 
-         this.relativeX = e.clientX - canvas.offsetLeft;
-         if (this.relativeX>0 && this.relativeX<WIDTH) {
-            //barEvent: 이벤트 발생한 바의 중간 위치
-         this.barEvent = this.relativeX - this.barWidth/2;
-        } //document.write("barEvent: "+this.barEvent);
-        
-        //document.write("barwidth::"+ this.barWidth);
-         //document.write("barEvent"+ (+this.barEvent) + this.barWidth);
+        // 마우스에 따른 bar 위치 조정
+        if(relativeX > 0 && relativeX < canvas.width) this.barX = (relativeX - (this.barWidth/2)/WIDTH * 100);
 
-        } //moveBar 
+  }
+}// 바 class
 
 
-
-
-         
-    }// 바 class
-
-
+    
 
 
 
@@ -434,7 +419,8 @@ function test()
 
     // FIXME: ball.ballX가 없어
     // ball 그리기
-    ball = new Ball(bar.barX + (bar.barWidth / 2) + 10, bar.barY-3, 3, 1.7,-1.3);
+    // ball = new Ball(bar.barX + (bar.barWidth / 2), bar.barY-3, 3, 1.2, -1.3);
+    ball = new Ball(75, 100, 1, 1, -0.3);
     ball.setBallColor("green");
 
 
@@ -460,39 +446,59 @@ function drawStage()
         });
 }
 
-//FIXME: 충돌 감지. 나중에 공 여러개면 ball을 array로 쓰든가 해서 수정해야 함.
+//충돌 감지. 나중에 공 여러개면 ball을 array로 쓰든가 해서 수정해야 함.
 function detectCollision()
 {
+    detectCollision_block();
 
     
-    // FIXME: 허공에 부딛힌다.
+}
+
+// 벽돌과 충돌 감지
+function detectCollision_block()
+{
+    function isInBorder(border_min, border_max, pos)
+    {
+        return ((border_min <= pos) && (border_max >= pos));
+    }
 
     stage.blockArr.forEach(blockRow=>
         {
             blockRow.forEach(block=>
                 {
-                    // 충돌 검사
-                    var blockLeft = block.x;
-                    var blockRight = block.x + block.width;
-                    var blockUP = block.y;
-                    var blockDown = block.y + block.height;
-                    
-                    // 충돌했을 경우 공의 방향 바꿈
-                    var x = ball.ballX + ball.ballDX;
-                    var y = ball.ballY + ball.ballDY;
-                    
-                    var collision_x = (blockRight >= x - ball.radius) && (blockLeft <= x + ball.ballDX);
-                    var collision_y = (blockUP <= y + ball.radius) && (blockDown >= y - ball.radius);
+                    if(!block.state) return;
 
-                    if(collision_x && collision_y)
+                    // 블럭 경계
+                    var leftBorder = block.x;
+                    var rightBorder = leftBorder + block.width;
+                    var upBorder = block.y;
+                    var downBorder = upBorder + block.height;
+
+                    //공의 좌표
+                    var x = ball.ballX;
+                    var y = ball.ballY;
+                    
+                    // 충돌시 튕기기
+                    if(isInBorder(leftBorder, rightBorder, x))
                     {
+                        if(!isInBorder(upBorder,downBorder,y+ball.ballDY)) return;
                         block.state = false;
-                        if(collision_x) ball.ballDX = -ball.ballDX;
-                        if(collision_y) ball.ballDY = -ball.ballDY;
+                        ball.ballDY = -ball.ballDY;
+                    }
+
+                    if(isInBorder(upBorder, downBorder, y))
+                    {
+                        if(!isInBorder(leftBorder, rightBorder, x+ball.ballDX)) return;
+                        block.state = false;
+                        ball.ballDX = -ball.ballDX;
                     }
                 });
         });
+<<<<<<< HEAD
     collision_bar();
+=======
+
+>>>>>>> 3267197d682e8ead24ac8a81f289e0a0a292b425
 }
 
 
