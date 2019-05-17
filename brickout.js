@@ -13,9 +13,8 @@ function init()
 
     canvas = document.getElementById("frame");
     context  = canvas.getContext("2d");
-    WIDTH = canvas.width;
+    WIDTH = canvas.width;   //300 고정
     HEIGHT = canvas.height;
-
 }
 
 window.onload = function()
@@ -194,7 +193,7 @@ class Stage_Two extends Stage
     {
         super.initStage();
         super.initLineTimer(4000);
-        super.initBlockArr(15,10,20,10);
+        super.initBlockArr(15,5,20,10);
         this.placeBlocks();
     }
 
@@ -390,15 +389,13 @@ class Bar{
         this.barHeight=height;
     } 
 
-    //event:mouse에 따라 움직이는 bar    
+    //마우스에 따라 바 움직이기
     moveBar(e){  
-   
-        // relativeX: 캔버스 내 마우스의 X 좌표
-        var relativeX = (e.clientX - canvas.offsetLeft) / WIDTH * 100;
+        // relativeX: 캔버스 내 마우스의 X 좌표 (캔버스 크기 : 300, default값)
+        var relativeX = (e.clientX - canvas.offsetLeft)*WIDTH / canvas.clientWidth;
 
         // 마우스에 따른 bar 위치 조정
-        if(relativeX > 0 && relativeX < canvas.width) this.barX = (relativeX - (this.barWidth/2)/WIDTH * 100);
-
+        if(relativeX > 0 && relativeX < canvas.width) this.barX = relativeX-this.barWidth/2;
   }
 }// 바 class
 
