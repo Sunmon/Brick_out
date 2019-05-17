@@ -53,6 +53,12 @@ function settingStage(e)
     if ((e.clientX>=600&&e.clientX<=780)&&(e.clientY>=100&&e.clientY<=395)) {test(4);} 
 }
 
+//화면에 목숨이 뜨게 하는부분은 아직 수정이 더 필요합니다.
+function drawLives(){
+    context.font = "100px Arial";
+    context.fillText("목숨: "+lives,WIDTH/2,HEIGHT/2);
+}
+
 window.onload = function()
 {
     init();
@@ -406,10 +412,10 @@ class Bar{
 
  
 // 임시 테스트 함수
-function test()
+function test(level)
 {
     // 레벨 맞는 스테이지 생성
-    stage = setLevel(2);
+    stage = setLevel(level);
 
     // Bar 그리기
     bar = new Bar(30,HEIGHT-40,"black", 100, 5);
@@ -426,6 +432,7 @@ function test()
 
 
     draw();
+    drawLives();
 }
 
 // stage 그리기
