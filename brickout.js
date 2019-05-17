@@ -115,7 +115,6 @@ class Stage
         {
             this.insertLine(this.blockArr, block_in_row);
         }
-
     }
 
     // 새로 블럭 한 줄을 맨 위에 삽입
@@ -123,6 +122,7 @@ class Stage
     {
         // 기존 블럭 아래로 한 줄씩 당김
         this.downBlock(blockArr);
+        // document.write("adf");
 
         // 새 블럭 한 줄 맨 위에 삽입
         var color = this.colors[Math.floor(Math.random()*5)];
@@ -169,6 +169,7 @@ class Stage_One extends Stage
         super.initLineTimer(5000);
         super.initBlockArr(10,5,30,8);
         this.placeBlocks();
+
     }
 
     // 블록 배치 정하기
@@ -192,7 +193,7 @@ class Stage_Two extends Stage
     initStage()
     {
         super.initStage();
-        super.initLineTimer(4000);
+        super.initLineTimer(10000);
         super.initBlockArr(15,5,20,10);
         this.placeBlocks();
     }
@@ -386,7 +387,8 @@ function test()
 
     // var drawing = setInterval(draw,10);
     // requestAnimationFrame(draw);
-    
+
+
     draw();
 }
 
@@ -410,9 +412,7 @@ function drawStage()
 function detectCollision()
 {
     detectCollision_block();
-
-
-    
+    collision_bar();
 }
 
 // 특정 좌표가 border 범위 내인지 확인
@@ -424,8 +424,6 @@ function isInBorder(border_min, border_max, pos)
 // 벽돌과 충돌 감지
 function detectCollision_block()
 {
-
-
     stage.blockArr.forEach(blockRow=>
         {
             blockRow.forEach(block=>
@@ -442,7 +440,7 @@ function detectCollision_block()
                     var x = ball.ballX;
                     var y = ball.ballY;
                     
-                    // 충돌시 튕기기
+                    // 충돌시 튕기고 블록 삭제
                     if(isInBorder(leftBorder, rightBorder, x))
                     {
                         if(!isInBorder(upBorder,downBorder,y+ball.ballDY)) return;
@@ -458,8 +456,6 @@ function detectCollision_block()
                     }
                 });
         });
-
-    collision_bar();
 }
 
 //FIXME: 임시로 만든 함수. 이벤트 리스너 동작하는 것 보고 수정할 것.
@@ -475,7 +471,7 @@ function drawBall()
 {
     // 공 좌표 이동
     ball.moveBall();
-    // document.write(ball.ballX + " " + ball.ballY + " ");
+
      // 공 그리기
     context.beginPath();
     context.arc(ball.ballX, ball.ballY, ball.radius, 0, 2.0 * Math.PI, true);
@@ -509,6 +505,7 @@ function collision_bar(){
      //공이 천장 벽면에 닿았을 때
     if (ball.ballY+ball.ballDY<ball.radius) 
         {ball.ballDY=-ball.ballDY;}
+
 
     //공이 아래 바닥쪽에 갈때
     else if (ball.ballY+ball.ballDY>HEIGHT-ball.radius-40) 
