@@ -166,7 +166,7 @@ class Stage_One extends Stage
     initStage()
     {
         super.initStage();
-        super.initLineTimer(5000);
+        super.initLineTimer(500000);
         super.initBlockArr(10,5,30,8);
         this.placeBlocks();
 
@@ -193,7 +193,7 @@ class Stage_Two extends Stage
     initStage()
     {
         super.initStage();
-        super.initLineTimer(10000);
+        super.initLineTimer(400000);
         super.initBlockArr(15,5,20,10);
         this.placeBlocks();
     }
@@ -220,7 +220,7 @@ class Stage_Three extends Stage
     initStage()
     {
         super.initStage();
-        super.initLineTimer(3500);
+        super.initLineTimer(300000);
         super.initBlockArr(20,5,17,11);
         this.placeBlocks();
     }
@@ -378,18 +378,18 @@ function test()
     // Bar 그리기
     bar = new Bar(30,HEIGHT-40,"black", 100, 5);
 
-    // FIXME: ball.ballX가 없어
     // ball 그리기
-    // ball = new Ball(bar.barX + (bar.barWidth / 2), bar.barY-3, 3, 1.2, -1.3);
-    ball = new Ball(75, 100, 1, 1, -0.3);
+    ball = new Ball(bar.barX + (bar.barWidth / 2), bar.barY-3, 2, 1.2, -1.3);
     ball.setBallColor("green");
 
 
+    // 화면 그림 갱신하기
     // var drawing = setInterval(draw,10);
-    // requestAnimationFrame(draw);
-
-
     draw();
+
+    // 일정 시간마다 블럭 내려오기
+    var timer = setInterval(function(){
+         stage.insertLine(stage.blockArr, stage.block_in_row)}, stage.lineTimer);
 }
 
 // stage 그리기
@@ -489,11 +489,8 @@ function draw()
     drawStage();
     drawBar();
 
-    // interval 대신. 애니메이션을 부드럽게.
-    requestAnimationFrame(draw);
-
-     
-    
+    // 화면 특정 시간마다 갱신하기
+    requestAnimationFrame(draw); // interval 대신. 애니메이션을 부드럽게.
 }
 
 function collision_bar(){
