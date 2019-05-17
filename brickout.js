@@ -7,6 +7,7 @@ var bar;
 var ball;
 var WIDTH; //canvas의 폭과 높이 
 var HEIGHT;
+var lives=3;//목숨
 
 function init()
 {
@@ -15,12 +16,47 @@ function init()
     context  = canvas.getContext("2d");
     WIDTH = canvas.width;   //300 고정
     HEIGHT = canvas.height;
+    drawstage();
+}
+
+//단계를 설정 그림
+function drawstage()
+{
+    context.beginPath();
+    context.moveTo(0,150);
+    context.lineTo(75,150);
+    context.lineTo(75,120);
+    context.lineTo(150,120);
+    context.lineTo(150,90);
+    context.lineTo(225,90);
+    context.lineTo(225,60);
+    context.lineTo(300,60);
+    context.stroke();
+    context.font = "20px Verdana";
+    context.fillText("1",30,145);
+    context.fillText("2",105,115);
+    context.fillText("3",180,85);
+    context.fillText("4",255,55);
+}
+
+document.addEventListener("click",settingStage,false);
+
+function settingStage(e)
+{
+    //stage1을 선택할 때
+    if ((e.clientX>0&&e.clientX<=172)&&(e.clientY>=320&&e.clientY<=395)) {test(1);}
+    //stage2를 선택할 떄
+    if ((e.clientX>=215&&e.clientX<=387)&&(e.clientY>=255&&e.clientY<=395)) {test(2);}
+    //stage3을 선택할 때
+    if ((e.clientX>=416&&e.clientX<=573)&&(e.clientY>=170&&e.clientY<=395)) {test(3);}
+    //stage4를 선택할 때
+    if ((e.clientX>=600&&e.clientX<=780)&&(e.clientY>=100&&e.clientY<=395)) {test(4);} 
 }
 
 window.onload = function()
 {
     init();
-    test();
+    //test();
 }
 
 
@@ -517,3 +553,35 @@ function collision_bar(){
     }
 }
 
+function collision_bar(){
+    //공이 좌우 벽면에 닿았을 떄
+    if (ball.ballX+ball.ballDX>WIDTH-ball.radius||ball.ballX+ball.ballDX<ball.radius) {
+        ball.ballDX=-ball.ballDX;
+    }
+     //공이 천장 벽면에 닿았을 때
+    if (ball.ballY+ball.ballDY<ball.radius) 
+        {ball.ballDY=-ball.ballDY;}
+    //공이 아래 바닥쪽에 갈때
+    else if (ball.ballY+ball.ballDY>HEIGHT-ball.radius) 
+   {
+        //공의 x좌표가 바의 x좌표와 동실선에 있을 떄
+        if (ball.ballX>bar.barX&&ball.ballX<bar.barX+bar.barWidth) 
+            {ball.ballDY=-ball.ballDY;}
+        //공이바닥에 떨어졌을 때
+        else
+        {
+            //목숨감소
+            lives--;
+            //목숨이 없을 떄
+            if (!lives) {alert("GAME OVER");}
+            //목숨이 아직 남았을 때-->다시 공이 생긴다.
+            else
+            {
+                ball.ballX=WIDTH/2;
+                ball.ballY=HEIGHT/2;
+            }
+
+        }
+       
+    }
+}
