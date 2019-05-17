@@ -322,48 +322,11 @@ class Ball
         this.ballColor = color;
     }
 
-    // FIXME: 혹시 moveBall()로 메소드 이름 변경 가능한가요? draw는 그릴 때 쓰게요-->수정했습니다!
-    //공을 화면에 그린다
+    //공을 움직인다
    moveBall(){
-
-        // FIXME:변수 dx없음.
         this.ballX+=this.ballDX;
         this.ballY+=this.ballDY;
-        
-
-
-        // FIXME: 왜 ballx  = -ballx, bally = -bally인지 이해가 안 됩니다. 공이 화면의 반대쪽으로 넘어가나요?
-        //공이 canvas벽의 양끝에 닿았을 때 방향변화
-        if((ballX>=WIDTH-this.radius)||(ballX<=this.radius))
-            {ballX=-ballX;}
-        //공이 천장에 닿았을 때 방향 변화
-        if (ballY<=this.radius) {
-            ballY=-ballY;
-        }
-        //공이 바닥에 닿지 않았을 떄
-        else if(ballY>=HEIGHT-this.radius){
-            /*
-
-            *Barx,Barwidth는 다른 클래스인데 이걸 어떻게 가지고 와야 하는지 모르겠어요.
-            // FIXME: 이 부분은 제가 다른 함수에서 처리할게요. 충돌 관련 함수에서. 
-            //공이 bar에 닿았을 떄
-            if ((Ballx>Barx)&&(Ballx<Barx+Barwidth)) 
-                {Bally=-Bally;}
-        }//else{공이 사라진다.}
-        */
-        }
     }
-
-
-
-
-    // 충돌 처리 위해 임시적으로 만든 함수. 추후 삭제할 예정.
-    tempMove()
-    {
-        this.ballX += this.ballDX;
-        this.ballY += this.ballDY;
-    }
-
 }// 공 class
 
 
@@ -448,16 +411,20 @@ function detectCollision()
 {
     detectCollision_block();
 
+
     
+}
+
+// 특정 좌표가 border 범위 내인지 확인
+function isInBorder(border_min, border_max, pos)
+{
+    return ((border_min <= pos) && (border_max >= pos));
 }
 
 // 벽돌과 충돌 감지
 function detectCollision_block()
 {
-    function isInBorder(border_min, border_max, pos)
-    {
-        return ((border_min <= pos) && (border_max >= pos));
-    }
+
 
     stage.blockArr.forEach(blockRow=>
         {
@@ -507,7 +474,7 @@ function drawBar()
 function drawBall()
 {
     // 공 좌표 이동
-    ball.tempMove();
+    ball.moveBall();
     // document.write(ball.ballX + " " + ball.ballY + " ");
      // 공 그리기
     context.beginPath();
@@ -538,9 +505,11 @@ function collision_bar(){
     if (ball.ballX+ball.ballDX>WIDTH-ball.radius||ball.ballX+ball.ballDX<ball.radius) {
         ball.ballDX=-ball.ballDX;
     }
+
      //공이 천장 벽면에 닿았을 때
     if (ball.ballY+ball.ballDY<ball.radius) 
         {ball.ballDY=-ball.ballDY;}
+
     //공이 아래 바닥쪽에 갈때
     else if (ball.ballY+ball.ballDY>HEIGHT-ball.radius-40) 
    {
