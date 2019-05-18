@@ -51,14 +51,17 @@ document.addEventListener("click",func,false);
 
 function settingStage(e)
 {
+    var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
+    var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
+   
    //stage1을 선택할 때
-    if ((e.clientX>0&&e.clientX<=312)&&(e.clientY>=355&&e.clientY<=479)) {test(1);}
+    if ((relativeX>0&&relativeX<=75)&&(relativeY>=84&&relativeY<=115)) {test(1);}
     //stage2를 선택할 떄
-    if ((e.clientX>=312&&e.clientX<=612)&&(e.clientY>=233&&e.clientY<=355)) {test(2);}
+    if ((relativeX>=76&&relativeX<=150)&&(relativeY>=54&&relativeY<=84)) {test(2);}
     //stage3을 선택할 때
-    if ((e.clientX>=612&&e.clientX<=923)&&(e.clientY>=108&&e.clientY<=233)) {test(3);}
+    if ((relativeX>=151&&relativeX<=225)&&(relativeY>=26&&relativeY<=55)) {test(3);}
     //stage4를 선택할 때
-    if ((e.clientX>=923&&e.clientX<=1223)&&(e.clientY>=0&&e.clientY<=108)) {test(4);} 
+    if ((relativeX>=226&&relativeX<=300)&&(relativeY>=0&&relativeY<=25)) {test(4);}  
 }
 
 
@@ -624,7 +627,9 @@ function drawNextbtn()
 //화살표를 클릭헸을때의 이벤트
 function move_settingPage(e)
 {
-    if ((e.clientX>=1090&&e.clientX<=1204)&&(e.clientY>=529&&e.clientY<=603))
+    var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
+    var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
+    if ((relativeX>=259&&relativeX<=303)&&(relativeY>=120&&relativeY<=155))
     {settingPage();}
 }
 
@@ -638,7 +643,10 @@ function settingPage()
 //다시 계단있는 페이지로 돌아간다.
 function move_stairPage(e)
 {
-     if ((e.clientX>=33&&e.clientX<=151)&&(e.clientY>=530&&e.clientY<=611))
+    var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
+    var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
+
+     if ((relativeX>=0&&relativeX<=42)&&(relativeY>=120&&relativeY<=155))
     {
      init();
      addEvent(settingStage);
@@ -647,6 +655,7 @@ function move_stairPage(e)
      drawNextbtn();
     }
 }
+
 //다시 앞으로 돌아가는 버튼을 그린다
 function drawPbtn()
 {
