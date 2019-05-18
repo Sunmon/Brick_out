@@ -4,7 +4,7 @@ var canvas;
 var context;
 var stage;
 var bar;
-var ball;
+// var ball;
 var canvas2;
 var context2;
 var WIDTH; //canvas의 폭과 높이 
@@ -13,6 +13,9 @@ var lives = 3;//목숨
 var animate;    //animation 시작, 정지 변수
 var timer;
 var ballArray;
+
+// FIXME: 임시
+var item;
 
 function init() {
 
@@ -292,6 +295,8 @@ class Item {
     constructor(x, y) {
         this.x = x;
         this.y = y;
+        this.initIcon();
+        this.size = WIDTH / 100 * 2;
     }
 
     // 아이템 떨어지기
@@ -301,9 +306,16 @@ class Item {
 
     // 아이템 효과 적용
     affect() {
-        // 아이템 삭제
-        delete (this);
     }
+
+    // 아이콘 이미지 정하기
+    initIcon()
+    {
+        this.icon = new Image();
+        this.icon.src = "./assets/life.png";
+    }
+
+
 }
 
 
@@ -312,16 +324,8 @@ class AddBall extends Item {
     affect() {
         super.affect();
         ballArray.push(new Ball(bar.x, bar.y, 2, 1, -1));
-        delete (this);
     }
 }
-
-
-
-
-
-
-
 
 // 레벨에 맞는 stage 객체를 생성하여 리턴. Factory pattern
 function setLevel(level) {
@@ -424,19 +428,19 @@ function test(level) {
     bar = new Bar(30, HEIGHT - 40, "black", 100, 5);
 
     // ball 그리기
-    ball = new Ball(bar.x + (bar.width / 2), bar.y - 3, 2, 1.2, -1.3);
+    var ball = new Ball(bar.x + (bar.width / 2), bar.y - 3, 2, 1.2, -1.3);
     ball.setColor("green");
 
-    // TODO: ball Array이용하기
     ballArray = new Array();
     ballArray.push(ball);
 
     ballArray.push(new Ball(bar.x + 10, bar.y - 3, 2, 1, -1.3))
 
+
+    // FIXME: item 떨어지나 테스트용
+    item = new Item(20,20);
+
     // 화면 그림 갱신하기
-    // var drawing = setInterval(draw,10);
-    // 화면 특정 시간마다 갱신하기
-    // animate = requestAnimationFrame(draw); // interval 대신. 애니메이션을 부드럽게.
     draw();
 
     // 일정 시간마다 블럭 내려오기
@@ -545,19 +549,6 @@ function drawBar() {
 
 // 공을 화면에 그린다
 function drawBall() {
-    // TODO: ballArray 이용
-
-    /*     // 공 좌표 이동
-        ball.moveBall();
-    
-         // 공 그리기
-        context.beginPath();
-        context.arc(ball.x, ball.y, ball.radius, 0, 2.0 * Math.PI, true);
-        context.fillStyle = ball.color;
-        context.fill(); */
-
-    // if(ballArray == null) return;
-
     ballArray.forEach(ball => {
         // 공 좌표 이동
         ball.moveBall();
@@ -571,6 +562,16 @@ function drawBall() {
 
 }
 
+// 아이템 그리는 함수
+function drawItem()
+{
+    item.dropItem();
+    context.drawImage(item.icon, item.x, item.y, item.size, item.size);
+    
+    // detectCollision_item;
+
+}
+
 // 화면에 그리는 함수.
 function draw() {
     context.clearRect(0, 0, WIDTH, HEIGHT);
@@ -578,6 +579,8 @@ function draw() {
     // 화면 특정 시간마다 갱신하기
     animate = requestAnimationFrame(draw); // interval 대신. 애니메이션을 부드럽게.
 
+    // item test
+    drawItem();
     drawBall();
     drawStage();
     drawBar();
