@@ -59,7 +59,6 @@ function settingStage(e)
     if ((e.clientX>=612&&e.clientX<=923)&&(e.clientY>=108&&e.clientY<=233)) {test(3);}
     //stage4를 선택할 때
     if ((e.clientX>=923&&e.clientX<=1223)&&(e.clientY>=0&&e.clientY<=108)) {test(4);} 
-
 }
 
 
@@ -174,7 +173,6 @@ class Stage
     {
         // 기존 블럭 아래로 한 줄씩 당김
         this.downBlock(blockArr);
-        // document.write("adf");
 
         // 새 블럭 한 줄 맨 위에 삽입
         var color = this.colors[Math.floor(Math.random()*5)];
@@ -221,7 +219,6 @@ class Stage_One extends Stage
         super.initLineTimer(500000);
         super.initBlockArr(10,5,30,8);
         this.placeBlocks();
-
     }
 
     // 블록 배치 정하기
@@ -233,7 +230,6 @@ class Stage_One extends Stage
                 if((2*i + 7*j) % 6) this.blockArr[i][j].state = false;  //블럭 배치 모양 만들기
         } 
     }
-
 }
 
 
@@ -314,7 +310,14 @@ class Stage_Three extends Stage
                 if((5*i + 7*j) % 6) this.blockArr[i][j].state = false;  //블럭 배치 모양 만들기
         } 
     }
+}
 
+
+/**
+ * 아이템 상위 클래스
+ */
+class Item
+{
 
 }
 
@@ -344,41 +347,42 @@ class Ball
 
     //공의 생성자
     constructor(x,y,radius,dx,dy){ 
-        this.ballX=x;
-        this.ballY=y;
+        this.x=x;
+        this.y=y;
         this.radius=radius;
-        this.ballDY=dy;
-        this.ballDX=dx;
+        this.dx=dx;
+        this.dy=dy;
     }
 
+    
     //공의 크기 설정
-    setballsize(radius) 
+    setSize(radius) 
     {
         this.radius=radius;
     }
 
     //공의 위치 설정
-    setballposition(x,y){
-        this.ballX=x;
-        this.ballY=y;
+    setPosition(x,y){
+        this.x=x;
+        this.y=y;
     }
 
     //공의 방향 설정
-    setballdirection(dx,dy){
-        this.ballDX=dx;
-        this.ballDY=dy;
+    setDirection(dx,dy){
+        this.dx=dx;
+        this.dy=dy;
     }
 
     // 공의 색깔 설정
-    setBallColor(color)
+    setColor(color)
     {
-        this.ballColor = color;
+        this.color = color;
     }
 
     //공을 움직인다
    moveBall(){
-        this.ballX+=this.ballDX;
-        this.ballY+=this.ballDY;
+        this.x+=this.dx;
+        this.y+=this.dy;
     }
 }// 공 class
 
@@ -387,11 +391,11 @@ class Bar{
 
     //bar의 생성자
     constructor(x,y,color,width,height){ 
-        this.barX=x;
-        this.barY=y;
-        this.barColor=color;
-        this.barWidth=width;
-        this.barHeight=height;
+        this.x=x;
+        this.y=y;
+        this.color=color;
+        this.width=width;
+        this.height=height;
       
 
         // 마우스 이동 event listner 추가
@@ -400,9 +404,9 @@ class Bar{
     }
     
     //bar의 크기 설정
-    setbarsize(width,height){ 
-        this.barWidth=width;
-        this.barHeight=height;
+    setSize(width,height){ 
+        this.width=width;
+        this.height=height;
     } 
 
     //마우스에 따라 바 움직이기
@@ -411,7 +415,7 @@ class Bar{
         var relativeX = (e.clientX - canvas.offsetLeft)*WIDTH / canvas.clientWidth;
 
         // 마우스에 따른 bar 위치 조정
-        if(relativeX > 0 && relativeX < canvas.width) this.barX = relativeX-this.barWidth/2;
+        if(relativeX > 0 && relativeX < canvas.width) this.x = relativeX-this.width/2;
   }
 }// 바 class
 
@@ -431,8 +435,8 @@ function test(level)
     bar = new Bar(30,HEIGHT-40,"black", 100, 5);
 
     // ball 그리기
-    ball = new Ball(bar.barX + (bar.barWidth / 2), bar.barY-3, 2, 1.2, -1.3);
-    ball.setBallColor("green");
+    ball = new Ball(bar.x + (bar.width / 2), bar.y-3, 2, 1.2, -1.3);
+    ball.setColor("green");
 
 
     // 화면 그림 갱신하기
@@ -493,22 +497,22 @@ function detectCollision_block()
                     var downBorder = upBorder + block.height;
 
                     //공의 좌표
-                    var x = ball.ballX;
-                    var y = ball.ballY;
+                    var x = ball.x;
+                    var y = ball.y;
                     
                     // 충돌시 튕기고 블록 삭제
                     if(isInBorder(leftBorder, rightBorder, x))
                     {
-                        if(!isInBorder(upBorder,downBorder,y+ball.ballDY)) return;
+                        if(!isInBorder(upBorder,downBorder,y+ball.dy)) return;
                         block.state = false;
-                        ball.ballDY = -ball.ballDY;
+                        ball.setDirection(ball.dx, -ball.dy);
                     }
 
                     if(isInBorder(upBorder, downBorder, y))
                     {
-                        if(!isInBorder(leftBorder, rightBorder, x+ball.ballDX)) return;
+                        if(!isInBorder(leftBorder, rightBorder, x+ball.dx)) return;
                         block.state = false;
-                        ball.ballDX = -ball.ballDX;
+                        ball.setDirection(-ball.dx, ball.dy);
                     }
                 });
         });
@@ -517,8 +521,8 @@ function detectCollision_block()
 //FIXME: 임시로 만든 함수. 이벤트 리스너 동작하는 것 보고 수정할 것.
 function drawBar()
 {
-    context.strokeStyle = bar.barColor;
-    context.strokeRect(bar.barX, bar.barY, bar.barWidth, bar.barHeight);
+    context.strokeStyle = bar.color;
+    context.strokeRect(bar.x, bar.y, bar.width, bar.height);
 }
 
 // FIXME:  임시로 만든 함수. 나주에 공이 여러개가 된다면 수정 필요.
@@ -530,8 +534,8 @@ function drawBall()
 
      // 공 그리기
     context.beginPath();
-    context.arc(ball.ballX, ball.ballY, ball.radius, 0, 2.0 * Math.PI, true);
-    context.fillStyle = ball.ballColor;
+    context.arc(ball.x, ball.y, ball.radius, 0, 2.0 * Math.PI, true);
+    context.fillStyle = ball.color;
     context.fill();
 }
 
@@ -553,9 +557,11 @@ function draw()
 // 공이 바와 충돌하는 지 검사하고 방향을 바꾼다
 function detectCollision_bar()
 {
-    if(!isInBorder(bar.barX, bar.barX+ bar.barWidth, ball.ballX+ball.ballDX)) return;
-    if(!isInBorder(bar.barY, bar.barY+bar.barHeight, ball.ballY+ball.ballDY)) return;
-    ball.ballDY = -ball.ballDY;
+    if(!isInBorder(bar.x, bar.x+ bar.width, ball.x+ball.dx)) return;
+    if(!isInBorder(bar.y, bar.y+bar.height, ball.y+ball.dy)) return;
+    // FIXME:
+    // ball.setDirection(ball.dx, -ball.dy);
+    ball.dy = -ball.dy;
 }
 
 
@@ -563,10 +569,10 @@ function detectCollision_bar()
 function detectCollision_wall()
 {
     // 천장, 바닥과 충돌 검사
-    if(!isInBorder(0, HEIGHT, ball.ballY+ball.ballDY))
-        ball.ballDY < 0? ball.ballDY = -ball.ballDY : decreaseLives();
+    if(!isInBorder(0, HEIGHT, ball.y+ball.dy))
+        ball.dy < 0? ball.dy = -ball.dy : decreaseLives();
     // 좌우 벽과 충돌 검사
-    if(!isInBorder(0, WIDTH, ball.ballX + ball.ballDX)) ball.ballDX  = -ball.ballDX;
+    if(!isInBorder(0, WIDTH, ball.x + ball.dx)) ball.dx  = -ball.dx;
 }
 
 
@@ -577,8 +583,8 @@ function decreaseLives()
     if(lives<= 0) gameOver();
     else
     {
-        ball.ballX = WIDTH /2;
-        ball.ballY = HEIGHT /2;
+        ball.setPosition(WIDTH/2, HEIGHT/2);
+        ball.setDirection(1,-1);
     }
 }
 //게임오버 글자를 만드는 함수
