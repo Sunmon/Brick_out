@@ -648,6 +648,7 @@ function move_stairPage(e)
 
      if ((relativeX>=0&&relativeX<=42)&&(relativeY>=120&&relativeY<=155))
     {
+     context.clearRect(0,0,WIDTH,HEIGHT);
      init();
      addEvent(settingStage);
      drawStair();
