@@ -16,53 +16,59 @@ function init()
     context  = canvas.getContext("2d");
     WIDTH = canvas.width;   //300 고정
     HEIGHT = canvas.height;
-    drawstage();
+    drawStair();
+    canvas2 = document.getElementById("frame2");
+    context2=canvas2.getContext("2d");
 }
 
 //단계를 설정 그림
-function drawstage()
+function drawStair()
 {
-    context.beginPath();
-    context.moveTo(0,150);
-    context.lineTo(75,150);
-    context.lineTo(75,120);
-    context.lineTo(150,120);
-    context.lineTo(150,90);
-    context.lineTo(225,90);
-    context.lineTo(225,60);
-    context.lineTo(300,60);
+   context.beginPath();
+    context.moveTo(0,115);
+    context.lineTo(75,115);
+    context.lineTo(75,85);
+    context.lineTo(150,85);
+    context.lineTo(150,55);
+    context.lineTo(225,55);
+    context.lineTo(225,25);
+    context.lineTo(300,25);
     context.stroke();
     context.font = "20px Verdana";
-    context.fillText("1",30,145);
-    context.fillText("2",105,115);
-    context.fillText("3",180,85);
-    context.fillText("4",255,55);
+    context.fillText("1",30,110);
+    context.fillText("2",105,80);
+    context.fillText("3",180,50);
+    context.fillText("4",255,20);
 }
 
-document.addEventListener("click",settingStage,false);
+function addEvent(func){
+document.addEventListener("click",func,false);
+}
 
 function settingStage(e)
 {
-    //stage1을 선택할 때
-    if ((e.clientX>0&&e.clientX<=172)&&(e.clientY>=320&&e.clientY<=395)) {test(1);}
+   //stage1을 선택할 때
+    if ((e.clientX>0&&e.clientX<=312)&&(e.clientY>=355&&e.clientY<=479)) {test(1);}
     //stage2를 선택할 떄
-    if ((e.clientX>=215&&e.clientX<=387)&&(e.clientY>=255&&e.clientY<=395)) {test(2);}
+    if ((e.clientX>=312&&e.clientX<=612)&&(e.clientY>=233&&e.clientY<=355)) {test(2);}
     //stage3을 선택할 때
-    if ((e.clientX>=416&&e.clientX<=573)&&(e.clientY>=170&&e.clientY<=395)) {test(3);}
+    if ((e.clientX>=612&&e.clientX<=923)&&(e.clientY>=108&&e.clientY<=233)) {test(3);}
     //stage4를 선택할 때
-    if ((e.clientX>=600&&e.clientX<=780)&&(e.clientY>=100&&e.clientY<=395)) {test(4);} 
+    if ((e.clientX>=923&&e.clientX<=1223)&&(e.clientY>=0&&e.clientY<=108)) {test(4);} 
+
 }
 
-//화면에 목숨이 뜨게 하는부분은 아직 수정이 더 필요합니다.
-function drawLives(){
-    context.font = "100px Arial";
-    context.fillText("목숨: "+lives,WIDTH/2,HEIGHT/2);
-}
+
+
 
 window.onload = function()
 {
     init();
-    //test();
+    addEvent(settingStage);
+    addEvent(move_settingPage);
+    addEvent(move_stairPage);
+    drawNextbtn();
+    displayLives();   
 }
 
 
@@ -427,14 +433,14 @@ function test(level)
 
     // 화면 그림 갱신하기
     // var drawing = setInterval(draw,10);
+    // FIXME: draw 왜 두 번?
     draw();
 
     // 일정 시간마다 블럭 내려오기
     var timer = setInterval(function(){
          stage.insertLine(stage.blockArr, stage.block_in_row)}, stage.lineTimer);
 
-    //  목숨 그리기
-    drawLives();
+    draw();
 }
 
 // stage 그리기
@@ -537,7 +543,28 @@ function draw()
     // 화면 특정 시간마다 갱신하기
     requestAnimationFrame(draw); // interval 대신. 애니메이션을 부드럽게.
 }
+/*
+function collision_bar(){
+    //공이 좌우 벽면에 닿았을 떄
+    if (ball.ballX+ball.ballDX>WIDTH-ball.radius||ball.ballX+ball.ballDX<ball.radius) {
+        ball.ballDX=-ball.ballDX;
+    }
 
+     //공이 천장 벽면에 닿았을 때
+    if (ball.ballY+ball.ballDY<ball.radius) 
+        {ball.ballDY=-ball.ballDY;}
+
+
+    //공이 아래 바닥쪽에 갈때
+    else if (ball.ballY+ball.ballDY>HEIGHT-ball.radius-40) 
+   {
+        //공의 x좌표가 바의 x좌표와 동실선에 있을 떄
+        if (ball.ballX>bar.barX&&ball.ballX<bar.barX+bar.barWidth) 
+            {ball.ballDY=-ball.ballDY;}
+       
+    }
+}
+*/
 
 function collision_bar(){
     //공이 좌우 벽면에 닿았을 떄
@@ -552,16 +579,18 @@ function collision_bar(){
     else if (ball.ballY+ball.ballDY>HEIGHT-ball.radius) 
    {
         //공의 x좌표가 바의 x좌표와 동실선에 있을 떄
-        if (ball.ballX>bar.barX&&ball.ballX<bar.barX+bar.barWidth) 
+        if (ball.ballX>bar.barX&&ball.ballX<bar.barX+bar.barWidth-40) 
             {ball.ballDY=-ball.ballDY;}
 
         //공이바닥에 떨어졌을 때
         else
         {
             //목숨감소
+            context2.clearRect(0,0,WIDTH, HEIGHT);
             lives--;
+            displayLives();
             //목숨이 없을 떄
-            if (!lives) {alert("GAME OVER");}
+            if (!lives) {gameOver();}
             //목숨이 아직 남았을 때-->다시 공이 생긴다.
             else
             {
@@ -572,4 +601,81 @@ function collision_bar(){
         }
        
     }
+}
+
+//게임오버 글자를 만드는 함수
+function drawGameover()
+{
+    var graient = context.createLinearGradient(0,0,WIDTH,0);
+    graient.addColorStop("0","red");
+    graient.addColorStop("0.5","yellow");
+    graient.addColorStop("1.0","orange");
+    context.fillStyle = graient;
+    context.fillText("GAME OVER",WIDTH/2,HEIGHT/2);
+    context.font = "50px Verdana";
+
+}
+
+function gameOver()
+{
+    drawGameover();
+    //window.requestAnimationFrame(gameOver);  
+}
+
+//옆장으로 넘어가는 화살표를 그리는 함수
+function drawNextbtn()
+{
+    context.beginPath();
+    context.moveTo(268,130);
+    context.lineTo(268,145);
+    context.lineTo(293,137);
+    context.closePath();
+    context.fillStyle="black";
+    context.fill();
+}
+
+//화살표를 클릭헸을때의 이벤트
+function move_settingPage(e)
+{
+    if ((e.clientX>=1090&&e.clientX<=1204)&&(e.clientY>=529&&e.clientY<=603))
+    {settingPage();}
+}
+
+//환경설정페이지
+function settingPage()
+{
+    context.clearRect(0,0,WIDTH,HEIGHT);
+    drawPbtn();
+}
+
+//다시 계단있는 페이지로 돌아간다.
+function move_stairPage(e)
+{
+     if ((e.clientX>=33&&e.clientX<=151)&&(e.clientY>=530&&e.clientY<=611))
+    {
+     init();
+     addEvent(settingStage);
+     drawStair();
+     settingStage(e);
+     drawNextbtn();
+    }
+}
+//다시 앞으로 돌아가는 버튼을 그린다
+function drawPbtn()
+{
+    context.beginPath();
+    context.moveTo(32,130);
+    context.lineTo(32,145);
+    context.lineTo(7,137);
+    context.closePath();
+    context.fillStyle="black";
+    context.fill();
+
+}
+
+//canvas2에 목숨을 표시한다.
+function displayLives()
+{
+    context2.font="45px Verdana"
+    context2.fillText("LIVES: "+lives, canvas2.width/2-130,canvas2.height/2-20);
 }
