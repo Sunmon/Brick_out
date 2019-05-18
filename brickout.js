@@ -5,9 +5,12 @@ var context;
 var stage;
 var bar;
 var ball;
+var canvas2;
+var context2;
 var WIDTH; //canvas의 폭과 높이 
 var HEIGHT;
 var lives=3;//목숨
+var animate;    //animation 시작, 정지 변수
 
 function init()
 {
@@ -16,6 +19,7 @@ function init()
     context  = canvas.getContext("2d");
     WIDTH = canvas.width;   //300 고정
     HEIGHT = canvas.height;
+
     drawStair();
     canvas2 = document.getElementById("frame2");
     context2=canvas2.getContext("2d");
@@ -433,6 +437,8 @@ function test(level)
 
     // 화면 그림 갱신하기
     // var drawing = setInterval(draw,10);
+     // 화면 특정 시간마다 갱신하기
+    // animate = requestAnimationFrame(draw); // interval 대신. 애니메이션을 부드럽게.
     draw();
 
     // 일정 시간마다 블럭 내려오기
@@ -538,9 +544,9 @@ function draw()
     detectCollision();
     drawStage();
     drawBar();
-
+    displayLives();
     // 화면 특정 시간마다 갱신하기
-    requestAnimationFrame(draw); // interval 대신. 애니메이션을 부드럽게.
+    animate = requestAnimationFrame(draw); // interval 대신. 애니메이션을 부드럽게.
 }
 
 
@@ -559,7 +565,6 @@ function detectCollision_wall()
     // 천장, 바닥과 충돌 검사
     if(!isInBorder(0, HEIGHT, ball.ballY+ball.ballDY))
         ball.ballDY < 0? ball.ballDY = -ball.ballDY : decreaseLives();
-
     // 좌우 벽과 충돌 검사
     if(!isInBorder(0, WIDTH, ball.ballX + ball.ballDX)) ball.ballDX  = -ball.ballDX;
 }
@@ -568,63 +573,18 @@ function detectCollision_wall()
 // 목숨 감소
 function decreaseLives()
 {
-/*     context2.clearRect(0,0,WIDTH, HEIGHT);
-            lives--;
-            displayLives();
-            //목숨이 없을 떄
-            if (!lives) {gameOver();}
-            //목숨이 아직 남았을 때-->다시 공이 생긴다.
-            else
-            {
-                ball.ballX=WIDTH/2;
-                ball.ballY=HEIGHT/2;
-            } */
-
-}
-
-/* // 공이 바와 충돌하는지 검사
-function detectCollision_bar(){
-
-    // 
-    //공이 좌우 벽면에 닿았을 떄
-    if (ball.ballX+ball.ballDX>WIDTH-ball.radius||ball.ballX+ball.ballDX<ball.radius) {
-        ball.ballDX=-ball.ballDX;
-    }
-     //공이 천장 벽면에 닿았을 때
-    if (ball.ballY+ball.ballDY<ball.radius) 
-        {ball.ballDY=-ball.ballDY;}
-
-    //공이 아래 바닥쪽에 갈때
-    else if (ball.ballY+ball.ballDY>HEIGHT-ball.radius) 
-   {
-        //공의 x좌표가 바의 x좌표와 동실선에 있을 떄
-        if (ball.ballX>bar.barX&&ball.ballX<bar.barX+bar.barWidth-40) 
-            {ball.ballDY=-ball.ballDY;}
-
-        //공이바닥에 떨어졌을 때
-        else
-        {
-            //목숨감소
-            context2.clearRect(0,0,WIDTH, HEIGHT);
-            lives--;
-            displayLives();
-            //목숨이 없을 떄
-            if (!lives) {gameOver();}
-            //목숨이 아직 남았을 때-->다시 공이 생긴다.
-            else
-            {
-                ball.ballX=WIDTH/2;
-                ball.ballY=HEIGHT/2;
-            }
-
-        }
-       
+    lives--;
+    if(lives<= 0) gameOver();
+    else
+    {
+        ball.ballX = WIDTH /2;
+        ball.ballY = HEIGHT /2;
     }
 }
- */
 //게임오버 글자를 만드는 함수
 function drawGameover()
 {
+    context.clearRect(0,0,WIDTH,HEIGHT);
     var graient = context.createLinearGradient(0,0,WIDTH,0);
     graient.addColorStop("0","red");
     graient.addColorStop("0.5","yellow");
@@ -632,12 +592,14 @@ function drawGameover()
     context.fillStyle = graient;
     context.fillText("GAME OVER",WIDTH/2,HEIGHT/2);
     context.font = "50px Verdana";
-
 }
 
 function gameOver()
 {
+    ball = null;
+    cancelAnimationFrame(animate);
     drawGameover();
+    displayLives();
     //window.requestAnimationFrame(gameOver);  
 }
 
@@ -695,6 +657,7 @@ function drawPbtn()
 //canvas2에 목숨을 표시한다.
 function displayLives()
 {
+    context2.clearRect(0,0,canvas2.width, canvas2.height);
     context2.font="45px Verdana"
     context2.fillText("LIVES: "+lives, canvas2.width/2-130,canvas2.height/2-20);
 }
