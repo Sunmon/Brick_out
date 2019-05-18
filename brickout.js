@@ -584,7 +584,9 @@ function collision_bar(){
         else
         {
             //목숨감소
+            context2.clearRect(0,0,WIDTH, HEIGHT);
             lives--;
+            displayLives();
             //목숨이 없을 떄
             if (!lives) {gameOver();}
             //목숨이 아직 남았을 때-->다시 공이 생긴다.
