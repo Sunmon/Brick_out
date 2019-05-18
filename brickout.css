@@ -8,6 +8,7 @@
     /* width : 960px; */
     /* height: 500px; */
     overflow: hidden;
+    float: left;
 }
 
 
@@ -15,3 +16,9 @@ div{
     background-color: green;
 }
 
+#frame2{
+    border: 5px dotted red;
+    background-color: rgb(236, 250, 253);
+    overflow: hidden;
+    float: left;
+}
