@@ -461,7 +461,8 @@ function drawStage()
 function detectCollision()
 {
     detectCollision_block();
-    collision_bar();
+    detectCollision_bar();
+    detectCollision_wall();
 }
 
 // 특정 좌표가 border 범위 내인지 확인
@@ -541,30 +542,50 @@ function draw()
     // 화면 특정 시간마다 갱신하기
     requestAnimationFrame(draw); // interval 대신. 애니메이션을 부드럽게.
 }
-/*
-function collision_bar(){
-    //공이 좌우 벽면에 닿았을 떄
-    if (ball.ballX+ball.ballDX>WIDTH-ball.radius||ball.ballX+ball.ballDX<ball.radius) {
-        ball.ballDX=-ball.ballDX;
-    }
-
-     //공이 천장 벽면에 닿았을 때
-    if (ball.ballY+ball.ballDY<ball.radius) 
-        {ball.ballDY=-ball.ballDY;}
 
 
-    //공이 아래 바닥쪽에 갈때
-    else if (ball.ballY+ball.ballDY>HEIGHT-ball.radius-40) 
-   {
-        //공의 x좌표가 바의 x좌표와 동실선에 있을 떄
-        if (ball.ballX>bar.barX&&ball.ballX<bar.barX+bar.barWidth) 
-            {ball.ballDY=-ball.ballDY;}
-       
-    }
+// 공이 바와 충돌하는 지 검사하고 방향을 바꾼다
+function detectCollision_bar()
+{
+    if(!isInBorder(bar.barX, bar.barX+ bar.barWidth, ball.ballX+ball.ballDX)) return;
+    if(!isInBorder(bar.barY, bar.barY+bar.barHeight, ball.ballY+ball.ballDY)) return;
+    ball.ballDY = -ball.ballDY;
 }
-*/
 
-function collision_bar(){
+
+// 벽과 충돌 검사하고 공의 방향을 바꾼다
+function detectCollision_wall()
+{
+    // 천장, 바닥과 충돌 검사
+    if(!isInBorder(0, HEIGHT, ball.ballY+ball.ballDY))
+        ball.ballDY < 0? ball.ballDY = -ball.ballDY : decreaseLives();
+
+    // 좌우 벽과 충돌 검사
+    if(!isInBorder(0, WIDTH, ball.ballX + ball.ballDX)) ball.ballDX  = -ball.ballDX;
+}
+
+
+// 목숨 감소
+function decreaseLives()
+{
+/*     context2.clearRect(0,0,WIDTH, HEIGHT);
+            lives--;
+            displayLives();
+            //목숨이 없을 떄
+            if (!lives) {gameOver();}
+            //목숨이 아직 남았을 때-->다시 공이 생긴다.
+            else
+            {
+                ball.ballX=WIDTH/2;
+                ball.ballY=HEIGHT/2;
+            } */
+
+}
+
+/* // 공이 바와 충돌하는지 검사
+function detectCollision_bar(){
+
+    // 
     //공이 좌우 벽면에 닿았을 떄
     if (ball.ballX+ball.ballDX>WIDTH-ball.radius||ball.ballX+ball.ballDX<ball.radius) {
         ball.ballDX=-ball.ballDX;
@@ -600,7 +621,7 @@ function collision_bar(){
        
     }
 }
-
+ */
 //게임오버 글자를 만드는 함수
 function drawGameover()
 {
