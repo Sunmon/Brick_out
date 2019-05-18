@@ -47,14 +47,15 @@ document.addEventListener("click",func,false);
 
 function settingStage(e)
 {
-    //stage1을 선택할 때
-    if ((e.clientX>0&&e.clientX<=172)&&(e.clientY>=246&&e.clientY<=311)) {test(1);}
+   //stage1을 선택할 때
+    if ((e.clientX>0&&e.clientX<=312)&&(e.clientY>=355&&e.clientY<=479)) {test(1);}
     //stage2를 선택할 떄
-    if ((e.clientX>=215&&e.clientX<=387)&&(e.clientY>=162&&e.clientY<=241)) {test(2);}
+    if ((e.clientX>=312&&e.clientX<=612)&&(e.clientY>=233&&e.clientY<=355)) {test(2);}
     //stage3을 선택할 때
-    if ((e.clientX>=416&&e.clientX<=573)&&(e.clientY>=80&&e.clientY<=160)) {test(3);}
+    if ((e.clientX>=612&&e.clientX<=923)&&(e.clientY>=108&&e.clientY<=233)) {test(3);}
     //stage4를 선택할 때
-    if ((e.clientX>=600&&e.clientX<=780)&&(e.clientY>=0&&e.clientY<=90)) {test(4);} 
+    if ((e.clientX>=923&&e.clientX<=1223)&&(e.clientY>=0&&e.clientY<=108)) {test(4);} 
+
 }
 
 
@@ -631,7 +632,7 @@ function drawNextbtn()
 //화살표를 클릭헸을때의 이벤트
 function move_settingPage(e)
 {
-    if ((e.clientX>=694&&e.clientX<=771)&&(e.clientY>=337&&e.clientY<=395))
+    if ((e.clientX>=1090&&e.clientX<=1204)&&(e.clientY>=529&&e.clientY<=603))
     {settingPage();}
 }
 
@@ -645,7 +646,7 @@ function settingPage()
 //다시 계단있는 페이지로 돌아간다.
 function move_stairPage(e)
 {
-     if ((e.clientX>=22&&e.clientX<=94)&&(e.clientY>=338&&e.clientY<=396))
+     if ((e.clientX>=33&&e.clientX<=151)&&(e.clientY>=530&&e.clientY<=611))
     {
      init();
      addEvent(settingStage);
