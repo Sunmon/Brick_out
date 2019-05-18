@@ -433,14 +433,12 @@ function test(level)
 
     // 화면 그림 갱신하기
     // var drawing = setInterval(draw,10);
-    // FIXME: draw 왜 두 번?
     draw();
 
     // 일정 시간마다 블럭 내려오기
     var timer = setInterval(function(){
          stage.insertLine(stage.blockArr, stage.block_in_row)}, stage.lineTimer);
 
-    draw();
 }
 
 // stage 그리기
