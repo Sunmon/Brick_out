@@ -1,10 +1,12 @@
+import Block from "block.js"
+
 
 // 전역 변수
 var canvas;
 var context;
 var stage;
 var bar;
-// var ball;
+var ball;
 var canvas2;
 var context2;
 var WIDTH; //canvas의 폭과 높이 
@@ -13,9 +15,6 @@ var lives = 3;//목숨
 var animate;    //animation 시작, 정지 변수
 var timer;
 var ballArray;
-
-// FIXME: 임시
-var item;
 
 function init() {
 
@@ -58,13 +57,13 @@ function settingStage(e)
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
    
    //stage1을 선택할 때
-    if ((relativeX>0&&relativeX<=60)&&(relativeY>=84&&relativeY<=115)) {test(1);}
+    if ((relativeX>0&&relativeX<=75)&&(relativeY>=84&&relativeY<=115)) {test(1);}
     //stage2를 선택할 떄
     if ((relativeX>=76&&relativeX<=150)&&(relativeY>=54&&relativeY<=84)) {test(2);}
     //stage3을 선택할 때
-    if ((relativeX>=151&&relativeX<=225)&&(relativeY>=35&&relativeY<=55)) {test(3);}
+    if ((relativeX>=151&&relativeX<=225)&&(relativeY>=26&&relativeY<=55)) {test(3);}
     //stage4를 선택할 때
-    if ((relativeX>=226&&relativeX<=300)&&(relativeY>=0&&relativeY<=12)) {test(4);}  
+    if ((relativeX>=226&&relativeX<=300)&&(relativeY>=0&&relativeY<=25)) {test(4);}  
 }
 
 
@@ -77,41 +76,6 @@ window.onload = function () {
     addEvent(move_stairPage);
     drawNextbtn();
     displayLives();
-}
-
-
-/**
- * 블럭 한 개에 대한 속성을 정의한다.
- * Stage를 만들 때, 이 클래스의 배열을 이용한다.
- */
-class Block {
-    // 블럭 생성자
-    constructor(x, y, color, width, height) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.width = width;
-        this.height = height;
-        this.state = true;                  //true 블럭 멀쩡함 , false: 깨짐
-
-    }
-
-    // 블럭 위치 설정
-    setPosition(x, y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    // 블럭 색깔 변경
-    setColor(color) {
-        this.color = color;
-    }
-
-    // 블럭 크기 설정
-    setSize(width, height) {
-        this.width = width;
-        this.height = height;
-    }
 }
 
 
@@ -295,8 +259,6 @@ class Item {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.initIcon();
-        this.size = WIDTH / 100 * 2;
     }
 
     // 아이템 떨어지기
@@ -306,16 +268,9 @@ class Item {
 
     // 아이템 효과 적용
     affect() {
+        // 아이템 삭제
+        delete (this);
     }
-
-    // 아이콘 이미지 정하기
-    initIcon()
-    {
-        this.icon = new Image();
-        this.icon.src = "./assets/life.png";
-    }
-
-
 }
 
 
@@ -324,8 +279,16 @@ class AddBall extends Item {
     affect() {
         super.affect();
         ballArray.push(new Ball(bar.x, bar.y, 2, 1, -1));
+        delete (this);
     }
 }
+
+
+
+
+
+
+
 
 // 레벨에 맞는 stage 객체를 생성하여 리턴. Factory pattern
 function setLevel(level) {
@@ -428,19 +391,19 @@ function test(level) {
     bar = new Bar(30, HEIGHT - 40, "black", 100, 5);
 
     // ball 그리기
-    var ball = new Ball(bar.x + (bar.width / 2), bar.y - 3, 2, 1.2, -1.3);
+    ball = new Ball(bar.x + (bar.width / 2), bar.y - 3, 2, 1.2, -1.3);
     ball.setColor("green");
 
+    // TODO: ball Array이용하기
     ballArray = new Array();
     ballArray.push(ball);
 
     ballArray.push(new Ball(bar.x + 10, bar.y - 3, 2, 1, -1.3))
 
-
-    // FIXME: item 떨어지나 테스트용
-    item = new Item(20,20);
-
     // 화면 그림 갱신하기
+    // var drawing = setInterval(draw,10);
+    // 화면 특정 시간마다 갱신하기
+    // animate = requestAnimationFrame(draw); // interval 대신. 애니메이션을 부드럽게.
     draw();
 
     // 일정 시간마다 블럭 내려오기
@@ -549,6 +512,19 @@ function drawBar() {
 
 // 공을 화면에 그린다
 function drawBall() {
+    // TODO: ballArray 이용
+
+    /*     // 공 좌표 이동
+        ball.moveBall();
+    
+         // 공 그리기
+        context.beginPath();
+        context.arc(ball.x, ball.y, ball.radius, 0, 2.0 * Math.PI, true);
+        context.fillStyle = ball.color;
+        context.fill(); */
+
+    // if(ballArray == null) return;
+
     ballArray.forEach(ball => {
         // 공 좌표 이동
         ball.moveBall();
@@ -562,16 +538,6 @@ function drawBall() {
 
 }
 
-// 아이템 그리는 함수
-function drawItem()
-{
-    item.dropItem();
-    context.drawImage(item.icon, item.x, item.y, item.size, item.size);
-    
-    // detectCollision_item;
-
-}
-
 // 화면에 그리는 함수.
 function draw() {
     context.clearRect(0, 0, WIDTH, HEIGHT);
@@ -579,8 +545,6 @@ function draw() {
     // 화면 특정 시간마다 갱신하기
     animate = requestAnimationFrame(draw); // interval 대신. 애니메이션을 부드럽게.
 
-    // item test
-    drawItem();
     drawBall();
     drawStage();
     drawBar();
@@ -651,16 +615,7 @@ function move_settingPage(e)
 //환경설정페이지
 function settingPage() {
     context.clearRect(0, 0, WIDTH, HEIGHT);
-    addEvent(setBack);
     drawPbtn();
-    drawsettingpageLine();
-    insertImage("beach.jpg",15,5,53,40);
-    insertImage("universe.jpg",85,5,53,40);
-    insertImage("mountain.jpg",156,5,53,40);
-    insertImage("city.jpg",229,5,53,40);
-    insertImage("musicplay.jpg",35,80,57,35);
-    insertImage("musicplay.jpg",112,80,57,35);
-    insertImage("musicplay.jpg",189,80,57,35);
 }
 
 //다시 계단있는 페이지로 돌아간다.
@@ -697,45 +652,4 @@ function displayLives() {
     context2.clearRect(0, 0, canvas2.width, canvas2.height);
     context2.font = "45px Verdana"
     context2.fillText("LIVES: " + lives, canvas2.width / 2 - 130, canvas2.height / 2 - 20);
-}
-
-//음악선택과 배경선택을 나누는 선을 그린다
-function drawsettingpageLine()
-{
-    context.beginPath();
-    context.moveTo(0,65);
-    context.lineTo(300,65);
-    context.stroke();
-    context.fillStyle="black";
-}
-
-//canvas에 이미지를 삽입한다.
-function insertImage(src,x,y,width,height)
-{
-    var image = new Image();
-    image.src = src;
-    var imageX = x;//이미지의 x좌표 
-    var imageY = y;//이미지의 y좌표
-    var imageWidth = width;//이미지의 가로
-    var imageHeight = height;//이미지의 세로
-
-    image.onload = function()
-    {context.drawImage(image,imageX,imageY,imageWidth,imageHeight);}
-}
-
-// 그림을 클릭하면 배경이 설정된다
-function setBack(e)
-{
-    var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
-    var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
-
-    if ((relativeX>=17&&relativeX<=68)&&(relativeY<=51)&&(relativeY>=12))
-        {document.getElementById("frame").style.backgroundImage="url('beach1.jpg')";}
-    if ((relativeX>=87&&relativeX<=139)&&(relativeY<=51)&&(relativeY>=12))
-        {document.getElementById("frame").style.backgroundImage="url('universe1.jpg')";}
-    if ((relativeX>=157&&relativeX<=209)&&(relativeY<=51)&&(relativeY>=12))
-        {document.getElementById("frame").style.backgroundImage="url('mountain1.jpg')";}
-    if ((relativeX>=230&&relativeX<=282)&&(relativeY<=51)&&(relativeY>=12))
-        {document.getElementById("frame").style.backgroundImage="url('city1.jpg')";}
-
 }

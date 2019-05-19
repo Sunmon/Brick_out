@@ -1,0 +1,24 @@
+/* 기본 프레임. */
+#frame{
+    border: 5px dotted lightblue;
+    background-color: rgb(236, 250, 253);
+
+    /* TODO: width, height 정하기 */
+    /* width: 20%; */
+    /* width : 960px; */
+    /* height: 500px; */
+    overflow: hidden;
+    float: left;
+}
+
+
+div{
+    background-color: green;
+}
+
+#frame2{
+    border: 5px dotted red;
+    background-color: rgb(236, 250, 253);
+    overflow: hidden;
+    float: left;
+}

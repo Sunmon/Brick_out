@@ -18,6 +18,7 @@ C++의 include / java의 import처럼 js에도 module이라는 개념이 있다.
 
 [Module](https://poiemaweb.com/es6-module) //여기 설명 잘 되어있다!
 
+
 <br/>
 
 :Warning:
@@ -30,6 +31,10 @@ Chrome에서 import를 실행할 시, `file://프로토콜`은 오류가 난다�
 
 Web security를 꺼서 해결하려고 해도... file:// non-javascript type "" 문제가 난다.
 https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome
+
+https://sunmon.github.io/Brick_out/brickout.html
+
+여기로 들어가보자. 모듈 써도 될 듯. 왜냐면 웹페이지니까
 
 
 <br>
@@ -157,6 +162,34 @@ Compare: 비교하는거
 
 <br>
 <br>
+
+### icon
+
+화살표:
+
+<div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+
+
++:
+
+<div>Icons made by <a href="https://www.flaticon.com/authors/hanan" title="Hanan">Hanan</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+
+
+-:
+<div>Icons made by <a href="https://www.flaticon.com/authors/hanan" title="Hanan">Hanan</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+
+
+♡:
+
+<div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+
+electric:
+
+<div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+
+<br>
+<br>
+
 
 ### 블럭깨기 
 
