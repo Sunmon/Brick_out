@@ -73,7 +73,7 @@ function settingStage(e)
 
 window.onload = function () {
     init();
-    addEvent(settingStage);
+    //addEvent(settingStage);
     addEvent(move_settingPage);
     addEvent(move_stairPage);
     drawNextbtn();
@@ -674,6 +674,7 @@ function move_stairPage(e)
 
      if ((relativeX>=0&&relativeX<=42)&&(relativeY>=120&&relativeY<=155))
     {
+
      context.clearRect(0,0,WIDTH,HEIGHT);
      init();
      addEvent(settingStage);
@@ -735,7 +736,7 @@ function setBack(e)
     if ((relativeX>=17&&relativeX<=68)&&(relativeY<=51)&&(relativeY>=12))
         {document.getElementById("frame").style.backgroundImage="url('./assets/beach1.jpg')";}
     if ((relativeX>=87&&relativeX<=139)&&(relativeY<=51)&&(relativeY>=12))
-        {document.getElementById("frame").style.backgroundImage="url('./assets/universe1.jpg')";}
+        {document.getElementById("frame").style.backgroundImage="url('./assets/universe2.jpg')";}
     if ((relativeX>=157&&relativeX<=209)&&(relativeY<=51)&&(relativeY>=12))
         {document.getElementById("frame").style.backgroundImage="url('./assets/mountain1.jpg')";}
     if ((relativeX>=230&&relativeX<=282)&&(relativeY<=51)&&(relativeY>=12))
@@ -743,23 +744,43 @@ function setBack(e)
 
 }
 
-
+//음악을 재생하는 함수
 function getMusic(id)
 {
     var mussssic = document.getElementById(id);
     mussssic.play();
 }
 
+//검정 버튼을 클릭하면 음악이 나오는 함수 
 function playMusic(e)
 {
       var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
       var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
 
       if ((relativeX>=60&&relativeX<=74)&&(relativeY<=104)&&(relativeY>=93))
-        {getMusic("myAudio1");}
+        {
+            stopMusic('myAudio2');
+            stopMusic('myAudio3');
+            getMusic("myAudio1");
+        }
     if ((relativeX>=136&&relativeX<=152)&&(relativeY<=104)&&(relativeY>=93))
-        {getMusic("myAudio2");}
+        {
+            stopMusic('myAudio1');
+            stopMusic('myAudio3');
+            getMusic("myAudio2");
+        }
     if ((relativeX>=213&&relativeX<=228)&&(relativeY<=104)&&(relativeY>=93))
-        {getMusic("myAudio3");}
+        {
+            stopMusic('myAudio1');
+            stopMusic('myAudio2');
+            getMusic("myAudio3");
+        }
 
+}
+
+//음악을 멈추는 함수
+function stopMusic(id)
+{
+    var mussssic = document.getElementById(id);
+    mussssic.pause();
 }
