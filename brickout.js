@@ -17,6 +17,7 @@ var ballArray;
 // FIXME: 임시
 var item;
 
+
 function init() {
 
     canvas = document.getElementById("frame");
@@ -652,15 +653,17 @@ function move_settingPage(e)
 function settingPage() {
     context.clearRect(0, 0, WIDTH, HEIGHT);
     addEvent(setBack);
+    addEvent(playMusic);
     drawPbtn();
     drawsettingpageLine();
-    insertImage("beach.jpg",15,5,53,40);
-    insertImage("universe.jpg",85,5,53,40);
-    insertImage("mountain.jpg",156,5,53,40);
-    insertImage("city.jpg",229,5,53,40);
-    insertImage("musicplay.jpg",35,80,57,35);
-    insertImage("musicplay.jpg",112,80,57,35);
-    insertImage("musicplay.jpg",189,80,57,35);
+    insertImage("./assets/beach.jpg",15,5,53,40);
+    insertImage("./assets/universe.jpg",85,5,53,40);
+    insertImage("./assets/mountain.jpg",156,5,53,40);
+    insertImage("./assets/city.jpg",229,5,53,40);
+    insertImage("./assets/musicplay.jpg",35,80,57,35);
+    insertImage("./assets/musicplay.jpg",112,80,57,35);
+    insertImage("./assets/musicplay.jpg",189,80,57,35);
+    playMusic();
 }
 
 //다시 계단있는 페이지로 돌아간다.
@@ -730,12 +733,33 @@ function setBack(e)
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
 
     if ((relativeX>=17&&relativeX<=68)&&(relativeY<=51)&&(relativeY>=12))
-        {document.getElementById("frame").style.backgroundImage="url('beach1.jpg')";}
+        {document.getElementById("frame").style.backgroundImage="url('./assets/beach1.jpg')";}
     if ((relativeX>=87&&relativeX<=139)&&(relativeY<=51)&&(relativeY>=12))
-        {document.getElementById("frame").style.backgroundImage="url('universe1.jpg')";}
+        {document.getElementById("frame").style.backgroundImage="url('./assets/universe1.jpg')";}
     if ((relativeX>=157&&relativeX<=209)&&(relativeY<=51)&&(relativeY>=12))
-        {document.getElementById("frame").style.backgroundImage="url('mountain1.jpg')";}
+        {document.getElementById("frame").style.backgroundImage="url('./assets/mountain1.jpg')";}
     if ((relativeX>=230&&relativeX<=282)&&(relativeY<=51)&&(relativeY>=12))
-        {document.getElementById("frame").style.backgroundImage="url('city1.jpg')";}
+        {document.getElementById("frame").style.backgroundImage="url('./assets/city1.jpg')";}
+
+}
+
+
+function getMusic(id)
+{
+    var mussssic = document.getElementById(id);
+    mussssic.play();
+}
+
+function playMusic(e)
+{
+      var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
+      var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
+
+      if ((relativeX>=60&&relativeX<=74)&&(relativeY<=104)&&(relativeY>=93))
+        {getMusic("myAudio1");}
+    if ((relativeX>=136&&relativeX<=152)&&(relativeY<=104)&&(relativeY>=93))
+        {getMusic("myAudio2");}
+    if ((relativeX>=213&&relativeX<=228)&&(relativeY<=104)&&(relativeY>=93))
+        {getMusic("myAudio3");}
 
 }
