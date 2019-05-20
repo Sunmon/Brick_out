@@ -296,8 +296,13 @@ class Item {
         this.x = x;
         this.y = y;
         this.dy = 1;
-        this.initIcon();
         this.size = WIDTH / 100 * 2;
+    }
+
+    // 속도 정하기
+    setDy(dy)
+    {
+        this.dy = dy;
     }
 
     // 아이템 떨어지기
@@ -307,25 +312,18 @@ class Item {
 
     // 아이템 효과 적용
     affect() {
-        // FIXME: 임시
-        // document.write("affect");
-        lives+=1;
     }
 
     // 아이콘 이미지 정하기
-    initIcon()
+    setIcon(src)
     {
         this.icon = new Image();
-        this.icon.src = "./assets/life.png";
+        this.icon.src = src;
     }
-
-    // 아이템 사라지기
-
-
-
 }
 
 
+// TODO: 
 // 공 추가해주는 아이템 클래스
 class AddBall extends Item {
     affect() {
@@ -333,6 +331,37 @@ class AddBall extends Item {
         ballArray.push(new Ball(bar.x, bar.y, 2, 1, -1));
     }
 }
+
+// life 추가 아이템
+class LifePlus extends Item
+{
+    constructor(x,y)
+    {
+        super(x,y);
+        super.setDy(1.5);
+        super.setIcon("./assets/life.png");
+    }
+
+    affect()
+    {
+        super.affect();
+        lives++;
+    }
+}
+
+// TODO: bar 길이 넓히는 아이템
+class WidenBar extends Item
+{
+
+}
+
+// TODO: 한 줄 삭제 아이템
+class RemoveLine extends Item
+{
+
+}
+
+
 
 // 레벨에 맞는 stage 객체를 생성하여 리턴. Factory pattern
 function setLevel(level) {
@@ -447,9 +476,10 @@ function test(level) {
 
     // item array 초기화
     itemArray = new Array();
-    itemArray.push(new Item(10,0));
-    itemArray.push(new Item(100,30));
-    itemArray.push(new Item(200,50));
+    // itemArray.push(new Item(10,0));
+    itemArray.push(new LifePlus(50,0));
+    // itemArray.push(new Item(100,30));
+    // itemArray.push(new Item(200,50));
 
     // 화면 그림 갱신하기
     draw();
@@ -555,7 +585,6 @@ function detectCollision_wall() {
 function detectCollision_item()
 {
     itemArray.forEach( (item,index) =>{
-        
         // 아이템이 화면 밖으로 사라지면 삭제
         if(!isInBorder(0, HEIGHT, item.y)) itemArray.splice(index,1);
 
