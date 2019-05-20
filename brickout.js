@@ -70,7 +70,7 @@ function settingStage(e)
     //stage3을 선택할 때
     if ((relativeX>=151&&relativeX<=225)&&(relativeY>=35&&relativeY<=55)) {gameStart(3);}
     //stage4를 선택할 때
-    if ((relativeX>=226&&relativeX<=300)&&(relativeY>=0&&relativeY<=12)) {gameStart(4);}  
+    if ((relativeX>=226&&relativeX<=300)&&(relativeY>=0&&relativeY<=25)) {gameStart(4);}  
 }
 
 
