@@ -367,12 +367,31 @@ class WidenBar extends Item
 
 }
 
-// TODO: 한 줄 삭제 아이템
+// 한 줄 삭제 아이템
 class RemoveLine extends Item
 {
+    constructor(x,y)
+    {
+        super(x,y);
+        super.setDy(1);
+        super.setIcon("./assets/remove.png");
+    }
+
+    affect()
+    {
+        super.affect();
+        // 맨 위 한 줄 삭제
+        stage.blockArr.splice(stage.blockArr.length-1, 1);
+    }
 
 }
 
+
+// TODO: 총알 공 아이템
+class ThunderBall extends Item
+{
+
+}
 
 
 // 레벨에 맞는 stage 객체를 생성하여 리턴. Factory pattern
@@ -490,9 +509,9 @@ function test(level) {
     // item array 초기화
     itemArray = new Array();
     // itemArray.push(new Item(10,0));
-    itemArray.push(new LifePlus(50,0));
-    itemArray.push(new WidenBar(100,30));
-    // itemArray.push(new Item(200,50));
+    // itemArray.push(new LifePlus(50,0));
+    // itemArray.push(new WidenBar(100,30));
+    itemArray.push(new RemoveLine(200,50));
 
     // 화면 그림 갱신하기
     draw();
