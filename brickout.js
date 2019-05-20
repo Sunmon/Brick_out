@@ -349,9 +349,21 @@ class LifePlus extends Item
     }
 }
 
-// TODO: bar 길이 넓히는 아이템
+// bar 길이 넓히는 아이템
 class WidenBar extends Item
 {
+    constructor(x,y)
+    {
+        super(x,y);
+        super.setDy(1);
+        super.setIcon("./assets/wide.png");
+    }
+
+    affect()
+    {
+        super.affect();
+        if(bar.width < bar.MAX_WIDTH) bar.width+=10;
+    }
 
 }
 
@@ -426,6 +438,7 @@ class Bar {
         this.color = color;
         this.width = width;
         this.height = height;
+        this.MAX_WIDTH = 100;
 
 
         // 마우스 이동 event listner 추가
@@ -461,7 +474,7 @@ function test(level) {
     stage = setLevel(level);
 
     // Bar 그리기
-    bar = new Bar(30, HEIGHT - 40, "black", 100, 5);
+    bar = new Bar(30, HEIGHT - 40, "black", 50, 5);
 
     // ball 그리기
     var ball = new Ball(bar.x + (bar.width / 2), bar.y - 3, 2, 1.2, -1.3);
@@ -478,7 +491,7 @@ function test(level) {
     itemArray = new Array();
     // itemArray.push(new Item(10,0));
     itemArray.push(new LifePlus(50,0));
-    // itemArray.push(new Item(100,30));
+    itemArray.push(new WidenBar(100,30));
     // itemArray.push(new Item(200,50));
 
     // 화면 그림 갱신하기
