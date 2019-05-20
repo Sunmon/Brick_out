@@ -13,9 +13,7 @@ var lives = 3;//목숨
 var animate;    //animation 시작, 정지 변수
 var timer;
 var ballArray;
-
-// FIXME: 임시
-var item;
+var itemArray;
 
 
 function init() {
@@ -71,6 +69,7 @@ function settingStage(e)
 
 
 
+// 첫 시작 시 불러올 함수들
 window.onload = function () {
     init();
     //addEvent(settingStage);
@@ -296,17 +295,21 @@ class Item {
     constructor(x, y) {
         this.x = x;
         this.y = y;
+        this.dy = 1;
         this.initIcon();
         this.size = WIDTH / 100 * 2;
     }
 
     // 아이템 떨어지기
-    dropItem() {
-        this.y += 1;
+    moveItem() {
+        this.y += this.dy;
     }
 
     // 아이템 효과 적용
     affect() {
+        // FIXME: 임시
+        // document.write("affect");
+        lives+=1;
     }
 
     // 아이콘 이미지 정하기
@@ -315,6 +318,9 @@ class Item {
         this.icon = new Image();
         this.icon.src = "./assets/life.png";
     }
+
+    // 아이템 사라지기
+
 
 
 }
@@ -438,8 +444,9 @@ function test(level) {
     ballArray.push(new Ball(bar.x + 10, bar.y - 3, 2, 1, -1.3))
 
 
-    // FIXME: item 떨어지나 테스트용
-    item = new Item(20,20);
+
+    // item array 초기화
+    itemArray = new Array();
 
     // 화면 그림 갱신하기
     draw();
@@ -469,6 +476,7 @@ function detectCollision() {
     detectCollision_block();
     detectCollision_bar();
     detectCollision_wall();
+    detectCollision_item();
 }
 
 // 특정 좌표가 border 범위 내인지 확인
@@ -530,8 +538,8 @@ function detectCollision_wall() {
     ballArray.forEach(ball => {
         // 천장, 바닥과 충돌 검사
         if (!isInBorder(0, HEIGHT, ball.y + ball.dy)) {
-            ball.dy < 0 ? ball.setDirection(ball.dx, -ball.dy) :
-                ballArray.length > 1 ? ballArray.splice(ball, 1) : decreaseLives();
+            ball.dy < 0 ? ball.setDirection(ball.dx, -ball.dy) :                        //천장에 튀겼을 시
+                ballArray.length > 1 ? ballArray.splice(ball, 1) : decreaseLives();     //바닥에 튀겼을 시
         }
 
         // 좌우 벽과 충돌 검사
@@ -539,6 +547,25 @@ function detectCollision_wall() {
     });
 
 }
+
+// 바와 아이템의 충돌 검사
+function detectCollision_item()
+{
+    itemArray.forEach(item =>{
+
+        // 바와 충돌 확인
+        if(!isInBorder(bar.x, bar.x+bar.width, item.x)) return;
+        if(!isInBorder(bar.y, bar.y+bar.height, item.y+item.dy)) return;
+        
+        // 효과 적용
+        item.affect();
+
+        // 아이템 사라지기
+        itemArray.splice(item, 1);
+    });
+}
+
+
 
 
 
@@ -566,11 +593,10 @@ function drawBall() {
 // 아이템 그리는 함수
 function drawItem()
 {
-    item.dropItem();
-    context.drawImage(item.icon, item.x, item.y, item.size, item.size);
-    
-    // detectCollision_item;
-
+    itemArray.forEach(item=>{
+        item.moveItem();
+        context.drawImage(item.icon, item.x, item.y, item.size, item.size);
+    })
 }
 
 // 화면에 그리는 함수.
@@ -579,8 +605,6 @@ function draw() {
 
     // 화면 특정 시간마다 갱신하기
     animate = requestAnimationFrame(draw); // interval 대신. 애니메이션을 부드럽게.
-
-    // item test
     drawItem();
     drawBall();
     drawStage();
