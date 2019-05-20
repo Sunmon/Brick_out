@@ -447,6 +447,9 @@ function test(level) {
 
     // item array 초기화
     itemArray = new Array();
+    itemArray.push(new Item(10,0));
+    itemArray.push(new Item(100,30));
+    itemArray.push(new Item(200,50));
 
     // 화면 그림 갱신하기
     draw();
@@ -484,7 +487,7 @@ function isInBorder(border_min, border_max, pos) {
     return ((border_min <= pos) && (border_max >= pos));
 }
 
-// 벽돌과 충돌 감지
+// 블럭과 충돌 감지
 function detectCollision_block() {
 
     stage.blockArr.forEach(blockRow => {
@@ -535,11 +538,11 @@ function detectCollision_bar() {
 // 벽과 충돌 검사하고 공의 방향을 바꾼다
 function detectCollision_wall() {
 
-    ballArray.forEach(ball => {
+    ballArray.forEach((ball,index) => {
         // 천장, 바닥과 충돌 검사
         if (!isInBorder(0, HEIGHT, ball.y + ball.dy)) {
             ball.dy < 0 ? ball.setDirection(ball.dx, -ball.dy) :                        //천장에 튀겼을 시
-                ballArray.length > 1 ? ballArray.splice(ball, 1) : decreaseLives();     //바닥에 튀겼을 시
+                ballArray.length > 1 ? ballArray.splice(index, 1) : decreaseLives();     //바닥에 튀겼을 시
         }
 
         // 좌우 벽과 충돌 검사
@@ -551,7 +554,7 @@ function detectCollision_wall() {
 // 바와 아이템의 충돌 검사
 function detectCollision_item()
 {
-    itemArray.forEach(item =>{
+    itemArray.forEach( (item,index) =>{
 
         // 바와 충돌 확인
         if(!isInBorder(bar.x, bar.x+bar.width, item.x)) return;
@@ -561,7 +564,7 @@ function detectCollision_item()
         item.affect();
 
         // 아이템 사라지기
-        itemArray.splice(item, 1);
+        itemArray.splice(index, 1);
     });
 }
 
