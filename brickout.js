@@ -874,11 +874,11 @@ function move_settingPage(e)
     var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
     if ((relativeX>=259&&relativeX<=303)&&(relativeY>=120&&relativeY<=155))
-    {settingPage();}
+    {settingPage(e);}
 }
 
 //환경설정페이지
-function settingPage() {
+function settingPage(e) {
     context.clearRect(0, 0, WIDTH, HEIGHT);
     removeEvent(settingStage);
     addEvent(setBack);
@@ -892,7 +892,7 @@ function settingPage() {
     insertImage("./assets/musicplay.jpg",35,80,57,35);
     insertImage("./assets/musicplay.jpg",112,80,57,35);
     insertImage("./assets/musicplay.jpg",189,80,57,35);
-    playMusic();
+    playMusic(e);
 }
 
 //다시 계단있는 페이지로 돌아간다.
