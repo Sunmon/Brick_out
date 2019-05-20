@@ -14,6 +14,8 @@ var animate;    //animation 시작, 정지 변수
 var timer;
 var ballArray;
 var itemArray;
+var ballThrow = false;
+var BALL_VELOCITY = 2;  //stage마다 볼 던질 속도
 
 
 function init() {
@@ -62,13 +64,13 @@ function settingStage(e)
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
    
    //stage1을 선택할 때
-    if ((relativeX>0&&relativeX<=60)&&(relativeY>=84&&relativeY<=115)) {test(1);}
+    if ((relativeX>0&&relativeX<=60)&&(relativeY>=84&&relativeY<=115)) {gameStart(1);}
     //stage2를 선택할 떄
-    if ((relativeX>=76&&relativeX<=150)&&(relativeY>=54&&relativeY<=84)) {test(2);}
+    if ((relativeX>=76&&relativeX<=150)&&(relativeY>=54&&relativeY<=84)) {gameStart(2);}
     //stage3을 선택할 때
-    if ((relativeX>=151&&relativeX<=225)&&(relativeY>=35&&relativeY<=55)) {test(3);}
+    if ((relativeX>=151&&relativeX<=225)&&(relativeY>=35&&relativeY<=55)) {gameStart(3);}
     //stage4를 선택할 때
-    if ((relativeX>=226&&relativeX<=300)&&(relativeY>=0&&relativeY<=12)) {test(4);}  
+    if ((relativeX>=226&&relativeX<=300)&&(relativeY>=0&&relativeY<=12)) {gameStart(4);}  
 }
 
 
@@ -339,8 +341,9 @@ class AddBall extends Item {
 
     affect() {
         super.affect();
-        // TODO: 여기 방향 초기값 변경 필요..
-        ballArray.push(new Ball(bar.x, bar.y, 2, 1, -1));
+        // ballArray.push(new Ball(bar.x, bar.y, 2, -1.1, -1));
+        ballArray.push(new Ball(bar.x, bar.y, 2, 120, BALL_VELOCITY));
+
     }
 }
 
@@ -434,7 +437,7 @@ function setLevel(level) {
 class Ball {
 
     //공의 생성자
-    constructor(x, y, radius, dx, dy) {
+/*     constructor(x, y, radius, dx, dy) {
         this.x = x;
         this.y = y;
         this.radius = radius;
@@ -442,7 +445,28 @@ class Ball {
         this.dy = dy;
         this.power = 0;
     }
+ */
+    // 공의 생성자
 
+    constructor(x, y, radius, angle, velocity)
+    {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.angle = angle;
+        this. velocity = velocity;
+        this.power = 0;
+        this.setDirectionWithAngle(angle, velocity);
+    }
+
+
+    setDirectionWithAngle(angle, velocity)
+    {
+        var angleR = angle * Math.PI / 180;
+        var dx = velocity * Math.cos(angleR);
+        var dy = -velocity* Math.sin(angleR);
+        this.setDirection(dx, dy);
+    }
 
     //공의 크기 설정
     setSize(radius) {
@@ -502,6 +526,7 @@ class Bar {
         // 마우스 이동 event listner 추가
         document.addEventListener("mousemove", this.moveBar.bind(this), false);
 
+
     }
 
     //bar의 크기 설정
@@ -523,6 +548,49 @@ class Bar {
 
 
 
+// TODO: 게임 시작 메소드
+function gameStart(level)
+{
+    // 스테이지 생성
+    stage = setLevel(level);
+
+    // 공 던지는 속도 조정
+    BALL_VELOCITY = 2 + level/2;
+
+    initGame();
+    draw();
+}
+
+
+// 게임 초기화
+function initGame()
+{
+    // 게임 시작 준비
+    ballThrow = false;
+
+    document.addEventListener("click", throwingBall, true); //한 번만 호출
+
+    // Bar 그리기
+    bar = new Bar(30, HEIGHT - 20, "black", 50, 5);
+
+    // ball 그리기
+    var ball = new Ball(bar.x + (bar.width / 2), bar.y - 3, 2, 40, BALL_VELOCITY);
+    ball.setColor("green");
+    
+    ballArray = new Array();
+    ballArray.push(ball);
+
+    // item array 초기화
+    itemArray = new Array();
+
+    // 일정 시간마다 블럭 내려오기
+    timer = setInterval(function () {
+        stage.insertLine(stage.blockArr, stage.block_in_row)
+    }, stage.lineTimer);
+
+}
+
+
 
 
 
@@ -535,25 +603,17 @@ function test(level) {
     bar = new Bar(30, HEIGHT - 40, "black", 50, 5);
 
     // ball 그리기
-    var ball = new Ball(bar.x + (bar.width / 2), bar.y - 3, 2, 1.2, -1.3);
-    ball.setColor("green");
+    // var ball = new Ball(bar.x + (bar.width / 2), bar.y - 3, 2, 1.2, -1.3);
+    var ball = new Ball(bar.x + (bar.width / 2), bar.y - 3, 2, 30, 2);
 
+    ball.setColor("green");
+    
     ballArray = new Array();
     ballArray.push(ball);
-
-    ballArray.push(new Ball(bar.x + 10, bar.y - 3, 2, 1, -1.3))
-
 
 
     // item array 초기화
     itemArray = new Array();
-    // itemArray.push(new Item(10,0));
-    // itemArray.push(new LifePlus(50,0));
-    // itemArray.push(new AddBall(50,40));
-    // itemArray.push(new PowerBall(150,0));
-
-    // itemArray.push(new WidenBar(100,30));
-    // itemArray.push(new RemoveLine(200,50));
 
     // 화면 그림 갱신하기
     draw();
@@ -679,7 +739,13 @@ function detectCollision_item()
 }
 
 
-
+// 마우스 클릭하면 공 날아가면서 게임 시작
+function throwingBall()
+{
+    if(ballThrow) return;
+    ballThrow = true;
+    ballArray[0].setDirection(1.2, -1.2);
+}
 
 
 // 화면에 바를 그린다
@@ -690,7 +756,9 @@ function drawBar() {
 
 // 공을 화면에 그린다
 function drawBall() {
+    if(!ballThrow) ballArray[0].setPosition(bar.x + bar.width/2, bar.y-ballArray[0].radius);
     ballArray.forEach(ball => {
+
         // 공 좌표 이동
         ball.moveBall();
 
@@ -747,19 +815,19 @@ function dropItem(x,y)
 }
 
 
-
-
-
 // 목숨 감소
 function decreaseLives() {
+    ballThrow = false;
     lives--;
     if (lives <= 0) gameOver();
     else {
-        // 볼 초기화
+        initGame();
+
+/*         // 볼 초기화
         ballArray = new Array();
         var ball = new Ball(WIDTH / 2, HEIGHT / 2, 2, 1, -1);
         ball.setColor("green");
-        ballArray.push(ball);
+        ballArray.push(ball); */
     }
 }
 
