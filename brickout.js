@@ -567,6 +567,7 @@ function gameStart(level)
     initGame();
     
     draw();
+    removeEvent(settingStage);
 }
 
 
@@ -630,6 +631,8 @@ function test(level) {
     timer = setInterval(function () {
         stage.insertLine(stage.blockArr, stage.block_in_row)
     }, stage.lineTimer);
+
+   // removeEvent(settingStage);
 
 }
 
