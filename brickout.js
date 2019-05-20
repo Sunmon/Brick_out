@@ -51,6 +51,11 @@ function addEvent(func) {
     document.addEventListener("click", func, false);
 }
 
+function removeEvent(func)
+{
+    document.removeEventListener("click",func);
+}
+
 function settingStage(e)
 {
     var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
@@ -72,7 +77,7 @@ function settingStage(e)
 // 첫 시작 시 불러올 함수들
 window.onload = function () {
     init();
-    //addEvent(settingStage);
+    addEvent(settingStage);
     addEvent(move_settingPage);
     addEvent(move_stairPage);
     drawNextbtn();
@@ -802,6 +807,7 @@ function move_settingPage(e)
 //환경설정페이지
 function settingPage() {
     context.clearRect(0, 0, WIDTH, HEIGHT);
+    removeEvent(settingStage);
     addEvent(setBack);
     addEvent(playMusic);
     drawPbtn();
@@ -826,6 +832,7 @@ function move_stairPage(e)
     {
 
      context.clearRect(0,0,WIDTH,HEIGHT);
+     removeEvent(setBack);
      init();
      addEvent(settingStage);
      drawStair();
