@@ -15,7 +15,7 @@ var timer;
 var ballArray;
 var itemArray;
 var ballThrow = false;
-
+var BALL_VELOCITY = 2;  //stage마다 볼 던질 속도
 
 
 function init() {
@@ -77,7 +77,6 @@ window.onload = function () {
     //addEvent(settingStage);
     addEvent(move_settingPage);
     addEvent(move_stairPage);
-    addEvent(throwingBall);
     drawNextbtn();
     displayLives();
 }
@@ -337,8 +336,9 @@ class AddBall extends Item {
 
     affect() {
         super.affect();
-        // TODO: 여기 방향 초기값 변경 필요..
-        ballArray.push(new Ball(bar.x, bar.y, 2, -1.1, -1));
+        // ballArray.push(new Ball(bar.x, bar.y, 2, -1.1, -1));
+        ballArray.push(new Ball(bar.x, bar.y, 2, 120, BALL_VELOCITY));
+
     }
 }
 
@@ -432,7 +432,7 @@ function setLevel(level) {
 class Ball {
 
     //공의 생성자
-    constructor(x, y, radius, dx, dy) {
+/*     constructor(x, y, radius, dx, dy) {
         this.x = x;
         this.y = y;
         this.radius = radius;
@@ -440,9 +440,28 @@ class Ball {
         this.dy = dy;
         this.power = 0;
     }
+ */
+    // 공의 생성자
 
-    
+    constructor(x, y, radius, angle, velocity)
+    {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.angle = angle;
+        this. velocity = velocity;
+        this.power = 0;
+        this.setDirectionWithAngle(angle, velocity);
+    }
 
+
+    setDirectionWithAngle(angle, velocity)
+    {
+        var angleR = angle * Math.PI / 180;
+        var dx = velocity * Math.cos(angleR);
+        var dy = -velocity* Math.sin(angleR);
+        this.setDirection(dx, dy);
+    }
 
     //공의 크기 설정
     setSize(radius) {
@@ -529,9 +548,11 @@ function gameStart(level)
 {
     // 스테이지 생성
     stage = setLevel(level);
-    
+
+    // 공 던지는 속도 조정
+    BALL_VELOCITY = 2 + level/2;
+
     initGame();
-    
     draw();
 }
 
@@ -542,11 +563,13 @@ function initGame()
     // 게임 시작 준비
     ballThrow = false;
 
+    document.addEventListener("click", throwingBall, true); //한 번만 호출
+
     // Bar 그리기
     bar = new Bar(30, HEIGHT - 20, "black", 50, 5);
 
     // ball 그리기
-    var ball = new Ball(bar.x + (bar.width / 2), bar.y - 3, 2, 0, 0);
+    var ball = new Ball(bar.x + (bar.width / 2), bar.y - 3, 2, 40, BALL_VELOCITY);
     ball.setColor("green");
     
     ballArray = new Array();
@@ -575,7 +598,9 @@ function test(level) {
     bar = new Bar(30, HEIGHT - 40, "black", 50, 5);
 
     // ball 그리기
-    var ball = new Ball(bar.x + (bar.width / 2), bar.y - 3, 2, 1.2, -1.3);
+    // var ball = new Ball(bar.x + (bar.width / 2), bar.y - 3, 2, 1.2, -1.3);
+    var ball = new Ball(bar.x + (bar.width / 2), bar.y - 3, 2, 30, 2);
+
     ball.setColor("green");
     
     ballArray = new Array();
@@ -712,6 +737,7 @@ function detectCollision_item()
 // 마우스 클릭하면 공 날아가면서 게임 시작
 function throwingBall()
 {
+    if(ballThrow) return;
     ballThrow = true;
     ballArray[0].setDirection(1.2, -1.2);
 }
