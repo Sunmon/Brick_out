@@ -323,9 +323,15 @@ class Item {
 }
 
 
-// TODO: 
 // 공 추가해주는 아이템 클래스
 class AddBall extends Item {
+    constructor(x,y)
+    {
+        super(x,y);
+        super.setDy(1);
+        super.setIcon("./assets/add.png");
+    }
+
     affect() {
         super.affect();
         ballArray.push(new Ball(bar.x, bar.y, 2, 1, -1));
@@ -510,8 +516,9 @@ function test(level) {
     itemArray = new Array();
     // itemArray.push(new Item(10,0));
     // itemArray.push(new LifePlus(50,0));
+    itemArray.push(new AddBall(50,0));
     // itemArray.push(new WidenBar(100,30));
-    itemArray.push(new RemoveLine(200,50));
+    // itemArray.push(new RemoveLine(200,50));
 
     // 화면 그림 갱신하기
     draw();
