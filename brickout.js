@@ -334,6 +334,7 @@ class AddBall extends Item {
 
     affect() {
         super.affect();
+        // TODO: 여기 방향 초기값 변경 필요..
         ballArray.push(new Ball(bar.x, bar.y, 2, 1, -1));
     }
 }
@@ -386,17 +387,30 @@ class RemoveLine extends Item
     affect()
     {
         super.affect();
-        // 맨 위 한 줄 삭제
         stage.blockArr.splice(stage.blockArr.length-1, 1);
     }
 
 }
 
 
-// TODO: 총알 공 아이템
-class ThunderBall extends Item
+// 총알 공 아이템
+class PowerBall extends Item
 {
+    constructor(x,y)
+    {
+        super(x,y);
+        super.setDy(1);
+        super.setIcon("./assets/thunder.png");
+    }
 
+    affect()
+    {
+        super.affect();
+        ballArray.forEach(ball=>{
+            ball.setPower(500);
+            ball.setColor("red");
+        });
+    }
 }
 
 
@@ -421,6 +435,7 @@ class Ball {
         this.radius = radius;
         this.dx = dx;
         this.dy = dy;
+        this.power = 0;
     }
 
 
@@ -450,6 +465,19 @@ class Ball {
     moveBall() {
         this.x += this.dx;
         this.y += this.dy;
+    }
+
+    // 아이템 사용시 튕기지 않는 공으로 변경. power초만큼 안튕김.
+    setPower(power)
+    {
+        this.power = power;
+    }
+
+    // 일정시간마다 파워감소
+    decreasePower()
+    {
+        if(this.power > 0) this.power --;
+        else this.setColor("green");
     }
 }// 공 class
 
@@ -516,7 +544,9 @@ function test(level) {
     itemArray = new Array();
     // itemArray.push(new Item(10,0));
     // itemArray.push(new LifePlus(50,0));
-    itemArray.push(new AddBall(50,0));
+    itemArray.push(new AddBall(50,40));
+    itemArray.push(new PowerBall(150,0));
+
     // itemArray.push(new WidenBar(100,30));
     // itemArray.push(new RemoveLine(200,50));
 
@@ -571,6 +601,9 @@ function detectCollision_block() {
 
 
             ballArray.forEach(ball => {
+                
+            
+                
                 //공의 좌표
                 var x = ball.x;
                 var y = ball.y;
@@ -579,13 +612,15 @@ function detectCollision_block() {
                 if (isInBorder(leftBorder, rightBorder, x)) {
                     if (!isInBorder(upBorder, downBorder, y + ball.dy)) return;
                     block.state = false;
-                    ball.setDirection(ball.dx, -ball.dy);
+                    // 만약 파워아이템 먹었으면 안 튕김
+                    ball.power ? true : ball.setDirection(ball.dx, -ball.dy);
                 }
 
                 if (isInBorder(upBorder, downBorder, y)) {
                     if (!isInBorder(leftBorder, rightBorder, x + ball.dx)) return;
                     block.state = false;
-                    ball.setDirection(-ball.dx, ball.dy);
+                    ball.power ? true: ball.setDirection(-ball.dx, ball.dy);
+                    
                 }
 
             });
@@ -601,6 +636,7 @@ function detectCollision_bar() {
         if (!isInBorder(bar.x, bar.x + bar.width, ball.x + ball.dx)) return;
         if (!isInBorder(bar.y, bar.y + bar.height, ball.y + ball.dy)) return;
         ball.setDirection(ball.dx, -ball.dy);
+        ball.y += Math.sign(ball.dy) * ball.radius;
     });
 }
 
@@ -654,6 +690,9 @@ function drawBall() {
     ballArray.forEach(ball => {
         // 공 좌표 이동
         ball.moveBall();
+
+        // 공 power 감소 (item 지속시간 감소)
+        ball.decreasePower();
 
         // 공 그리기
         context.beginPath();
