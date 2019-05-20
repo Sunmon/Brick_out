@@ -16,7 +16,8 @@ var ballArray;
 var itemArray;
 var ballThrow = false;
 var BALL_VELOCITY = 2;  //stage마다 볼 던질 속도
-var COLORS = {100: "red", 200: "orange", 300: "blue", 400: "green", 500: "purple"};
+var COLORS = {10: "red", 20: "orange", 30: "blue", 40: "green", 50: "purple"};
+var totalScore = 0;
 
 
 function init() {
@@ -84,7 +85,7 @@ window.onload = function () {
     addEvent(move_settingPage);
     addEvent(move_stairPage);
     drawNextbtn();
-    displayLives();
+    displayLivesAndScore();
 }
 
 
@@ -135,9 +136,9 @@ class Block {
  * insertLine(); 스테이지 맨 위에 블럭 한 줄 새로 삽입
  */
 class Stage {
-    // score: 모든 스테이지에서 합산 되어야 하므로 static
+ /*    // score: 모든 스테이지에서 합산 되어야 하므로 static
     static score = 0;
-
+ */
     constructor() {
         this.initStage();
     }
@@ -553,7 +554,7 @@ class Bar {
 
 
 
-// TODO: 게임 시작 메소드
+// 게임 시작 메소드
 function gameStart(level)
 {
     // 스테이지 생성
@@ -562,7 +563,9 @@ function gameStart(level)
     // 공 던지는 속도 조정
     BALL_VELOCITY = 2 + level/2;
 
+    totalScore = 0; 
     initGame();
+    
     draw();
 }
 
@@ -690,7 +693,8 @@ function detectCollision_block() {
                     ball.power ? true: ball.setDirection(-ball.dx, ball.dy);
                 }
 
-                if(!block.state) dropItem(block.x, block.y);   // 일정 확률로 아이템 떨어짐
+                if(!block.state) dropItem(block.x, block.y);    // 일정 확률로 아이템 떨어짐
+                if(!block.state) totalScore += +block.score;     // 깬 블럭 점수 추가
             });
 
         });
@@ -799,7 +803,7 @@ function draw() {
     drawStage();
     drawBar();
     detectCollision();
-    displayLives();
+    displayLivesAndScore();
 
 }
 
@@ -854,7 +858,7 @@ function gameOver() {
     cancelAnimationFrame(animate);
     ballArray.splice(0, 1);
     drawGameover();
-    displayLives();
+    displayLivesAndScore();
 }
 
 //옆장으로 넘어가는 화살표를 그리는 함수
@@ -928,10 +932,24 @@ function drawPbtn() {
 
 //canvas2에 목숨을 표시한다.
 function displayLives() {
-    context2.clearRect(0, 0, canvas2.width, canvas2.height);
-    context2.font = "45px Verdana"
-    context2.fillText("LIVES: " + lives, canvas2.width / 2 - 130, canvas2.height / 2 - 20);
+    context2.fillText("LIVES: " + lives, canvas2.width / 2 - 130, canvas2.height / 2 -20);
 }
+
+
+// canvas2에 점수 표시
+function displayScore()
+{
+    context2.fillText("SCORE: " + totalScore, canvas2.width / 2 - 130, canvas2.height / 2 + 20);
+}
+
+function displayLivesAndScore()
+{
+    context2.font = "40px Verdana"
+    context2.clearRect(0, 0, canvas2.width, canvas2.height);
+    displayLives();
+    displayScore();
+}
+
 
 //음악선택과 배경선택을 나누는 선을 그린다
 function drawsettingpageLine()
