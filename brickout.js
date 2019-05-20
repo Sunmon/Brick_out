@@ -54,6 +54,11 @@ function addEvent(func) {
     document.addEventListener("click", func, false);
 }
 
+function removeEvent(func)
+{
+    document.removeEventListener("click",func);
+}
+
 function settingStage(e)
 {
     var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
@@ -66,7 +71,7 @@ function settingStage(e)
     //stage3을 선택할 때
     if ((relativeX>=151&&relativeX<=225)&&(relativeY>=35&&relativeY<=55)) {gameStart(3);}
     //stage4를 선택할 때
-    if ((relativeX>=226&&relativeX<=300)&&(relativeY>=0&&relativeY<=12)) {gameStart(4);}  
+    if ((relativeX>=226&&relativeX<=300)&&(relativeY>=0&&relativeY<=25)) {gameStart(4);}  
 }
 
 
@@ -75,7 +80,7 @@ function settingStage(e)
 // 첫 시작 시 불러올 함수들
 window.onload = function () {
     init();
-    //addEvent(settingStage);
+    addEvent(settingStage);
     addEvent(move_settingPage);
     addEvent(move_stairPage);
     drawNextbtn();
@@ -875,6 +880,7 @@ function move_settingPage(e)
 //환경설정페이지
 function settingPage() {
     context.clearRect(0, 0, WIDTH, HEIGHT);
+    removeEvent(settingStage);
     addEvent(setBack);
     addEvent(playMusic);
     drawPbtn();
@@ -899,6 +905,7 @@ function move_stairPage(e)
     {
 
      context.clearRect(0,0,WIDTH,HEIGHT);
+     removeEvent(setBack);
      init();
      addEvent(settingStage);
      drawStair();

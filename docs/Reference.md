@@ -129,6 +129,17 @@ parameter 개수 달라서 함수 실행이 제대로 안 되는데 왜 안 잡�
 <br>
 <br>
 
+## 7. Object.entries() :: pair
+
+js에는 pair가 없다. 대신 비슷한 기능이 있다. `Object.entires()`라고.
+
+https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+
+pair대신 array로 리턴해준다.
+
+<br>
+<br>
+
 ## 좋은 사이트
 
 웹 프로그래밍 잘 알려주는 사이트 (강추): https://poiemaweb.com/
