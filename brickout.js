@@ -555,6 +555,9 @@ function detectCollision_wall() {
 function detectCollision_item()
 {
     itemArray.forEach( (item,index) =>{
+        
+        // 아이템이 화면 밖으로 사라지면 삭제
+        if(!isInBorder(0, HEIGHT, item.y)) itemArray.splice(index,1);
 
         // 바와 충돌 확인
         if(!isInBorder(bar.x, bar.x+bar.width, item.x)) return;
