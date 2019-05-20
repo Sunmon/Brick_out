@@ -16,6 +16,7 @@ var ballArray;
 var itemArray;
 var ballThrow = false;
 var BALL_VELOCITY = 2;  //stage마다 볼 던질 속도
+var COLORS = {100: "red", 200: "orange", 300: "blue", 400: "green", 500: "purple"};
 
 
 function init() {
@@ -91,11 +92,11 @@ class Block {
     constructor(x, y, color, width, height) {
         this.x = x;
         this.y = y;
-        this.color = color;
+        this.color = color[1];
+        this.score = color[0];
         this.width = width;
         this.height = height;
         this.state = true;                  //true 블럭 멀쩡함 , false: 깨짐
-
     }
 
     // 블럭 위치 설정
@@ -137,7 +138,9 @@ class Stage {
     }
 
     initStage() {
-        this.colors = ["red", "orange", "blue", "green", "purple"];     // 블럭 색깔. 
+        // this.colors = ["red", "orange", "blue", "green", "purple"];     // 블럭 색깔. 
+        // TODO: color 점수 pair로 
+        this.colors = COLORS;
         this.initLineTimer(0);
         // this.initBlockArr(10,10,10,10);
         // this.placeBlocks();
@@ -170,9 +173,11 @@ class Stage {
         // 기존 블럭 아래로 한 줄씩 당김
         this.downBlock(blockArr);
 
-        // 새 블럭 한 줄 맨 위에 삽입
-        var color = this.colors[Math.floor(Math.random() * 5)];
-        blockArr.push(this.createNewLine(block_in_row, color));
+        // TODO: 새 블럭 한 줄 맨 위에 삽입
+        // var color = this.colors[Math.floor(Math.random() * 5)];
+        var colors = Object.entries(COLORS)[Math.floor(Math.random()*5)];
+        // document.write(Object.entries(COLORS)[2][1]);
+        blockArr.push(this.createNewLine(block_in_row, colors));
     }
 
     // 블럭 전체 한 칸씩 아래로 당기기
