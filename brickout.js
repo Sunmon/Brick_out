@@ -399,7 +399,7 @@ class PowerBall extends Item
     constructor(x,y)
     {
         super(x,y);
-        super.setDy(1);
+        super.setDy(1.2);
         super.setIcon("./assets/thunder.png");
     }
 
@@ -544,8 +544,8 @@ function test(level) {
     itemArray = new Array();
     // itemArray.push(new Item(10,0));
     // itemArray.push(new LifePlus(50,0));
-    itemArray.push(new AddBall(50,40));
-    itemArray.push(new PowerBall(150,0));
+    // itemArray.push(new AddBall(50,40));
+    // itemArray.push(new PowerBall(150,0));
 
     // itemArray.push(new WidenBar(100,30));
     // itemArray.push(new RemoveLine(200,50));
@@ -602,8 +602,6 @@ function detectCollision_block() {
 
             ballArray.forEach(ball => {
                 
-            
-                
                 //공의 좌표
                 var x = ball.x;
                 var y = ball.y;
@@ -620,9 +618,9 @@ function detectCollision_block() {
                     if (!isInBorder(leftBorder, rightBorder, x + ball.dx)) return;
                     block.state = false;
                     ball.power ? true: ball.setDirection(-ball.dx, ball.dy);
-                    
                 }
 
+                if(!block.state) dropItem(block.x, block.y);   // 일정 확률로 아이템 떨어짐
             });
 
         });
@@ -727,6 +725,21 @@ function draw() {
 
 }
 
+
+// 일정확률로 x,y위치에서 아이템 드랍.
+function dropItem(x,y)
+{
+    var rand = Math.floor(Math.random() * 50);
+    switch(rand)
+    {
+        case 0: itemArray.push(new AddBall(x,y)); break;
+        case 1: itemArray.push(new LifePlus(x,y)); break;
+        case 2: itemArray.push(new WidenBar(x,y)); break;
+        case 3: itemArray.push(new RemoveLine(x,y)); break;
+        case 4: itemArray.push(new PowerBall(x,y)); break;
+        default: break;
+    }
+}
 
 
 
