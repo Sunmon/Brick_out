@@ -577,8 +577,8 @@ function initGame()
 {
     // 게임 시작 준비
     ballThrow = false;
-
-    document.addEventListener("click", throwingBall, true); //한 번만 호출
+    addEvent(throwingBall);
+   // document.addEventListener("click", throwingBall, true); //한 번만 호출
 
     // Bar 그리기
     bar = new Bar(30, HEIGHT - 20, "black", 50, 5);
@@ -867,7 +867,9 @@ function gameOver() {
     removeEvent(setBack);
     removeEvent(settingStage);
     removeEvent(playMusic);
+    removeEvent(throwingBall);
     addEvent(replay);
+    addEvent(reset);
     drawReplay();
     drawReset();
   }
@@ -1054,7 +1056,7 @@ function drawReplay()
 function drawReset()
 {
     context.font = "15px Gothic";
-    context.fillStyle = "green";
+    context.fillStyle = "black";
     context.fillText("RESET",200,113);
 }
 
@@ -1064,7 +1066,7 @@ function replay(e){
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
 
     if ((relativeX>=50&&relativeX<=111)&&(relativeY>=100&&relativeY<=117))
-    {startGame(4);}//일단 임의로 시작하게 만들었습니다.
+    {gameStart(4);}//일단 임의로 시작하게 만들었습니다.
 
 }
 
@@ -1074,6 +1076,14 @@ function reset(e){
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
 
     if ((relativeX>=200&&relativeX<=245)&&(relativeY>=100&&relativeY<=117))
-    {}
+    {
+     context.clearRect(0,0,WIDTH,HEIGHT); 
+     init();
+     addEvent(settingStage);
+     addEvent(move_settingPage);
+     addEvent(move_stairPage);
+     drawNextbtn();
+     displayLivesAndScore();
+    }
 
 }
