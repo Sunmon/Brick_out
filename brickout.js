@@ -18,6 +18,7 @@ var ballThrow = false;
 var BALL_VELOCITY = 2;  //stage마다 볼 던질 속도
 var COLORS = {10: "red", 20: "orange", 30: "blue", 40: "green", 50: "purple"};
 var totalScore = 0;
+var level;
 
 
 function init() {
@@ -66,13 +67,13 @@ function settingStage(e)
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
  
    //stage1을 선택할 때
-    if ((relativeX>0&&relativeX<=60)&&(relativeY>=84&&relativeY<=115)) {gameStart(1);}
+    if ((relativeX>0&&relativeX<=60)&&(relativeY>=84&&relativeY<=115)) {gameStart(1); level=1;}
     //stage2를 선택할 떄
-    if ((relativeX>=76&&relativeX<=150)&&(relativeY>=54&&relativeY<=84)) {gameStart(2);}
+    if ((relativeX>=76&&relativeX<=150)&&(relativeY>=54&&relativeY<=84)) {gameStart(2); level=2;}
     //stage3을 선택할 때
-    if ((relativeX>=151&&relativeX<=225)&&(relativeY>=35&&relativeY<=55)) {gameStart(3);}
+    if ((relativeX>=151&&relativeX<=225)&&(relativeY>=35&&relativeY<=55)) {gameStart(3); level=3;}
     //stage4를 선택할 때
-    if ((relativeX>=226&&relativeX<=300)&&(relativeY>=0&&relativeY<=25)) {gameStart(4);}  
+    if ((relativeX>=226&&relativeX<=300)&&(relativeY>=0&&relativeY<=25)) {gameStart(4); level=4;}  
 }
 
 
@@ -569,6 +570,8 @@ function gameStart(level)
     
     draw();
     removeEvent(settingStage);
+    removeEvent(replay);
+    removeEvent(reset);
 }
 
 
@@ -1066,7 +1069,12 @@ function replay(e){
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
 
     if ((relativeX>=50&&relativeX<=111)&&(relativeY>=100&&relativeY<=117))
-    {gameStart(4);}//일단 임의로 시작하게 만들었습니다.
+    {
+        if (level==1) {gameStart(1);}
+        else if (level==2) {gameStart(2);}
+        else if (level==3) {gameStart(3);}
+        else if (level==4) {gameStart(4);}
+    }
 
 }
 
