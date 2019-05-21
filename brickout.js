@@ -64,7 +64,7 @@ function settingStage(e)
 {
     var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
-   
+ 
    //stage1을 선택할 때
     if ((relativeX>0&&relativeX<=60)&&(relativeY>=84&&relativeY<=115)) {gameStart(1);}
     //stage2를 선택할 떄
@@ -86,6 +86,7 @@ window.onload = function () {
     addEvent(move_stairPage);
     drawNextbtn();
     displayLivesAndScore();
+
 }
 
 
@@ -848,9 +849,10 @@ function drawGameover() {
     graient.addColorStop("0", "red");
     graient.addColorStop("0.5", "yellow");
     graient.addColorStop("1.0", "orange");
+    context.font = "40px Verdana";
     context.fillStyle = graient;
-    context.fillText("GAME OVER", WIDTH / 2, HEIGHT / 2);
-    context.font = "50px Verdana";
+    context.fillText("GAME OVER", 28, 63);
+    
 }
 
 function gameOver() {
@@ -859,7 +861,13 @@ function gameOver() {
     ballArray.splice(0, 1);
     drawGameover();
     displayLivesAndScore();
-}
+    removeEvent(setBack);
+    removeEvent(settingStage);
+    removeEvent(playMusic);
+    addEvent(replay);
+    drawReplay();
+    drawReset();
+  }
 
 //옆장으로 넘어가는 화살표를 그리는 함수
 function drawNextbtn() {
@@ -1031,4 +1039,38 @@ function stopMusic(id)
 {
     var mussssic = document.getElementById(id);
     mussssic.pause();
+}
+
+function drawReplay()
+{
+    context.font = "15px Verdana";
+    context.fillStyle = "black";
+    context.fillText("REPLAY",50,113);   
+}
+
+function drawReset()
+{
+    context.font = "15px Gothic";
+    context.fillStyle = "green";
+    context.fillText("RESET",200,113);
+}
+
+//해당 단계를 다시 시작
+function replay(e){
+    var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
+    var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
+
+    if ((relativeX>=50&&relativeX<=111)&&(relativeY>=100&&relativeY<=117))
+    {startGame(4);}//일단 임의로 시작하게 만들었습니다.
+
+}
+
+//처음으로 돌아간다
+function reset(e){
+    var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
+    var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
+
+    if ((relativeX>=200&&relativeX<=245)&&(relativeY>=100&&relativeY<=117))
+    {}
+
 }
