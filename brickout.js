@@ -572,6 +572,8 @@ function gameStart(level, totalScore)
     
     draw();
     removeEvent(settingStage);
+    removeEvent(replay);
+    removeEvent(reset);
 }
 
 // TODO: gameClear
@@ -585,8 +587,8 @@ function initGame()
 {
     // 게임 시작 준비
     ballThrow = false;
-
-    document.addEventListener("click", throwingBall, true); //한 번만 호출
+    addEvent(throwingBall);
+   // document.addEventListener("click", throwingBall, true); //한 번만 호출
 
     // Bar 그리기
     bar = new Bar(30, HEIGHT - 20, "black", 50, 5);
@@ -609,8 +611,7 @@ function initGame()
 }
 
 
-// TODO: 스테이지 클리어 함수
-// 스테이지 클리어 함수
+// 각 스테이지 클리어 함수
 function detectStageClear()
 {
     // 남은 블럭이 있는 지 확인
@@ -621,14 +622,11 @@ function detectStageClear()
                     if(block.state) return true;
                 });
         });
-// TODO: stop animation 해야하나?
     if(!isLeft) 
     {
         cancelAnimationFrame(animate);
         gameStart(++level,totalScore);
     }
-    // if(!isLeft) document.write("asdf");
-
 }
 
 
@@ -896,7 +894,9 @@ function gameOver() {
     removeEvent(setBack);
     removeEvent(settingStage);
     removeEvent(playMusic);
+    removeEvent(throwingBall);
     addEvent(replay);
+    addEvent(reset);
     drawReplay();
     drawReset();
   }
@@ -1083,7 +1083,7 @@ function drawReplay()
 function drawReset()
 {
     context.font = "15px Gothic";
-    context.fillStyle = "green";
+    context.fillStyle = "black";
     context.fillText("RESET",200,113);
 }
 
@@ -1093,7 +1093,12 @@ function replay(e){
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
 
     if ((relativeX>=50&&relativeX<=111)&&(relativeY>=100&&relativeY<=117))
-    {startGame(4);}//일단 임의로 시작하게 만들었습니다.
+    {
+        if (level==1) {gameStart(1);}
+        else if (level==2) {gameStart(2);}
+        else if (level==3) {gameStart(3);}
+        else if (level==4) {gameStart(4);}
+    }
 
 }
 
@@ -1103,6 +1108,14 @@ function reset(e){
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
 
     if ((relativeX>=200&&relativeX<=245)&&(relativeY>=100&&relativeY<=117))
-    {}
+    {
+     context.clearRect(0,0,WIDTH,HEIGHT); 
+     init();
+     addEvent(settingStage);
+     addEvent(move_settingPage);
+     addEvent(move_stairPage);
+     drawNextbtn();
+     displayLivesAndScore();
+    }
 
 }
