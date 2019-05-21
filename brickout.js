@@ -236,7 +236,7 @@ class Stage_One extends Stage {
 /**
  * 두 번째 스테이지.
  */
-class Stage_Two extends Stage {
+ class Stage_Two extends Stage {
     initStage() {
         super.initStage();
         super.initLineTimer(400000);
@@ -246,13 +246,11 @@ class Stage_Two extends Stage {
 
     // 블록 배치. Stage따라 다르다.
     placeBlocks() {
-        for (var i = 0; i < this.block_in_col; i++) {
+         for (var i = 0; i < this.block_in_col; i++) {
             for (var j = 0; j < this.block_in_row; j++)
-                if ((3 * i + 7 * j) % 6) this.blockArr[i][j].state = false;  //블럭 배치 모양 만들기
+                if ((11 * i + 3 * j) % 6) this.blockArr[i][j].state = false;  //블럭 배치 모양 만들기
         }
     }
-
-
 }
 
 
@@ -274,7 +272,6 @@ class Stage_Three extends Stage {
                 if ((Math.floor(Math.random() * 3) * i + Math.floor(Math.random() * 3) * j) % 6) this.blockArr[i][j].state = false;  //블럭 배치 모양 만들기
         }
     }
-
 
 }
 
