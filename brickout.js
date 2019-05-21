@@ -59,7 +59,7 @@ function drawStair() {
 // TODO:선택 영역 테스트 . Remove this after test
 function hitTest()
 {
-
+    // 새 path를 그린다.
     var tp = new Path2D();
     tp.moveTo(100, 10);
     tp.lineTo(100,40);
@@ -67,11 +67,13 @@ function hitTest()
     context.fillStyle = "red";
     context.fill(tp);
 
+    // path로 그린 도형에 이벤트 리스너 추가
     canvas.addEventListener('click', function(e) {
 
         var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
         var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
         
+        // 마우스 포인터가 path로 그린 도형 안에 있으면 색깔을 바꾼다
         if(context.isPointInPath(tp, relativeX, relativeY))context.fillStyle = "blue";
         context.fill(tp);
 
