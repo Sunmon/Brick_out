@@ -438,7 +438,7 @@ function setLevel(level) {
         case 3: return new Stage_Three();
         case 4: return new Stage_Four();
         // default: return new Stage();
-        default: gameClear();
+        default: gameClear(); return;
     }
 }
 
@@ -563,7 +563,9 @@ function gameStart(level, totalScore)
 
     // 스테이지 생성
     stage = setLevel(level);
+    if(stage == null) return;
 
+    
     // 공 던지는 속도 조정
     BALL_VELOCITY = 2 + level/2;
 
@@ -579,6 +581,10 @@ function gameStart(level, totalScore)
 // TODO: gameClear
 function gameClear()
 {
+    // draw하던거 캔슬
+    cancelAnimationFrame(animate);
+
+
 
 }
 
@@ -587,8 +593,8 @@ function initGame()
 {
     // 게임 시작 준비
     ballThrow = false;
-    addEvent(throwingBall);
-   // document.addEventListener("click", throwingBall, true); //한 번만 호출
+    // addEvent(throwingBall);
+   document.addEventListener("click", throwingBall, true); //한 번만 호출
 
     // Bar 그리기
     bar = new Bar(30, HEIGHT - 20, "black", 50, 5);
