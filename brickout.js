@@ -603,9 +603,7 @@ function gameStart(level, totalScore)
     initGame();
     
     draw();
-    removeEvent(settingStage);
-    removeEvent(replay);
-    removeEvent(reset);
+   
 }
 
 // TODO: gameClear
@@ -643,6 +641,13 @@ function initGame()
     timer = setInterval(function () {
         stage.insertLine(stage.blockArr, stage.block_in_row)
     }, stage.lineTimer);
+
+    removeEvent(settingStage);
+    removeEvent(replay);
+    removeEvent(reset);
+    removeEvent(move_settingPage);
+    removeEvent(move_stairPage);
+
 
 }
 
