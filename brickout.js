@@ -611,6 +611,7 @@ function gameClear()
 {
     // draw하던거 캔슬
     cancelAnimationFrame(animate);
+    drawClear();
 
 
 
@@ -1165,4 +1166,25 @@ function reset(e){
      lives=3;
     }
 
+}
+
+function drawClear()
+{
+    context.clearRect(0, 0, WIDTH, HEIGHT);
+    var graient = context.createLinearGradient(0, 0, WIDTH, 0);
+    graient.addColorStop("0", "red");
+    graient.addColorStop("0.3", "orange");
+    graient.addColorStop("0.5", "yellow");
+    graient.addColorStop("0.7", "green");
+    graient.addColorStop("0.9", "blue");
+    graient.addColorStop("1.0", "purple");
+    context.font = "40px Verdana";
+    context.fillStyle = graient;
+    context.fillText("GAME CLEAR", 28, 63);
+}
+
+function drawFinalscore()
+{
+    context.font = "20px Verdana";
+    context.fillText(totalScore);
 }
