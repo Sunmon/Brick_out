@@ -140,6 +140,30 @@ pair대신 array로 리턴해준다.
 <br>
 <br>
 
+
+
+## 8. GUI 클릭
+
+canvas에 버튼을 그리고 클릭영역을 지정해 주었다.
+
+그런데 그림과 클릭 영역이 따로 논다.
+
+이를 바인딩해주는 함수를 알아 보자.
+
+1. addHitRegion: https://developer.mozilla.org/ko/docs/Web/HTML/Canvas/Tutorial/Hit_regions_and_accessibility
+
+선택 영역을 정해주는 함수다. 다만 아직 실험버전이라서, 사용하려면 크롬 브라우저의 옵션을 수정해야 한다.
+
+chrome://flags 에서  Experimental Web Platform features를 `true`로 변경해 주자.
+
+2. 브라우저 변경이 싫다면 `addHitRegion`과 비슷한 `isInPath`를 쓰자.
+
+https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/isPointInPath
+
+<br>
+<br>
+
+
 ## 좋은 사이트
 
 웹 프로그래밍 잘 알려주는 사이트 (강추): https://poiemaweb.com/
