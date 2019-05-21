@@ -18,6 +18,7 @@ var ballThrow = false;
 var BALL_VELOCITY = 2;  //stage마다 볼 던질 속도
 var COLORS = {10: "red", 20: "orange", 30: "blue", 40: "green", 50: "purple"};
 var totalScore = 0;
+var level;  //stage level
 
 
 function init() {
@@ -66,13 +67,15 @@ function settingStage(e)
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
  
    //stage1을 선택할 때
-    if ((relativeX>0&&relativeX<=60)&&(relativeY>=84&&relativeY<=115)) {gameStart(1);}
+    if ((relativeX>0&&relativeX<=60)&&(relativeY>=84&&relativeY<=115)) {level = 1;}
     //stage2를 선택할 떄
-    if ((relativeX>=76&&relativeX<=150)&&(relativeY>=54&&relativeY<=84)) {gameStart(2);}
+    if ((relativeX>=76&&relativeX<=150)&&(relativeY>=54&&relativeY<=84)) {level = 2;}
     //stage3을 선택할 때
-    if ((relativeX>=151&&relativeX<=225)&&(relativeY>=35&&relativeY<=55)) {gameStart(3);}
+    if ((relativeX>=151&&relativeX<=225)&&(relativeY>=35&&relativeY<=55)) {level = 3;}
     //stage4를 선택할 때
-    if ((relativeX>=226&&relativeX<=300)&&(relativeY>=0&&relativeY<=25)) {gameStart(4);}  
+    if ((relativeX>=226&&relativeX<=300)&&(relativeY>=0&&relativeY<=25)) {level = 4;}
+    
+    gameStart(level,0);
 }
 
 
@@ -249,7 +252,8 @@ class Stage_One extends Stage {
     placeBlocks() {
          for (var i = 0; i < this.block_in_col; i++) {
             for (var j = 0; j < this.block_in_row; j++)
-                if ((11 * i + 3 * j) % 6) this.blockArr[i][j].state = false;  //블럭 배치 모양 만들기
+                // if ((11 * i + 3 * j) % 6) this.blockArr[i][j].state = false;  //블럭 배치 모양 만들기
+                if(!(i==4 && j == 3)) this.blockArr[i][j].state = false;
         }
     }
 }
@@ -433,7 +437,8 @@ function setLevel(level) {
         case 2: return new Stage_Two();
         case 3: return new Stage_Three();
         case 4: return new Stage_Four();
-        default: return new Stage();
+        // default: return new Stage();
+        default: gameClear();
     }
 }
 
@@ -553,21 +558,27 @@ class Bar {
 
 
 // 게임 시작 메소드
-function gameStart(level)
+function gameStart(level, totalScore)
 {
+
     // 스테이지 생성
     stage = setLevel(level);
 
     // 공 던지는 속도 조정
     BALL_VELOCITY = 2 + level/2;
 
-    totalScore = 0; 
+    this.totalScore = totalScore; 
     initGame();
     
     draw();
     removeEvent(settingStage);
 }
 
+// TODO: gameClear
+function gameClear()
+{
+
+}
 
 // 게임 초기화
 function initGame()
@@ -598,7 +609,27 @@ function initGame()
 }
 
 
+// TODO: 스테이지 클리어 함수
+// 스테이지 클리어 함수
+function detectStageClear()
+{
+    // 남은 블럭이 있는 지 확인
+    var isLeft = stage.blockArr.some(blockRow=>
+        {
+            return blockRow.some(block=>
+                {
+                    if(block.state) return true;
+                });
+        });
+// TODO: stop animation 해야하나?
+    if(!isLeft) 
+    {
+        cancelAnimationFrame(animate);
+        gameStart(++level,totalScore);
+    }
+    // if(!isLeft) document.write("asdf");
 
+}
 
 
 // 임시 테스트 함수
@@ -804,6 +835,7 @@ function draw() {
     drawStage();
     drawBar();
     detectCollision();
+    detectStageClear();
     displayLivesAndScore();
 
 }
