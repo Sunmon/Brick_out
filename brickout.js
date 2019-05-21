@@ -29,6 +29,8 @@ function init() {
     HEIGHT = canvas.height;
 
     drawStair();
+
+    hitTest();    //TODO: 이 메소드 삭제하기. 
     canvas2 = document.getElementById("frame2");
     context2 = canvas2.getContext("2d");
 }
@@ -51,6 +53,32 @@ function drawStair() {
     context.fillText("3", 180, 50);
     context.fillText("4", 255, 20);
 }
+
+
+
+// TODO:선택 영역 테스트 . Remove this after test
+function hitTest()
+{
+
+    var tp = new Path2D();
+    tp.moveTo(100, 10);
+    tp.lineTo(100,40);
+    tp.lineTo(130,40);
+    context.fillStyle = "red";
+    context.fill(tp);
+
+    canvas.addEventListener('click', function(e) {
+
+        var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
+        var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
+        
+        if(context.isPointInPath(tp, relativeX, relativeY))context.fillStyle = "blue";
+        context.fill(tp);
+
+      });
+
+}
+
 
 function addEvent(func) {
     document.addEventListener("click", func, false);
@@ -565,7 +593,7 @@ function gameStart(level, totalScore)
     stage = setLevel(level);
     if(stage == null) return;
 
-    
+
     // 공 던지는 속도 조정
     BALL_VELOCITY = 2 + level/2;
 
@@ -966,6 +994,7 @@ function move_stairPage(e)
 
 //다시 앞으로 돌아가는 버튼을 그린다
 function drawPbtn() {
+
     context.beginPath();
     context.moveTo(32, 130);
     context.lineTo(32, 145);
@@ -973,8 +1002,12 @@ function drawPbtn() {
     context.closePath();
     context.fillStyle = "black";
     context.fill();
-
 }
+
+
+
+
+
 
 //canvas2에 목숨을 표시한다.
 function displayLives() {
