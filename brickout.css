@@ -1,7 +1,10 @@
 /* 기본 프레임. */
 #frame{
-    border: 5px dotted lightblue;
-    background-color: rgb(236, 250, 253);
+    /* border: 5px dotted lightblue; */
+    border: 2px solid lightblue;
+    /* background-color: rgb(236, 250, 253); */
+    /* background-color: white; */
+    background-color: #191548;
 
     /* TODO: width, height 정하기 */
     /* width: 20%; */
@@ -9,6 +12,8 @@
     /* height: 500px; */
     overflow: hidden;
     float: left;
+
+    
 }
 
 
@@ -18,7 +23,32 @@ div{
 
 #frame2{
     border: 5px dotted red;
-    background-color: rgb(236, 250, 253);
+    /* background-color: rgb(236, 250, 253); */
+    background-color: white;
     overflow: hidden;
     float: left;
 }
+
+
+
+/* Adobe color */
+/* Color Theme Swatches in Hex */
+.pastell-2-1-hex { color: #A8E6CF; }
+.pastell-2-2-hex { color: #DCEDC1; }
+.pastell-2-3-hex { color: #FFD3B6; }
+.pastell-2-4-hex { color: #FFAAA7; }
+.pastell-2-5-hex { color: #FF8B94; }
+
+/* Color Theme Swatches in RGBA */
+.pastell-2-1-rgba { color: rgba(168, 230, 207, 1); }
+.pastell-2-2-rgba { color: rgba(219, 237, 193, 1); }
+.pastell-2-3-rgba { color: rgba(255, 211, 182, 1); }
+.pastell-2-4-rgba { color: rgba(255, 170, 167, 1); }
+.pastell-2-5-rgba { color: rgba(255, 138, 147, 1); }
+
+/* Color Theme Swatches in HSLA */
+.pastell-2-1-hsla { color: hsla(157, 55, 78, 1); }
+.pastell-2-2-hsla { color: hsla(83, 55, 84, 1); }
+.pastell-2-3-hsla { color: hsla(23, 100, 85, 1); }
+.pastell-2-4-hsla { color: hsla(2, 100, 82, 1); }
+.pastell-2-5-hsla { color: hsla(355, 100, 77, 1); }

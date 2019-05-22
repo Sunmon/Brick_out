@@ -16,9 +16,10 @@ var ballArray;
 var itemArray;
 var ballThrow = false;
 var BALL_VELOCITY = 2;  //stage마다 볼 던질 속도
-var COLORS = {10: "red", 20: "orange", 30: "blue", 40: "green", 50: "purple"};
+var COLORS = {10: "#FF00D0", 20: "#FF0070", 30: "#FF8A00", 40: "#FFCA3F", 50: "#4AFF56"};
 var totalScore = 0;
 var level;  //stage level
+var BALL_COLOR = "#36EFF3";
 
 
 function init() {
@@ -30,7 +31,7 @@ function init() {
 
     drawStair();
 
-    hitTest();    //TODO: 이 메소드 삭제하기. 
+    // hitTest();    //TODO: 이 메소드 삭제하기. 
     canvas2 = document.getElementById("frame2");
     context2 = canvas2.getContext("2d");
 }
@@ -453,7 +454,7 @@ class PowerBall extends Item
         super.affect();
         ballArray.forEach(ball=>{
             ball.setPower(500);
-            ball.setColor("red");
+            ball.setColor("#FC646A");
         });
     }
 }
@@ -544,7 +545,7 @@ class Ball {
     decreasePower()
     {
         if(this.power > 0) this.power --;
-        else this.setColor("green");
+        else this.setColor(BALL_COLOR);
     }
 }// 공 class
 
@@ -625,11 +626,11 @@ function initGame()
    document.addEventListener("click", throwingBall, true); //한 번만 호출
 
     // Bar 그리기
-    bar = new Bar(30, HEIGHT - 20, "black", 50, 5);
+    bar = new Bar(30, HEIGHT - 20, "white", 50, 3);
 
     // ball 그리기
     var ball = new Ball(bar.x + (bar.width / 2), bar.y - 3, 2, 40, BALL_VELOCITY);
-    ball.setColor("green");
+    ball.setColor(BALL_COLOR);
     
     ballArray = new Array();
     ballArray.push(ball);
@@ -709,10 +710,10 @@ function drawStage() {
     stage.blockArr.forEach(blockRow => {
         blockRow.forEach(block => {
             if (!block.state) return;
-            /* context.fillStyle = block.color;
-            context.fillRect(block.x, block.y, block.width, block.height); */
-            context.strokeStyle = block.color;
-            context.strokeRect(block.x, block.y, block.width, block.height);
+            context.fillStyle = block.color;
+            context.fillRect(block.x, block.y, block.width, block.height);
+            // context.strokeStyle = block.color;
+            // context.strokeRect(block.x, block.y, block.width, block.height);
         });
     });
 }
@@ -831,8 +832,10 @@ function throwingBall()
 
 // 화면에 바를 그린다
 function drawBar() {
-    context.strokeStyle = bar.color;
-    context.strokeRect(bar.x, bar.y, bar.width, bar.height);
+    context.fillStyle = bar.color;
+    context.fillRect(bar.x, bar.y, bar.width, bar.height);
+    // context.strokeStyle = bar.color;
+    // context.strokeRect(bar.x, bar.y, bar.width, bar.height);
 }
 
 // 공을 화면에 그린다
