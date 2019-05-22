@@ -16,11 +16,12 @@ var ballArray;
 var itemArray;
 var ballThrow = false;
 var BALL_VELOCITY = 2;  //stage마다 볼 던질 속도
-var COLORS = {10: "#FF00D0", 20: "#FF0070", 30: "#FF8A00", 40: "#FFCA3F", 50: "#4AFF56"};
+// var COLORS = {10: "#FF00D0", 20: "#FF0070", 30: "#FF8A00", 40: "#FFCA3F", 50: "#4AFF56"};
+var COLORS = {10: "#A8E6CF", 20: "#DCEDC1", 30: "#FFD3B6", 40: "#FFAAA7", 50: "#FF8B94"};
 var totalScore = 0;
 var level;  //stage level
-var BALL_COLOR = "#36EFF3";
-
+// var BALL_COLOR = "#36EFF3";
+var BALL_COLOR = "#E9E744";
 
 function init() {
 
@@ -109,15 +110,14 @@ function settingStage(e)
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
 
    //stage1을 선택할 때
-    if ((relativeX>0&&relativeX<=60)&&(relativeY>=84&&relativeY<=115)) {level = 1;}
+    if ((relativeX>0&&relativeX<=60)&&(relativeY>=84&&relativeY<=115)) {gameStart(1,0);}
     //stage2를 선택할 떄
-    if ((relativeX>=76&&relativeX<=150)&&(relativeY>=54&&relativeY<=84)) {level = 2;}
+    if ((relativeX>=76&&relativeX<=150)&&(relativeY>=54&&relativeY<=84)) {gameStart(2,0);}
     //stage3을 선택할 때
-    if ((relativeX>=151&&relativeX<=225)&&(relativeY>=35&&relativeY<=55)) {level = 3;}
+    if ((relativeX>=151&&relativeX<=225)&&(relativeY>=35&&relativeY<=55)) {gameStart(3,0);}
     //stage4를 선택할 때
-    if ((relativeX>=226&&relativeX<=300)&&(relativeY>=0&&relativeY<=25)) {level = 4;}
-    
-    gameStart(level,0);
+    if ((relativeX>=226&&relativeX<=300)&&(relativeY>=0&&relativeY<=25)) {gameStart(4,0);}
+
 }
 
 
@@ -1035,7 +1035,8 @@ function drawPbtn() {
 
 //canvas2에 목숨을 표시한다.
 function displayLives(fontSize) {
-    context2.fillStyle = "#E9E744";
+    // context2.fillStyle = "#E9E744";
+    context2.fillStyle = "white";
     context2.textAlign = 'left';
     context2.fillText("LIVES:" + lives, 0, fontSize); 
 }
@@ -1044,7 +1045,7 @@ function displayLives(fontSize) {
 // canvas2에 점수 표시
 function displayScore(fontSize)
 {
-    context2.fillStyle = "#E9E744";
+    context2.fillStyle = "white";
     context2.textAlign = "right";
     context2.fillText("SCORE: " + totalScore, canvas2.clientWidth, fontSize);
 }
