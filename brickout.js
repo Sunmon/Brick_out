@@ -32,10 +32,18 @@ function init() {
     drawStair();
 
     // hitTest();    //TODO: 이 메소드 삭제하기. 
+
+    // canvas2 설정
     canvas2 = document.getElementById("frame2");
     context2 = canvas2.getContext("2d");
     var cw = canvas2.clientWidth * 0.05;
     canvas2.style.height = cw + "px";
+
+
+    // 글씨 잘 보이게 해상도 조절
+    var w = canvas2.clientWidth;
+    var h = canvas2.clientHeight;
+    context2.scale(canvas2.width/w, canvas2.height / h);
     // canvas2.style.height = canvas2.clientWidth * 0.1 + "%";
     // document.write(canvas2.clientHeight + " " + canvas2.clientWidth);
 }
@@ -831,7 +839,7 @@ function throwingBall()
     var angle = Math.floor(Math.random()*20) + 20;
     if(angle % 2) angle += 90;
     else angle = 90 - angle;
-    ballArray[0].setDirectionWithAngle(angle, 2 + level/2);
+    ballArray[0].setDirectionWithAngle(angle, 1 + level/2);
 }
 
 
@@ -1000,7 +1008,7 @@ function move_stairPage(e)
 
      context.clearRect(0,0,WIDTH,HEIGHT);
      removeEvent(setBack);
-     init();
+    //  init();
      addEvent(settingStage);
      drawStair();
      settingStage(e);
@@ -1026,23 +1034,32 @@ function drawPbtn() {
 
 
 //canvas2에 목숨을 표시한다.
-function displayLives() {
-    context2.fillText("LIVES: " + lives, canvas2.width / 2 - 130, canvas2.height / 2 -20);
+function displayLives(fontSize) {
+    context2.fillStyle = "#E9E744";
+    context2.textAlign = 'left';
+    context2.fillText("LIVES:" + lives, 0, fontSize); 
 }
 
 
 // canvas2에 점수 표시
-function displayScore()
+function displayScore(fontSize)
 {
-    context2.fillText("SCORE: " + totalScore, canvas2.width / 2 - 130, canvas2.height / 2 + 20);
+    context2.fillStyle = "#E9E744";
+    context2.textAlign = "right";
+    context2.fillText("SCORE: " + totalScore, canvas2.clientWidth, fontSize);
 }
 
 function displayLivesAndScore()
 {
-    context2.font = "40px Verdana"
-    context2.clearRect(0, 0, canvas2.width, canvas2.height);
-    displayLives();
-    displayScore();
+    context2.clearRect(0, 0, canvas2.clientWidth, canvas2.clientHeight);
+
+    // 화면 크기 따라 글씨 크기 조절
+    var fontSize = parseInt(canvas2.clientHeight * 0.8);
+    context2.font = fontSize + "px Verdana";
+
+    // 글씨 쓰기
+    displayLives(fontSize);
+    displayScore(fontSize);
 }
 
 
