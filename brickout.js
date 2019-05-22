@@ -1138,12 +1138,11 @@ function drawReset()
 function replay(e){
     var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
-    totalScore = +0;
     
     if(isInBorder(50,111, relativeX) && isInBorder(100, 117, relativeY))
     {
         lives = 3;
-        gameStart(level);
+        gameStart(level, 0);
     }
 }
 
@@ -1156,7 +1155,7 @@ function reset(e){
     {
      context.clearRect(0,0,WIDTH,HEIGHT); 
     //  init();
-        drawStair();
+    drawStair();
      addEvent(settingStage);
      addEvent(move_settingPage);
      addEvent(move_stairPage);
