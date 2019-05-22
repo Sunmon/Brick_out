@@ -60,8 +60,10 @@ function drawStair() {
     context.lineTo(225, 55);
     context.lineTo(225, 25);
     context.lineTo(300, 25);
+    context.strokeStyle = "#ffff00";
     context.stroke();
     context.font = "20px Verdana";
+    context.fillStyle ="#ffff00";
     context.fillText("1", 30, 110);
     context.fillText("2", 105, 80);
     context.fillText("3", 180, 50);
@@ -131,6 +133,7 @@ window.onload = function () {
     addEvent(move_stairPage);
     drawNextbtn();
     displayLivesAndScore();
+ 
 
 }
 
@@ -622,6 +625,7 @@ function gameClear()
     // draw하던거 캔슬
     cancelAnimationFrame(animate);
     drawClear();
+    drawFinalscore();
 
 
 
@@ -658,6 +662,8 @@ function initGame()
     removeEvent(reset);
     removeEvent(move_settingPage);
     removeEvent(move_stairPage);
+    removeEvent(playMusic);
+    removeEvent(setBack);
 
 
 }
@@ -966,7 +972,7 @@ function drawNextbtn() {
     context.lineTo(268, 145);
     context.lineTo(293, 137);
     context.closePath();
-    context.fillStyle = "black";
+    context.fillStyle = "#99ff33";
     context.fill();
 }
 
@@ -992,9 +998,9 @@ function settingPage(e) {
     insertImage("./assets/universe.jpg",85,5,53,40);
     insertImage("./assets/mountain.jpg",156,5,53,40);
     insertImage("./assets/city.jpg",229,5,53,40);
-    insertImage("./assets/musicplay.jpg",35,80,57,35);
-    insertImage("./assets/musicplay.jpg",112,80,57,35);
-    insertImage("./assets/musicplay.jpg",189,80,57,35);
+    insertImage("./assets/music1.png",35,87,57,35);
+    insertImage("./assets/music1.png",112,87,57,35);
+    insertImage("./assets/music1.png",189,87,57,35);
     playMusic(e);
 }
 
@@ -1024,7 +1030,7 @@ function drawPbtn() {
     context.lineTo(32, 145);
     context.lineTo(7, 137);
     context.closePath();
-    context.fillStyle = "black";
+    context.fillStyle = "#99ff33";
     context.fill();
 }
 
@@ -1118,19 +1124,19 @@ function playMusic(e)
     var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
 
-      if ((relativeX>=60&&relativeX<=74)&&(relativeY<=104)&&(relativeY>=93))
+      if ((relativeX>=35&&relativeX<=90)&&(relativeY<=121)&&(relativeY>=96))
         {
             stopMusic('myAudio2');
             stopMusic('myAudio3');
             getMusic("myAudio1");
         }
-    if ((relativeX>=136&&relativeX<=152)&&(relativeY<=104)&&(relativeY>=93))
+    if ((relativeX>=112&&relativeX<=167)&&(relativeY<=121)&&(relativeY>=96))
         {
             stopMusic('myAudio1');
             stopMusic('myAudio3');
             getMusic("myAudio2");
         }
-    if ((relativeX>=213&&relativeX<=228)&&(relativeY<=104)&&(relativeY>=93))
+    if ((relativeX>=189&&relativeX<=244)&&(relativeY<=121)&&(relativeY>=96))
         {
             stopMusic('myAudio1');
             stopMusic('myAudio2');
@@ -1149,14 +1155,14 @@ function stopMusic(id)
 function drawReplay()
 {
     context.font = "15px Verdana";
-    context.fillStyle = "black";
+    context.fillStyle = "red";
     context.fillText("REPLAY",50,113);   
 }
 
 function drawReset()
 {
     context.font = "15px Gothic";
-    context.fillStyle = "black";
+    context.fillStyle = "red";
     context.fillText("RESET",200,113);
 }
 
@@ -1204,11 +1210,12 @@ function drawClear()
     graient.addColorStop("1.0", "purple");
     context.font = "40px Verdana";
     context.fillStyle = graient;
-    context.fillText("GAME CLEAR", 28, 63);
+    context.fillText("GAME CLEAR", 20, 63);
 }
 
 function drawFinalscore()
 {
     context.font = "20px Verdana";
+    context.fillStyle ="#ff99ff"; 
     context.fillText(totalScore);
 }
