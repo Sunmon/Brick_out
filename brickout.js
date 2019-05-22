@@ -253,7 +253,7 @@ class Stage_One extends Stage {
     initStage() {
         super.initStage();
         super.initLineTimer(500000);
-        super.initBlockArr(10, 5, 30, 8);
+        super.initBlockArr(20, 5, 15, 8);
         this.placeBlocks();
     }
 
@@ -826,7 +826,10 @@ function throwingBall()
     if(ballThrow) return;
     if(ballArray.length == 0) return;
     ballThrow = true;
-    ballArray[0].setDirection(1.2, -1.2);
+    var angle = Math.floor(Math.random()*20) + 20;
+    if(angle % 2) angle += 90;
+    else angle = 90 - angle;
+    ballArray[0].setDirectionWithAngle(angle, 2 + level/2);
 }
 
 
