@@ -69,10 +69,9 @@ function hitTest()
 
     // path로 그린 도형에 이벤트 리스너 추가
     canvas.addEventListener('click', function(e) {
-
         var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
         var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
-        
+
         // 마우스 포인터가 path로 그린 도형 안에 있으면 색깔을 바꾼다
         if(context.isPointInPath(tp, relativeX, relativeY))context.fillStyle = "blue";
         context.fill(tp);
@@ -95,7 +94,7 @@ function settingStage(e)
 {
     var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
- 
+
    //stage1을 선택할 때
     if ((relativeX>0&&relativeX<=60)&&(relativeY>=84&&relativeY<=115)) {level = 1;}
     //stage2를 선택할 떄
@@ -824,6 +823,7 @@ function detectCollision_item()
 function throwingBall()
 {
     if(ballThrow) return;
+    if(ballArray.length == 0) return;
     ballThrow = true;
     ballArray[0].setDirection(1.2, -1.2);
 }
@@ -930,13 +930,13 @@ function drawGameover() {
 function gameOver() {
     clearInterval(timer);
     cancelAnimationFrame(animate);
-    ballArray.splice(0, 1);
+    ballArray = new Array();
     drawGameover();
     displayLivesAndScore();
     removeEvent(setBack);
     removeEvent(settingStage);
     removeEvent(playMusic);
-    removeEvent(throwingBall);
+    // removeEvent(throwingBall);
     addEvent(replay);
     addEvent(reset);
     drawReplay();
@@ -959,6 +959,7 @@ function move_settingPage(e)
 {
     var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
+
     if ((relativeX>=259&&relativeX<=303)&&(relativeY>=120&&relativeY<=155))
     {settingPage(e);}
 }
@@ -986,7 +987,6 @@ function move_stairPage(e)
 {
     var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
-
      if ((relativeX>=0&&relativeX<=42)&&(relativeY>=120&&relativeY<=155))
     {
 
@@ -1064,8 +1064,8 @@ function insertImage(src,x,y,width,height)
 
 // 그림을 클릭하면 배경이 설정된다
 function setBack(e)
-{
-    var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
+{   
+     var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
 
     if ((relativeX>=17&&relativeX<=68)&&(relativeY<=51)&&(relativeY>=12))
@@ -1089,8 +1089,8 @@ function getMusic(id)
 //검정 버튼을 클릭하면 음악이 나오는 함수 
 function playMusic(e)
 {
-      var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
-      var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
+    var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
+    var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
 
       if ((relativeX>=60&&relativeX<=74)&&(relativeY<=104)&&(relativeY>=93))
         {
@@ -1138,16 +1138,13 @@ function drawReset()
 function replay(e){
     var relativeX = (e.clientX-canvas.offsetLeft)*WIDTH/canvas.clientWidth;
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
-
-    if ((relativeX>=50&&relativeX<=111)&&(relativeY>=100&&relativeY<=117))
+    totalScore = +0;
+    
+    if(isInBorder(50,111, relativeX) && isInBorder(100, 117, relativeY))
     {
-        totalScore = 0;
-        if (level==1) {lives=3; gameStart(1);}
-        else if (level==2) {lives=3; gameStart(2);}
-        else if (level==3) {lives=3; gameStart(3);}
-        else if (level==4) {lives=3; gameStart(4);}
+        lives = 3;
+        gameStart(level);
     }
-
 }
 
 //처음으로 돌아간다
@@ -1158,7 +1155,8 @@ function reset(e){
     if ((relativeX>=200&&relativeX<=245)&&(relativeY>=100&&relativeY<=117))
     {
      context.clearRect(0,0,WIDTH,HEIGHT); 
-     init();
+    //  init();
+        drawStair();
      addEvent(settingStage);
      addEvent(move_settingPage);
      addEvent(move_stairPage);
