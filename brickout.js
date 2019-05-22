@@ -1141,6 +1141,7 @@ function replay(e){
 
     if ((relativeX>=50&&relativeX<=111)&&(relativeY>=100&&relativeY<=117))
     {
+        totalScore = 0;
         if (level==1) {lives=3; gameStart(1);}
         else if (level==2) {lives=3; gameStart(2);}
         else if (level==3) {lives=3; gameStart(3);}
