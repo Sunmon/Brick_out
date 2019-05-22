@@ -112,14 +112,17 @@ function settingStage(e)
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
 
    //stage1을 선택할 때
-    if ((relativeX>0&&relativeX<=60)&&(relativeY>=84&&relativeY<=115)) {gameStart(1,0);}
+    if ((relativeX>0&&relativeX<=60)&&(relativeY>=84&&relativeY<=115)) {level = 1;}
     //stage2를 선택할 떄
-    if ((relativeX>=76&&relativeX<=150)&&(relativeY>=54&&relativeY<=84)) {gameStart(2,0);}
+    else if ((relativeX>=76&&relativeX<=150)&&(relativeY>=54&&relativeY<=84)) {level = 2;}
     //stage3을 선택할 때
-    if ((relativeX>=151&&relativeX<=225)&&(relativeY>=35&&relativeY<=55)) {gameStart(3,0);}
+    else if ((relativeX>=151&&relativeX<=225)&&(relativeY>=35&&relativeY<=55)) {level = 3;}
     //stage4를 선택할 때
-    if ((relativeX>=226&&relativeX<=300)&&(relativeY>=0&&relativeY<=25)) {gameStart(4,0);}
+    else if ((relativeX>=226&&relativeX<=300)&&(relativeY>=0&&relativeY<=25)) {level = 4;}
 
+    else return;
+    
+    gameStart(level,0);
 }
 
 
