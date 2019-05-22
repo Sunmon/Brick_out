@@ -34,6 +34,10 @@ function init() {
     // hitTest();    //TODO: 이 메소드 삭제하기. 
     canvas2 = document.getElementById("frame2");
     context2 = canvas2.getContext("2d");
+    var cw = canvas2.clientWidth * 0.05;
+    canvas2.style.height = cw + "px";
+    // canvas2.style.height = canvas2.clientWidth * 0.1 + "%";
+    // document.write(canvas2.clientHeight + " " + canvas2.clientWidth);
 }
 
 //단계를 설정 그림
@@ -213,10 +217,8 @@ class Stage {
         // 기존 블럭 아래로 한 줄씩 당김
         this.downBlock(blockArr);
 
-        // TODO: 새 블럭 한 줄 맨 위에 삽입
-        // var color = this.colors[Math.floor(Math.random() * 5)];
+        // 색깔 골라서 벽돌 삽입
         var colors = Object.entries(COLORS)[Math.floor(Math.random()*5)];
-        // document.write(Object.entries(COLORS)[2][1]);
         blockArr.push(this.createNewLine(block_in_row, colors));
     }
 
