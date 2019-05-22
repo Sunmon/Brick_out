@@ -997,10 +997,10 @@ function settingPage(e) {
     addEvent(playMusic);
     drawPbtn();
     drawsettingpageLine();
-    insertImage("./assets/beach.jpg",15,5,53,40);
-    insertImage("./assets/universe.jpg",85,5,53,40);
-    insertImage("./assets/mountain.jpg",156,5,53,40);
-    insertImage("./assets/city.jpg",229,5,53,40);
+    insertImage("./assets/cosmos4.jpg",15,5,53,40);
+    insertImage("./assets/cosmos3.jpg",85,5,53,40);
+    insertImage("./assets/cosmos2.jpg",156,5,53,40);
+    insertImage("./assets/cosmos1.jpg",229,5,53,40);
     insertImage("./assets/music1.png",35,87,57,35);
     insertImage("./assets/music1.png",112,87,57,35);
     insertImage("./assets/music1.png",189,87,57,35);
@@ -1104,13 +1104,13 @@ function setBack(e)
     var relativeY = (e.clientY-canvas.offsetTop)*HEIGHT/canvas.clientHeight;
 
     if ((relativeX>=17&&relativeX<=68)&&(relativeY<=51)&&(relativeY>=12))
-        {document.getElementById("frame").style.backgroundImage="url('./assets/beach1.jpg')";}
+        {document.getElementById("frame").style.backgroundImage="url('./assets/cosmos4.jpg')";}
     if ((relativeX>=87&&relativeX<=139)&&(relativeY<=51)&&(relativeY>=12))
-        {document.getElementById("frame").style.backgroundImage="url('./assets/universe2.jpg')";}
+        {document.getElementById("frame").style.backgroundImage="url('./assets/cosmos3.jpg')";}
     if ((relativeX>=157&&relativeX<=209)&&(relativeY<=51)&&(relativeY>=12))
-        {document.getElementById("frame").style.backgroundImage="url('./assets/mountain1.jpg')";}
+        {document.getElementById("frame").style.backgroundImage="url('./assets/cosmos2.jpg')";}
     if ((relativeX>=230&&relativeX<=282)&&(relativeY<=51)&&(relativeY>=12))
-        {document.getElementById("frame").style.backgroundImage="url('./assets/city1.jpg')";}
+        {document.getElementById("frame").style.backgroundImage="url('./assets/cosmos1.jpg')";}
 
 }
 
