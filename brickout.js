@@ -312,7 +312,7 @@ class Stage_Three extends Stage {
     initStage() {
         super.initStage();
         super.initLineTimer(300000);
-        super.initBlockArr(20, 5, 17, 11);
+        super.initBlockArr(20, 5, 15, 11);
         this.placeBlocks();
     }
 
@@ -996,14 +996,14 @@ function settingPage(e) {
     addEvent(setBack);
     addEvent(playMusic);
     drawPbtn();
-    drawsettingpageLine();
+    //drawsettingpageLine();
     insertImage("./assets/cosmos4.jpg",15,5,53,40);
     insertImage("./assets/cosmos3.jpg",85,5,53,40);
     insertImage("./assets/cosmos2.jpg",156,5,53,40);
     insertImage("./assets/cosmos1.jpg",229,5,53,40);
-    insertImage("./assets/music1.png",35,87,57,35);
-    insertImage("./assets/music1.png",112,87,57,35);
-    insertImage("./assets/music1.png",189,87,57,35);
+    insertImage("./assets/planet.png",35,87,57,35);
+    insertImage("./assets/planet.png",112,87,57,35);
+    insertImage("./assets/planet.png",189,87,57,35);
     playMusic(e);
 }
 
@@ -1072,7 +1072,7 @@ function displayLivesAndScore()
     displayScore(fontSize);
 }
 
-
+/*
 //음악선택과 배경선택을 나누는 선을 그린다
 function drawsettingpageLine()
 {
@@ -1082,6 +1082,7 @@ function drawsettingpageLine()
     context.stroke();
     context.fillStyle="black";
 }
+*/
 
 //canvas에 이미지를 삽입한다.
 function insertImage(src,x,y,width,height)
