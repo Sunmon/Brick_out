@@ -450,6 +450,7 @@ class RemoveLine extends Item
     {
         super.affect();
         stage.blockArr.splice(stage.blockArr.length-1, 1);
+        stage.blockArr.length -= 1;
     }
 
 }
@@ -909,7 +910,7 @@ function draw() {
 // 일정확률로 x,y위치에서 아이템 드랍.
 function dropItem(x,y)
 {
-    var rand = Math.floor(Math.random() * 50);
+    var rand = Math.floor(Math.random() * 30);
     switch(rand)
     {
         case 0: itemArray.push(new AddBall(x,y)); break;
