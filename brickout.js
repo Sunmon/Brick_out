@@ -1038,6 +1038,7 @@ function move_stairPage(e)
 
      context.clearRect(0,0,WIDTH,HEIGHT);
      removeEvent(setBack);
+     removeEvent(playMusic);
     //  init();
      addEvent(settingStage);
      drawStair();
