@@ -1131,18 +1131,23 @@ function playMusic(e)
 
       if ((relativeX>=35&&relativeX<=90)&&(relativeY<=121)&&(relativeY>=96))
         {
+            stopMusic(document.getElementById("audioAuto"));
             stopMusic('myAudio2');
             stopMusic('myAudio3');
             getMusic("myAudio1");
         }
     if ((relativeX>=112&&relativeX<=167)&&(relativeY<=121)&&(relativeY>=96))
         {
+            stopMusic(document.getElementById("audioAuto"));
+
             stopMusic('myAudio1');
             stopMusic('myAudio3');
             getMusic("myAudio2");
         }
     if ((relativeX>=189&&relativeX<=244)&&(relativeY<=121)&&(relativeY>=96))
         {
+            stopMusic(document.getElementById("audioAuto"));
+
             stopMusic('myAudio1');
             stopMusic('myAudio2');
             getMusic("myAudio3");
