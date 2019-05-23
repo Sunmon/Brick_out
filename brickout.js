@@ -347,7 +347,7 @@ class Stage_Three extends Stage {
 class Stage_Four extends Stage {
     initStage() {
         super.initStage();
-        super.initLineTimer(100000000);
+        super.initLineTimer(15000); //이정도 속도면 초등학생도 클리어 가능 할것 같습니다!
         super.initBlockArr(20, 5, 15, 14);
         this.placeBlocks();
     }
