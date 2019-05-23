@@ -269,7 +269,7 @@ class Stage_One extends Stage {
     initStage() {
         super.initStage();
         super.initLineTimer(500000);
-        super.initBlockArr(20, 5, 15, 8);
+        super.initBlockArr(30, 5, 10, 8);
         this.placeBlocks();
     }
 
@@ -290,7 +290,7 @@ class Stage_One extends Stage {
     initStage() {
         super.initStage();
         super.initLineTimer(400000);
-        super.initBlockArr(15, 5, 20, 10);
+        super.initBlockArr(30, 5, 10, 10);
         this.placeBlocks();
     }
 
@@ -298,8 +298,8 @@ class Stage_One extends Stage {
     placeBlocks() {
          for (var i = 0; i < this.block_in_col; i++) {
             for (var j = 0; j < this.block_in_row; j++)
-                // if ((11 * i + 3 * j) % 6) this.blockArr[i][j].state = false;  //블럭 배치 모양 만들기
-                if(!(i==4 && j == 3)) this.blockArr[i][j].state = false;
+                if ((11 * i + 3 * j) % 6) this.blockArr[i][j].state = false;  //블럭 배치 모양 만들기
+                // if(!(i==4 && j == 3)) this.blockArr[i][j].state = false;
         }
     }
 }
