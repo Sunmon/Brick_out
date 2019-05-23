@@ -163,6 +163,14 @@ https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/isPoin
 <br>
 <br>
 
+## 9. 음악
+
+음악 auto play
+
+https://stackoverflow.com/questions/50490304/how-to-make-audio-autoplay-on-chrome
+
+<br>
+<br>
 
 ## 좋은 사이트
 
