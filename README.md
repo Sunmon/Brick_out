@@ -19,7 +19,6 @@
 ![playing](./assets/readMe_img/playing.JPG)
 
 
-![video](./assets/demoVedio.mp4)
 <video src="./assets/demoVedio.mp4" width="320" height="200" controls preload></video>
 
 <br>
