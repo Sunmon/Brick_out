@@ -72,7 +72,7 @@
 
 **스테이지 선택**
 
-![select](./assets/readMe_img/stage select.jpg)
+![select](./assets/readMe_img/stage_select.jpg)
 
 <br>
 
