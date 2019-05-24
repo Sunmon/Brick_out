@@ -60,17 +60,30 @@ function drawStair() {
     context.lineTo(225, 55);
     context.lineTo(225, 25);
     context.lineTo(300, 25);
-    context.strokeStyle = "#ffff00";
+    context.strokeStyle = "#42f448";
     context.stroke();
     context.font = "20px Verdana";
-    context.fillStyle ="#ffff00";
+    context.fillStyle ="#42f448";
     context.fillText("1", 30, 110);
     context.fillText("2", 105, 80);
     context.fillText("3", 180, 50);
     context.fillText("4", 255, 20);
+    drawStars(15,20);
+    drawStars(45,118);
+    drawStars(68,40);
+    drawStars(140,5);
+    drawStars(180,90);
+    drawStars(115,128);
+    drawStars(235,60);
+    drawStars(220,130);
+
+
 }
-
-
+//별을 그리는 함수
+function drawStars(x,y)
+{
+    insertImage("./assets/star.png",x,y,18,18);
+}
 
 // TODO:선택 영역 테스트 . Remove this after test
 function hitTest()
@@ -334,7 +347,7 @@ class Stage_Three extends Stage {
 class Stage_Four extends Stage {
     initStage() {
         super.initStage();
-        super.initLineTimer(4000);
+        super.initLineTimer(150000); //이정도 속도면 초등학생도 클리어 가능 할것 같습니다!
         super.initBlockArr(20, 5, 15, 14);
         this.placeBlocks();
     }
@@ -1002,9 +1015,16 @@ function settingPage(e) {
     insertImage("./assets/cosmos3.jpg",85,5,53,40);
     insertImage("./assets/cosmos2.jpg",156,5,53,40);
     insertImage("./assets/cosmos1.jpg",229,5,53,40);
-    insertImage("./assets/planet.png",35,87,57,35);
-    insertImage("./assets/planet.png",112,87,57,35);
-    insertImage("./assets/planet.png",189,87,57,35);
+    insertImage("./assets/spaceship.png",35,87,57,35);
+    insertImage("./assets/spaceship.png",112,87,57,35);
+    insertImage("./assets/spaceship.png",189,87,57,35);
+
+    insertImage("./assets/planet.png",265,120,25,25);
+    insertImage("./assets/planet.png",10,55,25,25);
+    insertImage("./assets/planet.png",90,130,25,15);
+    insertImage("./assets/sun.png",255,50,25,25);
+    insertImage("./assets/manyimgs.png",172,125,27,27);
+    //insertImage("./assets/moon.png",160,130,20,20);
     playMusic(e);
 }
 
@@ -1018,6 +1038,7 @@ function move_stairPage(e)
 
      context.clearRect(0,0,WIDTH,HEIGHT);
      removeEvent(setBack);
+     removeEvent(playMusic);
     //  init();
      addEvent(settingStage);
      drawStair();
@@ -1120,6 +1141,7 @@ function setBack(e)
 function getMusic(id)
 {
     var mussssic = document.getElementById(id);
+    mussssic.loop = true;
     mussssic.play();
 }
 
@@ -1225,5 +1247,5 @@ function drawFinalscore()
 {
     context.font = "20px Verdana";
     context.fillStyle ="#ff99ff"; 
-    context.fillText(totalScore);
+    context.fillText("SCORE:"+totalScore,85,100);
 }
