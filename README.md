@@ -19,6 +19,7 @@
 ![playing](./assets/readMe_img/playing.JPG)
 
 
+![video](./assets/demoVedio.mp4)
 
 <br>
 <br>
