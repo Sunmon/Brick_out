@@ -357,7 +357,7 @@ class Item {
         this.x = x;
         this.y = y;
         this.dy = 1;
-        this.size = WIDTH / 100 * 2;
+        this.size = WIDTH / 100 * 5;
     }
 
     // 속도 정하기
