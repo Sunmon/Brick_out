@@ -409,7 +409,7 @@ class AddBall extends Item {
     affect() {
         super.affect();
         // ballArray.push(new Ball(bar.x, bar.y, 2, -1.1, -1));
-        ballArray.push(new Ball(bar.x, bar.y, 2, 120, BALL_VELOCITY));
+        ballArray.push(new Ball(bar.x, bar.y, 2, 30, (level-1)/2 + 2));
 
     }
 }
