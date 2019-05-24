@@ -16,7 +16,7 @@
 
 
 
-![playing](./assets/readMe_img/playing.jpg)
+![playing](./assets/readMe_img/playing.JPG)
 
 
 
