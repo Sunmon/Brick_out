@@ -16,7 +16,7 @@
 
 
 
-![게임 화면](./assets/readMe_img/playing.jpg)
+![playing](./assets/readMe_img/playing.jpg)
 
 
 
@@ -40,13 +40,11 @@
 
 
 
-게임은 `brickout.html`을 실행하시거나, 아래의 버튼을 클릭하시면 됩니다.
+게임은 `brickout.html`을 실행하시거나, 아래의 링크를 클릭하시면 됩니다.
 
 
 
-[**[게임 시작]**](<https://sunmon.github.io/Brick_out/brickout.html>){: .btn}
-
-[button url = "http://www.google.com"]
+[**[GAME START]**](<https://sunmon.github.io/Brick_out/brickout.html>){: .btn}
 
 <br>
 
@@ -74,19 +72,19 @@
 
 **스테이지 선택**
 
-![스테이지선택](./assets/readMe_img/stage select.jpg)
+![select](./assets/readMe_img/stage select.jpg)
 
 <br>
 
 **환경설정**
 
-![setting](C:\Users\black\Desktop\Brick_out\assets\setting.JPG)Items
+![setting](./assets/readMe_img/setting.JPG)
 
 <br>
 
 **게임 화면**
 
-![playing_desc](.\assets\playing_desc.jpg)
+![playing_desc](./assets/readMe_img/playing_desc.jpg)
 
 <br>
 <br>
@@ -152,3 +150,9 @@
 ## Extra
 
 jquery를 이용한 버전 업데이트 예정
+
+git repository : 
+
+BRICK OUT : 
+
+BRICK OUT 게임 링크: https://sunmon.github.io/Brick_out/brickout.html
