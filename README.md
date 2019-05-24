@@ -30,6 +30,8 @@
 `Brick Out`은 웹 기반으로 동작하는 게임입니다. 
 
  따라서, 별도의 설치 과정은 필요가 없으나 브라우저에 따라 게임이 최적화되지 않을 수 있습니다.
+ 
+ 만약 게임이 제대로 실행되지 않는다면, 브라우저의 캐시를 삭제 후 다시 시도해 주십시오.
 
 <br>
 
@@ -72,7 +74,7 @@
 
 **스테이지 선택**
 
-![select](./assets/readMe_img/stage_select.jpg)
+![select](./assets/readMe_img/stage_select.JPG)
 
 <br>
 
@@ -149,10 +151,10 @@
 
 ## Extra
 
-jquery를 이용한 버전 업데이트 예정
+jquery를 이용한 버전도 차후 업데이트 할 예정입니다.
 
-git repository : https://github.com/Sunmon/Brick_out
+git repository : [https://github.com/Sunmon/Brick_out](https://github.com/Sunmon/Brick_out)
 
-BRICK OUT : 
+BRICK OUT : [https://sunmon.github.io/Brick_out](https://sunmon.github.io/Brick_out)
 
-BRICK OUT 게임 링크: https://sunmon.github.io/Brick_out/brickout.html
+BRICK OUT 게임 링크: [https://sunmon.github.io/Brick_out/brickout.html](https://sunmon.github.io/Brick_out/brickout.html)
