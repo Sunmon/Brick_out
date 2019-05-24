@@ -151,7 +151,7 @@
 
 jquery를 이용한 버전 업데이트 예정
 
-git repository : 
+git repository : https://github.com/Sunmon/Brick_out
 
 BRICK OUT : 
 
