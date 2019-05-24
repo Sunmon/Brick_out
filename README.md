@@ -44,7 +44,7 @@
 
 
 
-[**[GAME START]**](<https://sunmon.github.io/Brick_out/brickout.html>){: .btn}
+#### [**[GAME START]**](<https://sunmon.github.io/Brick_out/brickout.html>)
 
 <br>
 
