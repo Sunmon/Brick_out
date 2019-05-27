@@ -1,0 +1,13 @@
+#main-canvas
+{
+    width: 80%;
+    background-color: blue;
+
+}
+
+#main-canvas.theme-1
+{
+    background-color:red;
+}
+
+/* TODO: theme 만들기 */
