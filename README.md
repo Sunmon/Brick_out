@@ -1,5 +1,6 @@
 # Brick_out
 
+## [**[GAME START]**](<https://sunmon.github.io/Brick_out/brickout.html>)
 
 
 ## Intro
